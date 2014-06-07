@@ -8,8 +8,9 @@ package InterfazGrafica;
 
 /**
  *
- * @author Sammy Guergachi <sguergachi at gmail.com>
+ * @author Mario A
  */
+
 public class Instrucciones extends javax.swing.JFrame {
 
     /**
