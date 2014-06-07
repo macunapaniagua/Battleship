@@ -29,18 +29,105 @@ public class Configuraciones extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        Rbt_Aliado = new javax.swing.JRadioButton();
+        Rbt_Enemigo = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
+        jSlider1 = new javax.swing.JSlider();
+        jSlider2 = new javax.swing.JSlider();
+        jSlider3 = new javax.swing.JSlider();
+        jLabel5 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("Aplicar");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(462, 450, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(63, 103, 147));
+        jLabel1.setText("Seleccione la cantidad de Filas");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 59, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(63, 103, 147));
+        jLabel2.setText("Seleccione la cantidad de Columnas");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 149, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(63, 103, 147));
+        jLabel3.setText("Seleccione el Rol de Juego para el Jugador 1");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 195, -1, -1));
+
+        buttonGroup1.add(Rbt_Aliado);
+        Rbt_Aliado.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        Rbt_Aliado.setForeground(new java.awt.Color(63, 103, 147));
+        Rbt_Aliado.setText("Enemigo");
+        Rbt_Aliado.setOpaque(false);
+        getContentPane().add(Rbt_Aliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 248, -1, -1));
+
+        buttonGroup1.add(Rbt_Enemigo);
+        Rbt_Enemigo.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        Rbt_Enemigo.setForeground(new java.awt.Color(63, 103, 147));
+        Rbt_Enemigo.setSelected(true);
+        Rbt_Enemigo.setText("Aliado");
+        Rbt_Enemigo.setOpaque(false);
+        getContentPane().add(Rbt_Enemigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 225, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(63, 103, 147));
+        jLabel4.setText("Seleccione la cantidad de Barcos que desea crear");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 298, -1, -1));
+
+        jSlider1.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
+        jSlider1.setForeground(new java.awt.Color(63, 103, 147));
+        jSlider1.setMajorTickSpacing(4);
+        jSlider1.setMaximum(5);
+        jSlider1.setMinimum(1);
+        jSlider1.setMinorTickSpacing(1);
+        jSlider1.setPaintLabels(true);
+        jSlider1.setPaintTicks(true);
+        jSlider1.setValue(3);
+        jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jSlider1.setFocusable(false);
+        jSlider1.setOpaque(false);
+        getContentPane().add(jSlider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 149, 214, -1));
+
+        jSlider2.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
+        jSlider2.setForeground(new java.awt.Color(63, 103, 147));
+        jSlider2.setMajorTickSpacing(4);
+        jSlider2.setMaximum(5);
+        jSlider2.setMinimum(1);
+        jSlider2.setMinorTickSpacing(1);
+        jSlider2.setPaintLabels(true);
+        jSlider2.setPaintTicks(true);
+        jSlider2.setValue(3);
+        jSlider2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jSlider2.setFocusable(false);
+        jSlider2.setOpaque(false);
+        getContentPane().add(jSlider2, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 69, 213, -1));
+
+        jSlider3.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
+        jSlider3.setForeground(new java.awt.Color(63, 103, 147));
+        jSlider3.setMajorTickSpacing(4);
+        jSlider3.setMaximum(5);
+        jSlider3.setMinimum(1);
+        jSlider3.setMinorTickSpacing(1);
+        jSlider3.setPaintLabels(true);
+        jSlider3.setPaintTicks(true);
+        jSlider3.setValue(3);
+        jSlider3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jSlider3.setFocusable(false);
+        jSlider3.setOpaque(false);
+        getContentPane().add(jSlider3, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 323, 342, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BrushedMetal.jpg"))); // NOI18N
+        jLabel5.setText("jLabel5");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -81,5 +168,17 @@ public class Configuraciones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton Rbt_Aliado;
+    private javax.swing.JRadioButton Rbt_Enemigo;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JSlider jSlider1;
+    private javax.swing.JSlider jSlider2;
+    private javax.swing.JSlider jSlider3;
     // End of variables declaration//GEN-END:variables
 }
