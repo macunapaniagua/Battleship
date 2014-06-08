@@ -5,49 +5,47 @@
  */
 package InterfazGrafica;
 
+import Codigo.Jugador;
+import Codigo.Tablero;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 /**
  *
  * @author Mario A
  */
-
 public class AreaJuego extends javax.swing.JFrame {
+
+    // Objetos del Programa
+    public static Jugador oJugador1 = new Jugador();
+    public static Jugador oJugador2 = new Jugador();
+    public static Tablero oAreaJuego;
+    public static JPanel oPanel;
+    public static JToggleButton[][] oMatrizBotones = null;
+    
+    // Ventanas externas
+    private PantallaUsuario oVentanaUsuarios = new PantallaUsuario();
+    private Configuraciones oVentanaConfigJuego = new Configuraciones();
 
     /**
      * Creates new form AreaJuego
      */
     public AreaJuego() {
         initComponents();
+        setLocationRelativeTo(null);
+        // Obtiene el marco donde se van a colocar los botones
+        oPanel = this.Pnl_Tablero;
 
-        //JButton button = new JButton(new ImageIcon(((new ImageIcon("/Imagenes/timon.png")).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)));
+
         
-        JToggleButton button = new JToggleButton();
-        button.setBounds(5, 10, 50, 50);
-        
-        ImageIcon imagen = new ImageIcon(getClass().getResource("/Imagenes/barco.gif"));        
-        Image imgEscalada = imagen.getImage().getScaledInstance(button.getWidth(),
-                button.getHeight(), Image.SCALE_SMOOTH);
-        Icon iconoEscalado = new ImageIcon(imgEscalada);
-        button.setIcon(iconoEscalado);
-        
-        //this.getContentPane().add(button);
-        this.Pnl_Tablero.add(button);
-        
-        
-        
-        
-        
-        ImageIcon imagen1 = new ImageIcon(getClass().getResource("/Imagenes/AvatarJobs.png"));        
+        ImageIcon imagen1 = new ImageIcon(getClass().getResource("/Imagenes/AvatarJobs.png"));
         Image imgEscalada1 = imagen1.getImage().getScaledInstance(Lbl_Player1Photo.getWidth(),
                 Lbl_Player1Photo.getHeight(), Image.SCALE_SMOOTH);
         Icon iconoEscalado1 = new ImageIcon(imgEscalada1);
         Lbl_Player1Photo.setIcon(iconoEscalado1);
-
 
     }
 
@@ -65,14 +63,24 @@ public class AreaJuego extends javax.swing.JFrame {
         Lbl_Player1Photo = new javax.swing.JLabel();
         Lbl_Player2Photo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         Lbl_ScorePlayer1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        Lbl_Player1Name = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         Lbl_ScorePlayer2 = new javax.swing.JLabel();
         Lbl_Player2Name = new javax.swing.JLabel();
-        Lbl_Player1Name = new javax.swing.JLabel();
         Pnl_Tablero = new javax.swing.JPanel();
         Lbl_Fondo = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        MnI_NuevoJuego = new javax.swing.JMenuItem();
+        MnI_Configuracion = new javax.swing.JMenuItem();
+        MnI_Salir = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        MnI_EditJueg1 = new javax.swing.JMenuItem();
+        MnI_EditJueg2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Titanic Area de Juego");
@@ -81,50 +89,108 @@ public class AreaJuego extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Pnl_Usuarios.setBackground(new java.awt.Color(153, 255, 153));
+        Pnl_Usuarios.setOpaque(false);
         Pnl_Usuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Lbl_Player1Photo.setBackground(new java.awt.Color(0, 153, 0));
+        Lbl_Player1Photo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         Lbl_Player1Photo.setOpaque(true);
         Pnl_Usuarios.add(Lbl_Player1Photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 30, 100, 100));
 
-        Lbl_Player2Photo.setBackground(new java.awt.Color(0, 153, 0));
         Lbl_Player2Photo.setOpaque(true);
         Pnl_Usuarios.add(Lbl_Player2Photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 245, 100, 100));
         Pnl_Usuarios.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 224, 220, 10));
 
-        jLabel3.setText("Puntuacion");
-        Pnl_Usuarios.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 79, 23));
-
-        jLabel4.setText("Puntuacion");
-        Pnl_Usuarios.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 378, 79, 23));
-
         Lbl_ScorePlayer1.setText("100");
-        Pnl_Usuarios.add(Lbl_ScorePlayer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, -1, -1));
 
-        Lbl_ScorePlayer2.setText("200");
-        Pnl_Usuarios.add(Lbl_ScorePlayer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 382, -1, -1));
-
-        Lbl_Player2Name.setText("jLabel1");
-        Pnl_Usuarios.add(Lbl_Player2Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, -1, -1));
+        jLabel3.setText("Puntuacion");
 
         Lbl_Player1Name.setText("jLabel1");
-        Pnl_Usuarios.add(Lbl_Player1Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(Lbl_ScorePlayer1)
+                .addGap(46, 46, 46))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(Lbl_Player1Name)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addComponent(Lbl_Player1Name)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Lbl_ScorePlayer1)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
+        );
+
+        Pnl_Usuarios.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 190, 70));
+
+        jLabel4.setText("Puntuacion");
+
+        Lbl_ScorePlayer2.setText("200");
+
+        Lbl_Player2Name.setText("jLabel1");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 170, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 33, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(66, 66, 66)
+                            .addComponent(Lbl_Player2Name))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(6, 6, 6)
+                            .addComponent(Lbl_ScorePlayer2)))
+                    .addGap(0, 34, Short.MAX_VALUE)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 9, Short.MAX_VALUE)
+                    .addComponent(Lbl_Player2Name)
+                    .addGap(4, 4, 4)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(4, 4, 4)
+                            .addComponent(Lbl_ScorePlayer2)))
+                    .addGap(0, 10, Short.MAX_VALUE)))
+        );
+
+        Pnl_Usuarios.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 170, 60));
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(Pnl_Usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Pnl_Usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(Pnl_Usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jLayeredPane1.setLayer(Pnl_Usuarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -137,20 +203,97 @@ public class AreaJuego extends javax.swing.JFrame {
         Pnl_Tablero.setLayout(Pnl_TableroLayout);
         Pnl_TableroLayout.setHorizontalGroup(
             Pnl_TableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 566, Short.MAX_VALUE)
+            .addGap(0, 476, Short.MAX_VALUE)
         );
         Pnl_TableroLayout.setVerticalGroup(
             Pnl_TableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 446, Short.MAX_VALUE)
+            .addGap(0, 427, Short.MAX_VALUE)
         );
 
-        getContentPane().add(Pnl_Tablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 570, -1));
+        getContentPane().add(Pnl_Tablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 480, -1));
 
         Lbl_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoJuego1.png"))); // NOI18N
-        getContentPane().add(Lbl_Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 540));
+        Lbl_Fondo.setOpaque(true);
+        getContentPane().add(Lbl_Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 560));
+
+        jMenu1.setText("Archivo");
+
+        MnI_NuevoJuego.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        MnI_NuevoJuego.setText("Nuevo Juego");
+        jMenu1.add(MnI_NuevoJuego);
+
+        MnI_Configuracion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        MnI_Configuracion.setText("Configuraciones");
+        MnI_Configuracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnI_ConfiguracionActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MnI_Configuracion);
+
+        MnI_Salir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        MnI_Salir.setText("Salir");
+        MnI_Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnI_SalirActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MnI_Salir);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Editar");
+
+        MnI_EditJueg1.setText("Editar Aliado");
+        MnI_EditJueg1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnI_EditJueg1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(MnI_EditJueg1);
+
+        MnI_EditJueg2.setText("Editar Enemigo");
+        MnI_EditJueg2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnI_EditJueg2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(MnI_EditJueg2);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * Metodo para salir de la aplicacion al presionar Alt+F4 o al seleccionar
+     * la opcion salir en el menu.
+     *
+     * @param evt
+     */
+    private void MnI_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_SalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_MnI_SalirActionPerformed
+
+    /**
+     * Metodo utilizado para mostrar la ventana de configuracion.
+     *
+     * @param evt
+     */
+    private void MnI_ConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_ConfiguracionActionPerformed
+        // TODO add your handling code here:
+        oVentanaConfigJuego.setVisible(true);
+    }//GEN-LAST:event_MnI_ConfiguracionActionPerformed
+
+    private void MnI_EditJueg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg1ActionPerformed
+        oVentanaUsuarios.setVisible(true);
+    }//GEN-LAST:event_MnI_EditJueg1ActionPerformed
+
+    private void MnI_EditJueg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg2ActionPerformed
+        oVentanaUsuarios.setVisible(true);
+    }//GEN-LAST:event_MnI_EditJueg2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,11 +338,21 @@ public class AreaJuego extends javax.swing.JFrame {
     private javax.swing.JLabel Lbl_Player2Photo;
     private javax.swing.JLabel Lbl_ScorePlayer1;
     private javax.swing.JLabel Lbl_ScorePlayer2;
+    private javax.swing.JMenuItem MnI_Configuracion;
+    private javax.swing.JMenuItem MnI_EditJueg1;
+    private javax.swing.JMenuItem MnI_EditJueg2;
+    private javax.swing.JMenuItem MnI_NuevoJuego;
+    private javax.swing.JMenuItem MnI_Salir;
     private javax.swing.JPanel Pnl_Tablero;
     private javax.swing.JPanel Pnl_Usuarios;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

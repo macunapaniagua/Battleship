@@ -6,6 +6,13 @@
 
 package InterfazGrafica;
 
+import Codigo.Tablero;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.JToggleButton;
+
 /**
  *
  * @author Mario A
@@ -18,6 +25,7 @@ public class Configuraciones extends javax.swing.JFrame {
      */
     public Configuraciones() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -30,108 +38,201 @@ public class Configuraciones extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jButton1 = new javax.swing.JButton();
+        Btn_Aplicar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        Rbt_Aliado = new javax.swing.JRadioButton();
-        Rbt_Enemigo = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
-        jSlider1 = new javax.swing.JSlider();
-        jSlider2 = new javax.swing.JSlider();
-        jSlider3 = new javax.swing.JSlider();
+        Sld_Columnas = new javax.swing.JSlider();
+        Sld_Filas = new javax.swing.JSlider();
+        jLabel6 = new javax.swing.JLabel();
+        Sld_CantidadBarcos = new javax.swing.JSlider();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Aplicar");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(462, 450, -1, -1));
+        Btn_Aplicar.setText("Aplicar");
+        Btn_Aplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_AplicarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Btn_Aplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, 100, 30));
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Verdana", 3, 22)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(63, 103, 147));
-        jLabel1.setText("Seleccione la cantidad de Filas");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 59, -1, -1));
+        jLabel1.setText("CONFIGURACIÓN");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(63, 103, 147));
         jLabel2.setText("Seleccione la cantidad de Columnas");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 149, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(63, 103, 147));
-        jLabel3.setText("Seleccione el Rol de Juego para el Jugador 1");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 195, -1, -1));
-
-        buttonGroup1.add(Rbt_Aliado);
-        Rbt_Aliado.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
-        Rbt_Aliado.setForeground(new java.awt.Color(63, 103, 147));
-        Rbt_Aliado.setText("Enemigo");
-        Rbt_Aliado.setOpaque(false);
-        getContentPane().add(Rbt_Aliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 248, -1, -1));
-
-        buttonGroup1.add(Rbt_Enemigo);
-        Rbt_Enemigo.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
-        Rbt_Enemigo.setForeground(new java.awt.Color(63, 103, 147));
-        Rbt_Enemigo.setSelected(true);
-        Rbt_Enemigo.setText("Aliado");
-        Rbt_Enemigo.setOpaque(false);
-        getContentPane().add(Rbt_Enemigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 225, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(63, 103, 147));
         jLabel4.setText("Seleccione la cantidad de Barcos que desea crear");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 298, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
 
-        jSlider1.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
-        jSlider1.setForeground(new java.awt.Color(63, 103, 147));
-        jSlider1.setMajorTickSpacing(4);
-        jSlider1.setMaximum(5);
-        jSlider1.setMinimum(1);
-        jSlider1.setMinorTickSpacing(1);
-        jSlider1.setPaintLabels(true);
-        jSlider1.setPaintTicks(true);
-        jSlider1.setValue(3);
-        jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jSlider1.setFocusable(false);
-        jSlider1.setOpaque(false);
-        getContentPane().add(jSlider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 149, 214, -1));
+        Sld_Columnas.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
+        Sld_Columnas.setForeground(new java.awt.Color(63, 103, 147));
+        Sld_Columnas.setMajorTickSpacing(4);
+        Sld_Columnas.setMaximum(5);
+        Sld_Columnas.setMinimum(1);
+        Sld_Columnas.setMinorTickSpacing(1);
+        Sld_Columnas.setPaintLabels(true);
+        Sld_Columnas.setPaintTicks(true);
+        Sld_Columnas.setValue(3);
+        Sld_Columnas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Sld_Columnas.setFocusable(false);
+        Sld_Columnas.setOpaque(false);
+        getContentPane().add(Sld_Columnas, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 220, -1));
 
-        jSlider2.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
-        jSlider2.setForeground(new java.awt.Color(63, 103, 147));
-        jSlider2.setMajorTickSpacing(4);
-        jSlider2.setMaximum(5);
-        jSlider2.setMinimum(1);
-        jSlider2.setMinorTickSpacing(1);
-        jSlider2.setPaintLabels(true);
-        jSlider2.setPaintTicks(true);
-        jSlider2.setValue(3);
-        jSlider2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jSlider2.setFocusable(false);
-        jSlider2.setOpaque(false);
-        getContentPane().add(jSlider2, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 69, 213, -1));
+        Sld_Filas.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
+        Sld_Filas.setForeground(new java.awt.Color(63, 103, 147));
+        Sld_Filas.setMajorTickSpacing(4);
+        Sld_Filas.setMaximum(5);
+        Sld_Filas.setMinimum(1);
+        Sld_Filas.setMinorTickSpacing(1);
+        Sld_Filas.setPaintLabels(true);
+        Sld_Filas.setPaintTicks(true);
+        Sld_Filas.setValue(3);
+        Sld_Filas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Sld_Filas.setFocusable(false);
+        Sld_Filas.setOpaque(false);
+        getContentPane().add(Sld_Filas, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 220, -1));
 
-        jSlider3.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
-        jSlider3.setForeground(new java.awt.Color(63, 103, 147));
-        jSlider3.setMajorTickSpacing(4);
-        jSlider3.setMaximum(5);
-        jSlider3.setMinimum(1);
-        jSlider3.setMinorTickSpacing(1);
-        jSlider3.setPaintLabels(true);
-        jSlider3.setPaintTicks(true);
-        jSlider3.setValue(3);
-        jSlider3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jSlider3.setFocusable(false);
-        jSlider3.setOpaque(false);
-        getContentPane().add(jSlider3, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 323, 342, -1));
+        jLabel6.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(63, 103, 147));
+        jLabel6.setText("Seleccione la cantidad de Filas");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BrushedMetal.jpg"))); // NOI18N
+        Sld_CantidadBarcos.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
+        Sld_CantidadBarcos.setForeground(new java.awt.Color(63, 103, 147));
+        Sld_CantidadBarcos.setMajorTickSpacing(4);
+        Sld_CantidadBarcos.setMaximum(5);
+        Sld_CantidadBarcos.setMinimum(1);
+        Sld_CantidadBarcos.setMinorTickSpacing(1);
+        Sld_CantidadBarcos.setPaintLabels(true);
+        Sld_CantidadBarcos.setPaintTicks(true);
+        Sld_CantidadBarcos.setValue(3);
+        Sld_CantidadBarcos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Sld_CantidadBarcos.setFocusable(false);
+        Sld_CantidadBarcos.setOpaque(false);
+        getContentPane().add(Sld_CantidadBarcos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 230, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoGris.jpg"))); // NOI18N
         jLabel5.setText("jLabel5");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 490));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo que le permite al usuario crear una nueva configuracion para crear
+     * una nueva partida con dicha informacion.
+     * @param evt 
+     */
+    private void Btn_AplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AplicarActionPerformed
+
+        // Variables que almacenan los datos optenidos de la configuracion en el 
+        // momento de presionar el boton aplicar.
+        int filas = Sld_Filas.getValue();
+        int columnas = Sld_Columnas.getValue();
+        int numeroBarcos = Sld_CantidadBarcos.getValue();
+        
+        // No es posible crear la matriz, ya que la cantidad de barcos
+        // es mayor a la cantidad de casillas disponibles.
+        if((filas * columnas) < numeroBarcos)
+        {
+            JOptionPane.showMessageDialog(this, "La cantidad de barcos que desea"
+                    + " agregar es mayor a la cantidad\n de espacios disponibles", 
+                    "Ups", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            //*******************************************************************************************************************
+            JOptionPane.showMessageDialog(this, "filas: " + filas + " columnas: " + columnas + " barcos: " + numeroBarcos);
+            //*******************************************************************************************************************
+            
+            if(AreaJuego.oAreaJuego == null){
+                // No hay un juego actualmente. Se procede a crear la partida.
+                generarMatriz(filas * 2, columnas);
+            }
+            else
+            {
+                // Hay una partida en curso. Se le pregunta al usuario si dessea
+                // crear una nueva partida o continuar con la actual.
+                int opcion =JOptionPane.showConfirmDialog(this, "Actualmente "
+                        + "existe una partidad en curso. ¿Desea sobreescribir la"
+                        + " partida?", "Partida en curso", 
+                        JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                
+                if(opcion == JOptionPane.YES_OPTION){
+                    // El usuario desea sobreescribir la partida, por lo que se
+                    // procede a generar una nueva matriz.
+                    generarMatriz(filas*2, columnas);
+                }
+                else{
+                    // Si no quiere crear una nueva partida, cierra la ventana 
+                    // configuracion
+                    this.dispose();
+                }
+            }
+        }
+    }//GEN-LAST:event_Btn_AplicarActionPerformed
+
+    private void generarMatriz(int filas, int columnas) {
+        
+        
+        AreaJuego.oPanel.removeAll();
+        
+        
+        AreaJuego.oAreaJuego = new Tablero();
+        // Se reinicializa la matriz de tipo Tablero, de la clase AreaJuego, con
+        // las dimensiones dadas.
+        AreaJuego.oAreaJuego.reInicializarTerreno(filas + 1, columnas);
+        // Elimina la referencia de oMatrizBotones
+        AreaJuego.oMatrizBotones = null;
+        // Se crea la matriz de botones con las dimensiones dadas
+        AreaJuego.oMatrizBotones = new JToggleButton[filas + 1][columnas];
+        
+        
+        int anchoDelMarco = AreaJuego.oPanel.getWidth();
+        int altoDelMarco = AreaJuego.oPanel.getHeight();
+        int anchoBoton = anchoDelMarco / columnas;
+        int altoBoton= altoDelMarco / (filas + 1);
+        
+        //  SE PROCEDE A CREAR LA INTERFAZ GRAFICA DEL TABLERO
+        for(int i = 0; i <= filas; i++)
+        {  
+            
+            for(int j = 0; j < columnas; j++)
+            {    
+                if(filas/2 == i){
+                    break;
+                }
+                JToggleButton button = new JToggleButton();
+                button.setBounds((anchoBoton * j), (altoBoton * i), anchoBoton, altoBoton);
+                ImageIcon imagen = new ImageIcon(getClass().getResource("/Imagenes/timon.png"));
+                Image imgEscalada;
+                if(anchoBoton <= altoBoton){
+                    imgEscalada = imagen.getImage().getScaledInstance(anchoBoton,
+                        anchoBoton, Image.SCALE_SMOOTH);                    
+                }else{
+                    imgEscalada = imagen.getImage().getScaledInstance(altoBoton,
+                        altoBoton, Image.SCALE_SMOOTH);                    
+                }                            
+                Icon iconoEscalado = new ImageIcon(imgEscalada);
+                button.setIcon(iconoEscalado);
+                AreaJuego.oPanel.add(button);                
+            }
+        }
+        
+        this.dispose();
+        
+        AreaJuego.oPanel.repaint();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -168,17 +269,15 @@ public class Configuraciones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton Rbt_Aliado;
-    private javax.swing.JRadioButton Rbt_Enemigo;
+    private javax.swing.JButton Btn_Aplicar;
+    private javax.swing.JSlider Sld_CantidadBarcos;
+    private javax.swing.JSlider Sld_Columnas;
+    private javax.swing.JSlider Sld_Filas;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JSlider jSlider1;
-    private javax.swing.JSlider jSlider2;
-    private javax.swing.JSlider jSlider3;
+    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }

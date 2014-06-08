@@ -18,6 +18,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
      */
     public PantallaUsuario() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -58,7 +59,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(565, 550));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
