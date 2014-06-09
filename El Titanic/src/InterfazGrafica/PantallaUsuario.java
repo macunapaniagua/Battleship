@@ -6,6 +6,11 @@
 
 package InterfazGrafica;
 
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Mario A
@@ -13,6 +18,15 @@ package InterfazGrafica;
 
 public class PantallaUsuario extends javax.swing.JFrame {
 
+    // Variables de la clase
+    private JLabel iconoSeleccionado = null;
+    private boolean Aliado;
+    
+    private JLabel iconoUsuarios;
+    private JLabel nombreUsuario;
+    private JLabel ScoreUsuario;
+    
+    
     /**
      * Creates new form CrearUsuario
      */
@@ -53,7 +67,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        Txt_Nombre = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
@@ -68,83 +82,182 @@ public class PantallaUsuario extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarBroke.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 124, 124));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarChaplin.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 124, 124));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarEinstein.png"))); // NOI18N
-        jLabel3.setText("jLabel3");
+        jLabel3.setText("Einstein");
+        jLabel3.setName("Einstein"); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 124, 124));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarClaudia.jpg"))); // NOI18N
         jLabel4.setText("jLabel1");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 124, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarFred.jpg"))); // NOI18N
         jLabel5.setText("jLabel2");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 124, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarGhandi.jpg"))); // NOI18N
         jLabel6.setText("jLabel3");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, 124, 124));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarHarry.jpg"))); // NOI18N
         jLabel7.setText("jLabel1");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 124, -1));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarHitler.png"))); // NOI18N
         jLabel8.setText("jLabel2");
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, 124, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarJack.png"))); // NOI18N
         jLabel9.setText("jLabel3");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, 124, -1));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarJackson.png"))); // NOI18N
         jLabel10.setText("jLabel1");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 124, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarJobs.png"))); // NOI18N
         jLabel11.setText("jLabel2");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 440, 124, -1));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarJohn.jpg"))); // NOI18N
         jLabel12.setText("jLabel3");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, 124, -1));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarKaty.png"))); // NOI18N
         jLabel13.setText("jLabel1");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 580, 124, -1));
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarLuisa.jpg"))); // NOI18N
         jLabel14.setText("jLabel2");
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 580, 124, -1));
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarManosTijeras.png"))); // NOI18N
         jLabel15.setText("jLabel3");
+        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 580, 124, -1));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarMrBean.png"))); // NOI18N
         jLabel16.setText("jLabel1");
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 720, 124, -1));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarObama.png"))); // NOI18N
         jLabel17.setText("jLabel2");
+        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 720, 124, -1));
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarPenny.png"))); // NOI18N
         jLabel18.setText("jLabel3");
+        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 720, 124, -1));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarSheldon.png"))); // NOI18N
         jLabel19.setText("jLabel1");
+        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 860, 124, -1));
 
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarTyson.png"))); // NOI18N
         jLabel20.setText("jLabel2");
+        jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
         jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 860, 124, -1));
 
         jScrollPane1.setViewportView(jPanel1);
@@ -155,8 +268,8 @@ public class PantallaUsuario extends javax.swing.JFrame {
         jLabel21.setText("Avatar");
         getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 250, 30));
 
-        jTextField1.setFont(new java.awt.Font("MingLiU_HKSCS", 0, 14)); // NOI18N
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 160, -1));
+        Txt_Nombre.setFont(new java.awt.Font("MingLiU_HKSCS", 0, 14)); // NOI18N
+        getContentPane().add(Txt_Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 160, -1));
 
         jLabel22.setFont(new java.awt.Font("Raavi", 2, 24)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -164,6 +277,11 @@ public class PantallaUsuario extends javax.swing.JFrame {
         getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 220, 30));
 
         jButton1.setText("Aplicar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 470, 140, 30));
 
         jLabel23.setFont(new java.awt.Font("MingLiU_HKSCS", 3, 14)); // NOI18N
@@ -177,6 +295,72 @@ public class PantallaUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void imagenClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenClicked
+       iconoSeleccionado = (JLabel) evt.getComponent();
+    }//GEN-LAST:event_imagenClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        if (Aliado) {
+            AreaJuego.oJugador1.setAvatarJugador(iconoSeleccionado);
+            AreaJuego.oJugador1.setCantidadDeBarcos(0);
+            AreaJuego.oJugador1.setCantidadPartidasGanadas(0);
+            AreaJuego.oJugador1.setCantidadPartidasJugadas(0);
+            AreaJuego.oJugador1.setCantidadPartidasPerdidas(0);
+            AreaJuego.oJugador1.setPuntaje(0);
+            AreaJuego.oJugador1.setTipoJugador(true);
+            AreaJuego.oJugador1.setNombreJugador(this.Txt_Nombre.getText());
+            
+            // Se carga la informacion del Jugador en la Ventana de juego   
+            this.ScoreUsuario.setText("0");
+            this.nombreUsuario.setText(Txt_Nombre.getText());
+            
+            ImageIcon imagenAliado = (ImageIcon) iconoSeleccionado.getIcon();                     
+            Image imagenAliadoEscalada = imagenAliado.getImage().getScaledInstance(iconoUsuarios.getWidth(),
+            iconoUsuarios.getHeight(), Image.SCALE_SMOOTH);
+            Icon iconoAliadoEscaladoFinal = new ImageIcon(imagenAliadoEscalada);
+            iconoUsuarios.setIcon(iconoAliadoEscaladoFinal);
+
+            
+            //this.iconoUsuarios;
+        }
+        else {
+            AreaJuego.oJugador2.setAvatarJugador(iconoSeleccionado);
+            AreaJuego.oJugador2.setCantidadDeBarcos(0);
+            AreaJuego.oJugador2.setCantidadPartidasGanadas(0);
+            AreaJuego.oJugador2.setCantidadPartidasJugadas(0);
+            AreaJuego.oJugador2.setCantidadPartidasPerdidas(0);
+            AreaJuego.oJugador2.setPuntaje(0);
+            AreaJuego.oJugador2.setTipoJugador(false);
+            
+            // Se carga la informacion del Jugador en la Ventana de juego   
+            this.ScoreUsuario.setText("0");
+            this.nombreUsuario.setText(Txt_Nombre.getText());
+            
+            ImageIcon imagenEnemigo = (ImageIcon) iconoSeleccionado.getIcon();                     
+            Image imagenEnemigoEscalada = imagenEnemigo.getImage().getScaledInstance(iconoUsuarios.getWidth(),
+            iconoUsuarios.getHeight(), Image.SCALE_SMOOTH);
+            Icon iconoEnemigoEscaladoFinal = new ImageIcon(imagenEnemigoEscalada);
+            iconoUsuarios.setIcon(iconoEnemigoEscaladoFinal);
+        }
+        
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+     * @param pAliado
+     * @param pFoto
+     * @param Aliado the Aliado to set
+     * @param pScore
+     * @param pNombre
+     */
+    public void setAliado(boolean pAliado, JLabel pFoto, JLabel pNombre, JLabel pScore) {
+        this.Aliado = pAliado;
+        this.ScoreUsuario = pScore;
+        this.iconoUsuarios = pFoto;
+        this.nombreUsuario = pNombre;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -213,6 +397,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Txt_Nombre;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -240,6 +425,6 @@ public class PantallaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+    
 }

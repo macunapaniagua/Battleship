@@ -23,7 +23,8 @@ public class AreaJuego extends javax.swing.JFrame {
     public static Jugador oJugador1 = new Jugador();
     public static Jugador oJugador2 = new Jugador();
     public static Tablero oAreaJuego;
-    public static JPanel oPanel;
+    public static JPanel oMarcoDelJuego;
+    public static JPanel oMarcoDeUsuarios;
     public static JToggleButton[][] oMatrizBotones = null;
     
     // Ventanas externas
@@ -36,17 +37,10 @@ public class AreaJuego extends javax.swing.JFrame {
     public AreaJuego() {
         initComponents();
         setLocationRelativeTo(null);
-        // Obtiene el marco donde se van a colocar los botones
-        oPanel = this.Pnl_Tablero;
-
-
         
-        ImageIcon imagen1 = new ImageIcon(getClass().getResource("/Imagenes/AvatarJobs.png"));
-        Image imgEscalada1 = imagen1.getImage().getScaledInstance(Lbl_Player1Photo.getWidth(),
-                Lbl_Player1Photo.getHeight(), Image.SCALE_SMOOTH);
-        Icon iconoEscalado1 = new ImageIcon(imgEscalada1);
-        Lbl_Player1Photo.setIcon(iconoEscalado1);
-
+        // Obtiene el marco donde se van a colocar los botones
+        oMarcoDelJuego = this.Pnl_Tablero;
+        oMarcoDeUsuarios = this.Pnl_Usuarios;             
     }
 
     /**
@@ -288,10 +282,12 @@ public class AreaJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_MnI_ConfiguracionActionPerformed
 
     private void MnI_EditJueg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg1ActionPerformed
+        oVentanaUsuarios.setAliado(true, Lbl_Player1Photo, Lbl_Player1Name, Lbl_ScorePlayer1);
         oVentanaUsuarios.setVisible(true);
     }//GEN-LAST:event_MnI_EditJueg1ActionPerformed
 
     private void MnI_EditJueg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg2ActionPerformed
+        oVentanaUsuarios.setAliado(false, Lbl_Player2Photo, Lbl_Player2Name, Lbl_ScorePlayer2);
         oVentanaUsuarios.setVisible(true);
     }//GEN-LAST:event_MnI_EditJueg2ActionPerformed
 

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package InterfazGrafica;
 
 import Codigo.Tablero;
 import java.awt.Image;
+import java.util.Random;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -17,7 +17,6 @@ import javax.swing.JToggleButton;
  *
  * @author Mario A
  */
-
 public class Configuraciones extends javax.swing.JFrame {
 
     /**
@@ -131,7 +130,8 @@ public class Configuraciones extends javax.swing.JFrame {
     /**
      * Metodo que le permite al usuario crear una nueva configuracion para crear
      * una nueva partida con dicha informacion.
-     * @param evt 
+     *
+     * @param evt
      */
     private void Btn_AplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AplicarActionPerformed
 
@@ -140,39 +140,34 @@ public class Configuraciones extends javax.swing.JFrame {
         int filas = Sld_Filas.getValue();
         int columnas = Sld_Columnas.getValue();
         int numeroBarcos = Sld_CantidadBarcos.getValue();
-        
+
         // No es posible crear la matriz, ya que la cantidad de barcos
         // es mayor a la cantidad de casillas disponibles.
-        if((filas * columnas) < numeroBarcos)
-        {
+        if ((filas * columnas) < numeroBarcos) {
             JOptionPane.showMessageDialog(this, "La cantidad de barcos que desea"
-                    + " agregar es mayor a la cantidad\n de espacios disponibles", 
+                    + " agregar es mayor a la cantidad\n de espacios disponibles",
                     "Ups", JOptionPane.ERROR_MESSAGE);
-        }
-        else{
+        } else {
             //*******************************************************************************************************************
             JOptionPane.showMessageDialog(this, "filas: " + filas + " columnas: " + columnas + " barcos: " + numeroBarcos);
             //*******************************************************************************************************************
-            
-            if(AreaJuego.oAreaJuego == null){
+
+            if (AreaJuego.oAreaJuego == null) {
                 // No hay un juego actualmente. Se procede a crear la partida.
-                generarMatriz(filas * 2, columnas);
-            }
-            else
-            {
+                generarMatriz(filas * 2, columnas, numeroBarcos);
+            } else {
                 // Hay una partida en curso. Se le pregunta al usuario si dessea
                 // crear una nueva partida o continuar con la actual.
-                int opcion =JOptionPane.showConfirmDialog(this, "Actualmente "
+                int opcion = JOptionPane.showConfirmDialog(this, "Actualmente "
                         + "existe una partidad en curso. ¿Desea sobreescribir la"
-                        + " partida?", "Partida en curso", 
+                        + " partida?", "Partida en curso",
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-                
-                if(opcion == JOptionPane.YES_OPTION){
+
+                if (opcion == JOptionPane.YES_OPTION) {
                     // El usuario desea sobreescribir la partida, por lo que se
                     // procede a generar una nueva matriz.
-                    generarMatriz(filas*2, columnas);
-                }
-                else{
+                    generarMatriz(filas * 2, columnas, numeroBarcos);
+                } else {
                     // Si no quiere crear una nueva partida, cierra la ventana 
                     // configuracion
                     this.dispose();
@@ -181,58 +176,78 @@ public class Configuraciones extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Btn_AplicarActionPerformed
 
-    private void generarMatriz(int filas, int columnas) {
-        
-        
-        AreaJuego.oPanel.removeAll();
-        
-        
+    private void generarMatriz(int pFilas, int pColumnas, int pCantidadDeBarcos) {
+
+        AreaJuego.oMarcoDelJuego.removeAll();
+
         AreaJuego.oAreaJuego = new Tablero();
         // Se reinicializa la matriz de tipo Tablero, de la clase AreaJuego, con
         // las dimensiones dadas.
-        AreaJuego.oAreaJuego.reInicializarTerreno(filas + 1, columnas);
+        AreaJuego.oAreaJuego.reInicializarTerreno(pFilas + 1, pColumnas);
         // Elimina la referencia de oMatrizBotones
         AreaJuego.oMatrizBotones = null;
         // Se crea la matriz de botones con las dimensiones dadas
-        AreaJuego.oMatrizBotones = new JToggleButton[filas + 1][columnas];
-        
-        
-        int anchoDelMarco = AreaJuego.oPanel.getWidth();
-        int altoDelMarco = AreaJuego.oPanel.getHeight();
-        int anchoBoton = anchoDelMarco / columnas;
-        int altoBoton= altoDelMarco / (filas + 1);
-        
+        AreaJuego.oMatrizBotones = new JToggleButton[pFilas + 1][pColumnas];
+
+        int anchoDelMarco = AreaJuego.oMarcoDelJuego.getWidth();
+        int altoDelMarco = AreaJuego.oMarcoDelJuego.getHeight();
+        int anchoBoton = anchoDelMarco / pColumnas;
+        int altoBoton = altoDelMarco / (pFilas + 1);
+
         //  SE PROCEDE A CREAR LA INTERFAZ GRAFICA DEL TABLERO
-        for(int i = 0; i <= filas; i++)
-        {  
-            
-            for(int j = 0; j < columnas; j++)
-            {    
-                if(filas/2 == i){
+        for (int i = 0; i <= pFilas; i++) {
+
+            for (int j = 0; j < pColumnas; j++) {
+                if (pFilas / 2 == i) {
                     break;
                 }
                 JToggleButton button = new JToggleButton();
                 button.setBounds((anchoBoton * j), (altoBoton * i), anchoBoton, altoBoton);
                 ImageIcon imagen = new ImageIcon(getClass().getResource("/Imagenes/timon.png"));
                 Image imgEscalada;
-                if(anchoBoton <= altoBoton){
+                if (anchoBoton <= altoBoton) {
                     imgEscalada = imagen.getImage().getScaledInstance(anchoBoton,
-                        anchoBoton, Image.SCALE_SMOOTH);                    
-                }else{
+                            anchoBoton, Image.SCALE_SMOOTH);
+                } else {
                     imgEscalada = imagen.getImage().getScaledInstance(altoBoton,
-                        altoBoton, Image.SCALE_SMOOTH);                    
-                }                            
+                            altoBoton, Image.SCALE_SMOOTH);
+                }
                 Icon iconoEscalado = new ImageIcon(imgEscalada);
                 button.setIcon(iconoEscalado);
-                AreaJuego.oPanel.add(button);                
+                AreaJuego.oMarcoDelJuego.add(button);
             }
         }
         
-        this.dispose();
+        // Creamos el Metodo que genera los Random
+        Random randomColumnas = new Random();
+        Random randomFilas = new Random();
+        //El ciclo For para que cuente la cantidad de barcos para los Aliados al igual para los Enemigos
+        for (int i = 0; i < pCantidadDeBarcos; i++) {
+            int filas;
+            int columnas;
+            
+            // El do/while es para crear los barcos Aliados.
+            do {
+                filas = randomFilas.nextInt(pFilas/2);
+                columnas = randomColumnas.nextInt(pColumnas);
+
+            } while (!AreaJuego.oAreaJuego.setBarco(filas, columnas));            
+
+             // El do/while es para crear los barcos Enemigos.
+            do {
+                filas = randomFilas.nextInt(pFilas/2) + (pFilas/2 + 1);
+                columnas = randomColumnas.nextInt(pColumnas);
+
+            } while (!AreaJuego.oAreaJuego.setBarco(filas, columnas));
+            
+            System.out.println("Se creo el barco " + (i+1));
+
+        }
         
-        AreaJuego.oPanel.repaint();
+        this.dispose();
+        AreaJuego.oMarcoDelJuego.repaint();
     }
-    
+
     /**
      * @param args the command line arguments
      */

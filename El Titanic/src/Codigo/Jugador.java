@@ -17,6 +17,7 @@ public class Jugador {
     
     // **************    Declaracion de Variables    ***************************
     
+    private String nombreJugador;
     private JLabel avatarJugador;
     private int puntaje;
     private int cantidadDeBarcos;    
@@ -104,6 +105,14 @@ public class Jugador {
 
     public void setAvatarJugador(JLabel avatarJugador) {
         this.avatarJugador = avatarJugador;
+    }
+    
+    public String getNombreJugador() {
+        return nombreJugador;
+    }
+
+    public void setNombreJugador(String nombreJugador) {
+        this.nombreJugador = nombreJugador;
     }
     
    
