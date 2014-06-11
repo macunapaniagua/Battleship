@@ -7,9 +7,9 @@ package InterfazGrafica;
 
 import Codigo.Jugador;
 import Codigo.Tablero;
-import java.awt.Image;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
@@ -22,11 +22,11 @@ public class AreaJuego extends javax.swing.JFrame {
     // Objetos del Programa
     public static Jugador oJugador1 = new Jugador();
     public static Jugador oJugador2 = new Jugador();
-    public static Tablero oAreaJuego;
-    public static JPanel oMarcoDelJuego;
+    private Tablero oTableroDeJuego;
+    private JPanel oMarcoDelJuego;
     public static JPanel oMarcoDeUsuarios;
-    public static JToggleButton[][] oMatrizBotones = null;
-    
+    private JToggleButton[][] oMatrizBotones = null;
+
     // Ventanas externas
     private PantallaUsuario oVentanaUsuarios = new PantallaUsuario();
     private Configuraciones oVentanaConfigJuego = new Configuraciones();
@@ -37,10 +37,17 @@ public class AreaJuego extends javax.swing.JFrame {
     public AreaJuego() {
         initComponents();
         setLocationRelativeTo(null);
-        
+
+        TBtn_BotonPlantilla.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                botonToggleClicked(e);
+            }
+        });
+
         // Obtiene el marco donde se van a colocar los botones
         oMarcoDelJuego = this.Pnl_Tablero;
-        oMarcoDeUsuarios = this.Pnl_Usuarios;             
+        oMarcoDeUsuarios = this.Pnl_Usuarios;
     }
 
     /**
@@ -66,6 +73,7 @@ public class AreaJuego extends javax.swing.JFrame {
         Lbl_ScorePlayer2 = new javax.swing.JLabel();
         Lbl_Player2Name = new javax.swing.JLabel();
         Pnl_Tablero = new javax.swing.JPanel();
+        TBtn_BotonPlantilla = new javax.swing.JToggleButton();
         Lbl_Fondo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -205,6 +213,7 @@ public class AreaJuego extends javax.swing.JFrame {
         );
 
         getContentPane().add(Pnl_Tablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 480, -1));
+        getContentPane().add(TBtn_BotonPlantilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, -1, 30));
 
         Lbl_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoJuego1.png"))); // NOI18N
         Lbl_Fondo.setOpaque(true);
@@ -278,6 +287,7 @@ public class AreaJuego extends javax.swing.JFrame {
      */
     private void MnI_ConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_ConfiguracionActionPerformed
         // TODO add your handling code here:
+        oVentanaConfigJuego.setDatosDeAreaJuego(oTableroDeJuego, oMatrizBotones, oMarcoDelJuego, TBtn_BotonPlantilla);
         oVentanaConfigJuego.setVisible(true);
     }//GEN-LAST:event_MnI_ConfiguracionActionPerformed
 
@@ -290,6 +300,17 @@ public class AreaJuego extends javax.swing.JFrame {
         oVentanaUsuarios.setAliado(false, Lbl_Player2Photo, Lbl_Player2Name, Lbl_ScorePlayer2);
         oVentanaUsuarios.setVisible(true);
     }//GEN-LAST:event_MnI_EditJueg2ActionPerformed
+
+    private void botonToggleClicked(ActionEvent e) {
+
+        JToggleButton botonAction = (JToggleButton) e.getSource();
+        if (botonAction.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Boton Presionado");
+        } else {
+            botonAction.setSelected(true);
+            JOptionPane.showMessageDialog(this, "Este boton ya ha sido presionado");
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -341,6 +362,7 @@ public class AreaJuego extends javax.swing.JFrame {
     private javax.swing.JMenuItem MnI_Salir;
     private javax.swing.JPanel Pnl_Tablero;
     private javax.swing.JPanel Pnl_Usuarios;
+    private javax.swing.JToggleButton TBtn_BotonPlantilla;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLayeredPane jLayeredPane1;

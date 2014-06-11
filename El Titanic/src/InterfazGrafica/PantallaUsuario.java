@@ -350,7 +350,6 @@ public class PantallaUsuario extends javax.swing.JFrame {
     /**
      * @param pAliado
      * @param pFoto
-     * @param Aliado the Aliado to set
      * @param pScore
      * @param pNombre
      */

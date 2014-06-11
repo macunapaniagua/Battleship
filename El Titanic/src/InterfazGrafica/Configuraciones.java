@@ -11,6 +11,7 @@ import java.util.Random;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 /**
@@ -18,6 +19,11 @@ import javax.swing.JToggleButton;
  * @author Mario A
  */
 public class Configuraciones extends javax.swing.JFrame {
+    
+    private Tablero tableroDelJuego;
+    private JToggleButton[][] tableroGrafico;
+    private JPanel marcoTableroGrafico;
+    private JToggleButton botonPlantilla;
 
     /**
      * Creates new form Configuraciones
@@ -36,7 +42,6 @@ public class Configuraciones extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         Btn_Aplicar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -127,6 +132,25 @@ public class Configuraciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    /**
+     * Metodo necesario para obtener los objetos de la clase AreaJuego que se van
+     * a modificar en la configuracion del terreno de juego.
+     * @param pTablero
+     * @param pMatrizGrafica
+     * @param pMarcoCasillas
+     * @param pBotonMuestra
+     */
+    public void setDatosDeAreaJuego(Tablero pTablero, JToggleButton[][] pMatrizGrafica, JPanel pMarcoCasillas, JToggleButton pBotonMuestra){
+        
+        tableroDelJuego = pTablero;
+        tableroGrafico = pMatrizGrafica;
+        marcoTableroGrafico = pMarcoCasillas;
+        botonPlantilla = pBotonMuestra;        
+    }
+    
+    
+    
     /**
      * Metodo que le permite al usuario crear una nueva configuracion para crear
      * una nueva partida con dicha informacion.
@@ -137,24 +161,24 @@ public class Configuraciones extends javax.swing.JFrame {
 
         // Variables que almacenan los datos optenidos de la configuracion en el 
         // momento de presionar el boton aplicar.
-        int filas = Sld_Filas.getValue();
-        int columnas = Sld_Columnas.getValue();
-        int numeroBarcos = Sld_CantidadBarcos.getValue();
+        int filasDe1Usuario = Sld_Filas.getValue();
+        int columnasDelTablero = Sld_Columnas.getValue();
+        int cantidadDeBarcos = Sld_CantidadBarcos.getValue();
 
         // No es posible crear la matriz, ya que la cantidad de barcos
         // es mayor a la cantidad de casillas disponibles.
-        if ((filas * columnas) < numeroBarcos) {
+        if ((filasDe1Usuario * columnasDelTablero) < cantidadDeBarcos) {
             JOptionPane.showMessageDialog(this, "La cantidad de barcos que desea"
                     + " agregar es mayor a la cantidad\n de espacios disponibles",
                     "Ups", JOptionPane.ERROR_MESSAGE);
         } else {
             //*******************************************************************************************************************
-            JOptionPane.showMessageDialog(this, "filas: " + filas + " columnas: " + columnas + " barcos: " + numeroBarcos);
+            JOptionPane.showMessageDialog(this, "filas: " + filasDe1Usuario + " columnas: " + columnasDelTablero + " barcos: " + cantidadDeBarcos);
             //*******************************************************************************************************************
 
-            if (AreaJuego.oAreaJuego == null) {
+            if (tableroDelJuego == null) {
                 // No hay un juego actualmente. Se procede a crear la partida.
-                generarMatriz(filas * 2, columnas, numeroBarcos);
+                generarMatriz(filasDe1Usuario * 2, columnasDelTablero, cantidadDeBarcos);
             } else {
                 // Hay una partida en curso. Se le pregunta al usuario si dessea
                 // crear una nueva partida o continuar con la actual.
@@ -166,7 +190,7 @@ public class Configuraciones extends javax.swing.JFrame {
                 if (opcion == JOptionPane.YES_OPTION) {
                     // El usuario desea sobreescribir la partida, por lo que se
                     // procede a generar una nueva matriz.
-                    generarMatriz(filas * 2, columnas, numeroBarcos);
+                    generarMatriz(filasDe1Usuario * 2, columnasDelTablero, cantidadDeBarcos);
                 } else {
                     // Si no quiere crear una nueva partida, cierra la ventana 
                     // configuracion
@@ -178,19 +202,19 @@ public class Configuraciones extends javax.swing.JFrame {
 
     private void generarMatriz(int pFilas, int pColumnas, int pCantidadDeBarcos) {
 
-        AreaJuego.oMarcoDelJuego.removeAll();
+        marcoTableroGrafico.removeAll();
 
-        AreaJuego.oAreaJuego = new Tablero();
+        tableroDelJuego = new Tablero();
         // Se reinicializa la matriz de tipo Tablero, de la clase AreaJuego, con
         // las dimensiones dadas.
-        AreaJuego.oAreaJuego.reInicializarTerreno(pFilas + 1, pColumnas);
+        tableroDelJuego.reInicializarTerreno(pFilas + 1, pColumnas);
         // Elimina la referencia de oMatrizBotones
-        AreaJuego.oMatrizBotones = null;
+        tableroGrafico = null;
         // Se crea la matriz de botones con las dimensiones dadas
-        AreaJuego.oMatrizBotones = new JToggleButton[pFilas + 1][pColumnas];
+        tableroGrafico = new JToggleButton[pFilas + 1][pColumnas];
 
-        int anchoDelMarco = AreaJuego.oMarcoDelJuego.getWidth();
-        int altoDelMarco = AreaJuego.oMarcoDelJuego.getHeight();
+        int anchoDelMarco = marcoTableroGrafico.getWidth();
+        int altoDelMarco = marcoTableroGrafico.getHeight();
         int anchoBoton = anchoDelMarco / pColumnas;
         int altoBoton = altoDelMarco / (pFilas + 1);
 
@@ -201,7 +225,8 @@ public class Configuraciones extends javax.swing.JFrame {
                 if (pFilas / 2 == i) {
                     break;
                 }
-                JToggleButton button = new JToggleButton();
+                //JToggleButton button = new JToggleButton();
+                JToggleButton button = new JToggleButton(botonPlantilla.getAction());
                 button.setBounds((anchoBoton * j), (altoBoton * i), anchoBoton, altoBoton);
                 ImageIcon imagen = new ImageIcon(getClass().getResource("/Imagenes/timon.png"));
                 Image imgEscalada;
@@ -214,7 +239,9 @@ public class Configuraciones extends javax.swing.JFrame {
                 }
                 Icon iconoEscalado = new ImageIcon(imgEscalada);
                 button.setIcon(iconoEscalado);
-                AreaJuego.oMarcoDelJuego.add(button);
+                marcoTableroGrafico.add(button);
+                
+                tableroGrafico[i][j] = button;
             }
         }
         
@@ -231,21 +258,21 @@ public class Configuraciones extends javax.swing.JFrame {
                 filas = randomFilas.nextInt(pFilas/2);
                 columnas = randomColumnas.nextInt(pColumnas);
 
-            } while (!AreaJuego.oAreaJuego.setBarco(filas, columnas));            
+            } while (!tableroDelJuego.setBarco(filas, columnas));            
 
              // El do/while es para crear los barcos Enemigos.
             do {
                 filas = randomFilas.nextInt(pFilas/2) + (pFilas/2 + 1);
                 columnas = randomColumnas.nextInt(pColumnas);
 
-            } while (!AreaJuego.oAreaJuego.setBarco(filas, columnas));
+            } while (!tableroDelJuego.setBarco(filas, columnas));
             
             System.out.println("Se creo el barco " + (i+1));
 
         }
         
         this.dispose();
-        AreaJuego.oMarcoDelJuego.repaint();
+        marcoTableroGrafico.repaint();
     }
 
     /**
@@ -288,7 +315,6 @@ public class Configuraciones extends javax.swing.JFrame {
     private javax.swing.JSlider Sld_CantidadBarcos;
     private javax.swing.JSlider Sld_Columnas;
     private javax.swing.JSlider Sld_Filas;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

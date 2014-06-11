@@ -6,6 +6,7 @@
 
 package Codigo;
 
+import InterfazGrafica.AreaJuego;
 import javax.swing.JLabel;
 
 /**
