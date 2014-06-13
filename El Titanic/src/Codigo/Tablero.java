@@ -12,6 +12,8 @@ package Codigo;
 public class Tablero {
 
     private boolean[][] tableroMatriz = null;
+    private int cantidadBarcosAliados;
+    private int cantidadBarcosEnemigos;
 
     /**
      * Metodo Constructor
@@ -22,6 +24,24 @@ public class Tablero {
     public Tablero(int pFilas, int pColumnas) {
         tableroMatriz = new boolean[pFilas][pColumnas];
     }
+
+    public int getCantidadBarcosAliados() {
+        return cantidadBarcosAliados;
+    }
+
+    public void setCantidadBarcosAliados(int cantidadBarcosAliados) {
+        this.cantidadBarcosAliados = cantidadBarcosAliados;
+    }
+
+    public int getCantidadBarcosEnemigos() {
+        return cantidadBarcosEnemigos;
+    }
+
+    public void setCantidadBarcosEnemigos(int cantidadBarcosEnemigos) {
+        this.cantidadBarcosEnemigos = cantidadBarcosEnemigos;
+    }
+    
+    
 
     /**
      * Metodo utilizado para establecer un barco en el terreno de juego
@@ -39,6 +59,24 @@ public class Tablero {
             tableroMatriz[pFila][pColumna] = true;
             return true;
         }
+    }
+    
+    /**
+     * Metodo para verificar si existe un barco en la posicion indicada
+     * @param pFila fila indicada
+     * @param pColumna columna indicada
+     * @return true si existe un barco en la casilla, o false en caso contrario
+     */
+    public boolean hayBarco(int pFila, int pColumna){
+        return tableroMatriz[pFila][pColumna];
+    }
+    
+    /**
+     * Metodo para obtener la matriz
+     * @return matriz de juego
+     */
+    public boolean[][] getMatriz(){
+        return tableroMatriz;
     }
 
     /**

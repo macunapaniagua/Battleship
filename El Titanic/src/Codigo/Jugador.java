@@ -6,7 +6,6 @@
 
 package Codigo;
 
-import InterfazGrafica.AreaJuego;
 import javax.swing.JLabel;
 
 /**
@@ -20,8 +19,7 @@ public class Jugador {
     
     private String nombreJugador;
     private JLabel avatarJugador;
-    private int puntaje;
-    private int cantidadDeBarcos;    
+    private int puntaje;  
     private int cantidadPartidasJugadas;
     private int cantidadPartidasGanadas;
     private int cantidadPartidasPerdidas;    
@@ -32,20 +30,7 @@ public class Jugador {
     
     /**
      * Metodo constructor
-     * @param pTipo tipo de jugador: 1->Aliado y 0->Enemigo
-     * @param pCantidadBarcos cantidad de barcos
-     * @param pAvatar Label con la imagen seleccionada del jugador
-     */
-    public Jugador(boolean pTipo, int pCantidadBarcos, JLabel pAvatar){
-        this.cantidadDeBarcos = pCantidadBarcos;
-        this.cantidadPartidasGanadas = 0;
-        this.cantidadPartidasJugadas = 0;
-        this.cantidadPartidasPerdidas = 0;        
-        this.Aliado = pTipo;
-        this.puntaje = 0;
-        this.avatarJugador = pAvatar;
-    }
-    
+     */    
     public Jugador(){
         
     }
@@ -58,14 +43,6 @@ public class Jugador {
 
     public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
-    }
-    
-    public int getCantidadDeBarcos() {
-        return cantidadDeBarcos;
-    }
-
-    public void setCantidadDeBarcos(int cantidadDeBarcos) {
-        this.cantidadDeBarcos = cantidadDeBarcos;
     }
 
     public int getCantidadPartidasJugadas() {

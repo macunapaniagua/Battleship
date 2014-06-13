@@ -19,18 +19,18 @@ import javax.swing.JToggleButton;
  * @author Mario A
  */
 public class AreaJuego extends javax.swing.JFrame {
-    
-    private boolean turno;
+
+    private boolean turnoAliado;
 
     private Tablero tableroDeJuego = null;
     private JToggleButton[][] tableroGrafico = null;
 
     // Objetos del Programa
-    public static Jugador oJugador1 = new Jugador();
-    public static Jugador oJugador2 = new Jugador();
+    public static Jugador jugadorAliado = new Jugador();
+    public static Jugador jugadorEnemigo = new Jugador();
     // Ventanas externas
-    private PantallaUsuario ventanaUsuarios = new PantallaUsuario();
-    private Configuraciones ventanaConfiguracion = new Configuraciones();
+    private final PantallaUsuario ventanaUsuarios = new PantallaUsuario();
+    private final Configuraciones ventanaConfiguracion = new Configuraciones();
 
     /**
      * Creates new form AreaJuego
@@ -286,13 +286,90 @@ public class AreaJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_MnI_SalirActionPerformed
 
     private void verificarAtaque(java.awt.event.MouseEvent evt) {
-        JToggleButton botonAction = (JToggleButton) evt.getComponent();
-        if (botonAction.isSelected()) {
-            JOptionPane.showMessageDialog(this, "Boton Presionado");
-        } else {
-            botonAction.setSelected(true);
-            JOptionPane.showMessageDialog(this, "Este boton ya ha sido presionado");
+
+        JToggleButton botonPressionado = (JToggleButton) evt.getComponent();
+
+        if (!botonPressionado.isSelected()) {
+            botonPressionado.setSelected(true);
+            JOptionPane.showMessageDialog(this, "Este elemento ya fue seleccionado");
+            return;
         }
+
+        int numeroFilas = tableroGrafico.length;
+        int numeroColumnas = tableroGrafico[0].length;
+
+        for (int f = 0; f < numeroFilas; f++) {
+            for (int c = 0; c < numeroColumnas; c++) {
+                if (botonPressionado == tableroGrafico[f][c]) {
+                    System.out.println("El elemento presionado esta en " + f + ',' + c);
+
+                    if (turnoAliado && (f <= (numeroFilas - 1) / 2)) {
+                        botonPressionado.setSelected(false);
+                        JOptionPane.showMessageDialog(this, "Turno Aliado, presiona Campo Aliado");
+                        break;
+                    } else if (!turnoAliado && (f >= (numeroFilas - 1) / 2)) {
+                        botonPressionado.setSelected(false);
+                        JOptionPane.showMessageDialog(this, "Turno Enemigo, Presiona Campo Enemigo");
+                        break;
+                    } else {
+                        ejecutarAtaque(f, c);
+                        turnoAliado = !turnoAliado;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private void ejecutarAtaque(int pFilaAtaque, int pColumnaAtaque) {
+
+        if (this.tableroDeJuego.hayBarco(pFilaAtaque, pColumnaAtaque)) {
+            tableroDeJuego.destruirBarco(pFilaAtaque, pColumnaAtaque);
+
+            // ***************  COLOCAR NUEVA IMAGEN POR BARCO HUNDIDO  ***********************
+            int imagenAlto = tableroGrafico[pFilaAtaque][pColumnaAtaque].getHeight();
+            int imagenAncho = tableroGrafico[pFilaAtaque][pColumnaAtaque].getWidth();
+
+            ImageIcon imagen = new ImageIcon(getClass().getResource("/Imagenes/barco.gif"));
+            Image imgEscalada;
+            // Se verifica la menor dimensio (ancho vs alto) para que la imagen no se vea estirada
+            if (imagenAncho <= imagenAlto) {
+                imgEscalada = imagen.getImage().getScaledInstance(imagenAncho,
+                        imagenAncho, Image.SCALE_SMOOTH);
+            } else {
+                imgEscalada = imagen.getImage().getScaledInstance(imagenAlto,
+                        imagenAlto, Image.SCALE_SMOOTH);
+            }
+            Icon iconoEscalado = new ImageIcon(imgEscalada);
+            tableroGrafico[pFilaAtaque][pColumnaAtaque].setIcon(iconoEscalado);
+            // *******************************************************************************
+
+            if (turnoAliado) {
+                int barcos = tableroDeJuego.getCantidadBarcosEnemigos();
+                barcos--;
+                tableroDeJuego.setCantidadBarcosEnemigos(barcos);
+                if (barcos == 0) {
+                    int puntaje = jugadorAliado.getPuntaje();
+                    jugadorAliado.setPuntaje(puntaje + 1);
+                    Lbl_ScorePlayer1.setText(puntaje + "");
+                    JOptionPane.showMessageDialog(this, "Jugador Aliado Gana");
+                    //gano y deshabilitar botones
+                }
+
+            } else {
+                int barcos = tableroDeJuego.getCantidadBarcosAliados();
+                barcos--;
+                tableroDeJuego.setCantidadBarcosAliados(barcos);
+                if (barcos == 0) {
+                    int puntaje = jugadorEnemigo.getPuntaje();
+                    jugadorEnemigo.setPuntaje(puntaje + 1);
+                    Lbl_ScorePlayer2.setText(puntaje + "");
+                    JOptionPane.showMessageDialog(this, "Jugador Enemigo Gana");
+                    // gano y deshabilitar botones
+                }
+            }
+        }
+
     }
 
     private void generarJuego(int filasDe1Usuario, int columnasDelTablero, int cantidadDeBarcos) {
@@ -300,7 +377,7 @@ public class AreaJuego extends javax.swing.JFrame {
         if (tableroDeJuego == null) {
             // No hay un juego actualmente. Se procede a crear la partida.
             generarTerreno(filasDe1Usuario * 2, columnasDelTablero);
-            generarBarcos(filasDe1Usuario, columnasDelTablero, cantidadDeBarcos);
+            generarBarcos(filasDe1Usuario * 2, columnasDelTablero, cantidadDeBarcos);
         } else {
             // Hay una partida en curso. Se le pregunta al usuario si dessea
             // crear una nueva partida o continuar con la actual.
@@ -313,7 +390,7 @@ public class AreaJuego extends javax.swing.JFrame {
                 // El usuario desea sobreescribir la partida, por lo que se
                 // procede a generar una nueva matriz.
                 generarTerreno(filasDe1Usuario * 2, columnasDelTablero);
-                generarBarcos(filasDe1Usuario, columnasDelTablero, cantidadDeBarcos);
+                generarBarcos(filasDe1Usuario * 2, columnasDelTablero, cantidadDeBarcos);
             }
         }
     }
@@ -372,6 +449,9 @@ public class AreaJuego extends javax.swing.JFrame {
 
     private void generarBarcos(int pFilas, int pColumnas, int pCantidadDeBarcos) {
 
+        tableroDeJuego.setCantidadBarcosAliados(pCantidadDeBarcos);
+        tableroDeJuego.setCantidadBarcosEnemigos(pCantidadDeBarcos);
+
         // Creamos el Metodo que genera los Random
         Random generadorRandom = new Random(System.currentTimeMillis());
         //El ciclo For para que cuente la cantidad de barcos para los Aliados al igual para los Enemigos
@@ -421,25 +501,24 @@ public class AreaJuego extends javax.swing.JFrame {
 
     private void Btn_PlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_PlayActionPerformed
         // TODO add your handling code here:
-        
+
         this.Btn_Play.setVisible(false);
-        
+
         // Obtiene los datos generados en la ventana configuracion
         int numeroColumnas = ventanaConfiguracion.getColumnasDelTablero();
         int numeroFilasPorUsuario = ventanaConfiguracion.getFilasDe1Usuario();
         int numeroBarcos = ventanaConfiguracion.getCantidadDeBarcos();
         // Se procede a generar el terreno de juego y los barcos, desde el metodo generarJuego
         generarJuego(numeroFilasPorUsuario, numeroColumnas, numeroBarcos);
-        
+
         // Se genera un random para asignar quien inicia el Juego
         Random rand = new Random(System.currentTimeMillis());
-        turno = rand.nextBoolean();        
-        if(turno == true){
+        turnoAliado = rand.nextBoolean();
+        if (turnoAliado == true) {
             JOptionPane.showMessageDialog(this, "La partida inicia aleatoriamente en favor del jugador Aliado");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "La partida inicia aleatoriamente en favor del jugador Enemigo");
         }
-        
         //******************************************************
     }//GEN-LAST:event_Btn_PlayActionPerformed
 
@@ -509,4 +588,5 @@ public class AreaJuego extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
+
 }

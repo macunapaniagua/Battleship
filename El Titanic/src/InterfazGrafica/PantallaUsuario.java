@@ -19,8 +19,8 @@ import javax.swing.JLabel;
 public class PantallaUsuario extends javax.swing.JFrame {
 
     // Variables de la clase
-    private JLabel iconoSeleccionado = null;
     private boolean Aliado;
+    private JLabel iconoSeleccionado = null;
     
     private JLabel iconoUsuarios;
     private JLabel nombreUsuario;
@@ -302,36 +302,31 @@ public class PantallaUsuario extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         if (Aliado) {
-            AreaJuego.oJugador1.setAvatarJugador(iconoSeleccionado);
-            AreaJuego.oJugador1.setCantidadDeBarcos(0);
-            AreaJuego.oJugador1.setCantidadPartidasGanadas(0);
-            AreaJuego.oJugador1.setCantidadPartidasJugadas(0);
-            AreaJuego.oJugador1.setCantidadPartidasPerdidas(0);
-            AreaJuego.oJugador1.setPuntaje(0);
-            AreaJuego.oJugador1.setTipoJugador(true);
-            AreaJuego.oJugador1.setNombreJugador(this.Txt_Nombre.getText());
+            AreaJuego.jugadorAliado.setAvatarJugador(iconoSeleccionado);
+            AreaJuego.jugadorAliado.setCantidadPartidasGanadas(0);
+            AreaJuego.jugadorAliado.setCantidadPartidasJugadas(0);
+            AreaJuego.jugadorAliado.setCantidadPartidasPerdidas(0);
+            AreaJuego.jugadorAliado.setPuntaje(0);
+            AreaJuego.jugadorAliado.setTipoJugador(true);
+            AreaJuego.jugadorAliado.setNombreJugador(this.Txt_Nombre.getText());
             
             // Se carga la informacion del Jugador en la Ventana de juego   
             this.ScoreUsuario.setText("0");
-            this.nombreUsuario.setText(Txt_Nombre.getText());
+            this.nombreUsuario.setText(Txt_Nombre.getText()); 
             
             ImageIcon imagenAliado = (ImageIcon) iconoSeleccionado.getIcon();                     
             Image imagenAliadoEscalada = imagenAliado.getImage().getScaledInstance(iconoUsuarios.getWidth(),
             iconoUsuarios.getHeight(), Image.SCALE_SMOOTH);
             Icon iconoAliadoEscaladoFinal = new ImageIcon(imagenAliadoEscalada);
             iconoUsuarios.setIcon(iconoAliadoEscaladoFinal);
-
-            
-            //this.iconoUsuarios;
         }
         else {
-            AreaJuego.oJugador2.setAvatarJugador(iconoSeleccionado);
-            AreaJuego.oJugador2.setCantidadDeBarcos(0);
-            AreaJuego.oJugador2.setCantidadPartidasGanadas(0);
-            AreaJuego.oJugador2.setCantidadPartidasJugadas(0);
-            AreaJuego.oJugador2.setCantidadPartidasPerdidas(0);
-            AreaJuego.oJugador2.setPuntaje(0);
-            AreaJuego.oJugador2.setTipoJugador(false);
+            AreaJuego.jugadorEnemigo.setAvatarJugador(iconoSeleccionado);
+            AreaJuego.jugadorEnemigo.setCantidadPartidasGanadas(0);
+            AreaJuego.jugadorEnemigo.setCantidadPartidasJugadas(0);
+            AreaJuego.jugadorEnemigo.setCantidadPartidasPerdidas(0);
+            AreaJuego.jugadorEnemigo.setPuntaje(0);
+            AreaJuego.jugadorEnemigo.setTipoJugador(false);
             
             // Se carga la informacion del Jugador en la Ventana de juego   
             this.ScoreUsuario.setText("0");
@@ -342,8 +337,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
             iconoUsuarios.getHeight(), Image.SCALE_SMOOTH);
             Icon iconoEnemigoEscaladoFinal = new ImageIcon(imagenEnemigoEscalada);
             iconoUsuarios.setIcon(iconoEnemigoEscaladoFinal);
-        }
-        
+        }        
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
