@@ -7,10 +7,11 @@ package InterfazGrafica;
 
 import Codigo.Jugador;
 import Codigo.Tablero;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Image;
+import java.util.Random;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 /**
@@ -18,18 +19,18 @@ import javax.swing.JToggleButton;
  * @author Mario A
  */
 public class AreaJuego extends javax.swing.JFrame {
+    
+    private boolean turno;
+
+    private Tablero tableroDeJuego = null;
+    private JToggleButton[][] tableroGrafico = null;
 
     // Objetos del Programa
     public static Jugador oJugador1 = new Jugador();
     public static Jugador oJugador2 = new Jugador();
-    private Tablero oTableroDeJuego;
-    private JPanel oMarcoDelJuego;
-    public static JPanel oMarcoDeUsuarios;
-    private JToggleButton[][] oMatrizBotones = null;
-
     // Ventanas externas
-    private PantallaUsuario oVentanaUsuarios = new PantallaUsuario();
-    private Configuraciones oVentanaConfigJuego = new Configuraciones();
+    private PantallaUsuario ventanaUsuarios = new PantallaUsuario();
+    private Configuraciones ventanaConfiguracion = new Configuraciones();
 
     /**
      * Creates new form AreaJuego
@@ -37,17 +38,7 @@ public class AreaJuego extends javax.swing.JFrame {
     public AreaJuego() {
         initComponents();
         setLocationRelativeTo(null);
-
-        TBtn_BotonPlantilla.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                botonToggleClicked(e);
-            }
-        });
-
-        // Obtiene el marco donde se van a colocar los botones
-        oMarcoDelJuego = this.Pnl_Tablero;
-        oMarcoDeUsuarios = this.Pnl_Usuarios;
+        Btn_Play.setVisible(false);
     }
 
     /**
@@ -73,7 +64,7 @@ public class AreaJuego extends javax.swing.JFrame {
         Lbl_ScorePlayer2 = new javax.swing.JLabel();
         Lbl_Player2Name = new javax.swing.JLabel();
         Pnl_Tablero = new javax.swing.JPanel();
-        TBtn_BotonPlantilla = new javax.swing.JToggleButton();
+        Btn_Play = new javax.swing.JButton();
         Lbl_Fondo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -213,7 +204,14 @@ public class AreaJuego extends javax.swing.JFrame {
         );
 
         getContentPane().add(Pnl_Tablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 480, -1));
-        getContentPane().add(TBtn_BotonPlantilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, -1, 30));
+
+        Btn_Play.setText("Jugar");
+        Btn_Play.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_PlayActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Btn_Play, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, -1, -1));
 
         Lbl_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoJuego1.png"))); // NOI18N
         Lbl_Fondo.setOpaque(true);
@@ -277,8 +275,128 @@ public class AreaJuego extends javax.swing.JFrame {
      * @param evt
      */
     private void MnI_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_SalirActionPerformed
-        System.exit(0);
+
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea"
+                + " salir del juego?", "Salir",
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+        if (opcion == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_MnI_SalirActionPerformed
+
+    private void verificarAtaque(java.awt.event.MouseEvent evt) {
+        JToggleButton botonAction = (JToggleButton) evt.getComponent();
+        if (botonAction.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Boton Presionado");
+        } else {
+            botonAction.setSelected(true);
+            JOptionPane.showMessageDialog(this, "Este boton ya ha sido presionado");
+        }
+    }
+
+    private void generarJuego(int filasDe1Usuario, int columnasDelTablero, int cantidadDeBarcos) {
+
+        if (tableroDeJuego == null) {
+            // No hay un juego actualmente. Se procede a crear la partida.
+            generarTerreno(filasDe1Usuario * 2, columnasDelTablero);
+            generarBarcos(filasDe1Usuario, columnasDelTablero, cantidadDeBarcos);
+        } else {
+            // Hay una partida en curso. Se le pregunta al usuario si dessea
+            // crear una nueva partida o continuar con la actual.
+            int opcion = JOptionPane.showConfirmDialog(this, "Actualmente "
+                    + "existe una partidad en curso. ¿Desea sobreescribir la"
+                    + " partida?", "Partida en curso",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                // El usuario desea sobreescribir la partida, por lo que se
+                // procede a generar una nueva matriz.
+                generarTerreno(filasDe1Usuario * 2, columnasDelTablero);
+                generarBarcos(filasDe1Usuario, columnasDelTablero, cantidadDeBarcos);
+            }
+        }
+    }
+
+    private void generarTerreno(int pFilas, int pColumnas) {
+
+        Pnl_Tablero.removeAll();
+        // Se crea un nuevo Tablero, con las dimensiones dadas.
+        tableroDeJuego = new Tablero(pFilas + 1, pColumnas);
+        // Se crea la matriz de botones con las dimensiones dadas
+        tableroGrafico = new JToggleButton[pFilas + 1][pColumnas];
+        // Se obtiene las medidas del panel donde van los botones
+        int anchoDelMarco = Pnl_Tablero.getWidth();
+        int altoDelMarco = Pnl_Tablero.getHeight();
+        // Se calcula la medida que tendra cada boton en la ventana
+        int anchoBoton = anchoDelMarco / pColumnas;
+        int altoBoton = altoDelMarco / (pFilas + 1);
+
+        //  SE PROCEDE A CREAR LA INTERFAZ GRAFICA DEL TABLERO
+        for (int i = 0; i <= pFilas; i++) {
+
+            for (int j = 0; j < pColumnas; j++) {
+                if (pFilas / 2 == i) {
+                    break;
+                }
+                JToggleButton casilla = new JToggleButton();
+                // Se asigna un evento al nuevo boton
+                casilla.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        verificarAtaque(evt);
+                    }
+                });
+                // Se establece la ubicacion y el tamano (X, Y, Ancho, Alto)
+                casilla.setBounds((anchoBoton * j), (altoBoton * i), anchoBoton, altoBoton);
+                // Se asigna la imagen para el nuevo boton
+                ImageIcon imagen = new ImageIcon(getClass().getResource("/Imagenes/timon.png"));
+                Image imgEscalada;
+                // Se verifica la menor dimensio (ancho vs alto) para que la imagen no se vea estirada
+                if (anchoBoton <= altoBoton) {
+                    imgEscalada = imagen.getImage().getScaledInstance(anchoBoton,
+                            anchoBoton, Image.SCALE_SMOOTH);
+                } else {
+                    imgEscalada = imagen.getImage().getScaledInstance(altoBoton,
+                            altoBoton, Image.SCALE_SMOOTH);
+                }
+                Icon iconoEscalado = new ImageIcon(imgEscalada);
+                casilla.setIcon(iconoEscalado);
+                // Se agrega la nueva casilla a la ventana
+                Pnl_Tablero.add(casilla);
+                tableroGrafico[i][j] = casilla;
+            }
+        }
+        Pnl_Tablero.repaint();
+
+    }
+
+    private void generarBarcos(int pFilas, int pColumnas, int pCantidadDeBarcos) {
+
+        // Creamos el Metodo que genera los Random
+        Random generadorRandom = new Random(System.currentTimeMillis());
+        //El ciclo For para que cuente la cantidad de barcos para los Aliados al igual para los Enemigos
+        for (int i = 0; i < pCantidadDeBarcos; i++) {
+            int filas;
+            int columnas;
+
+            // El do/while es para crear los barcos Aliados.
+            do {
+                filas = generadorRandom.nextInt(pFilas / 2);
+                columnas = generadorRandom.nextInt(pColumnas);
+
+            } while (!tableroDeJuego.setBarco(filas, columnas));
+            System.out.println("Barco Aliado creado en " + filas + "," + columnas);
+
+            // El do/while es para crear los barcos Enemigos.
+            do {
+                filas = generadorRandom.nextInt(pFilas / 2) + (pFilas / 2 + 1);
+                columnas = generadorRandom.nextInt(pColumnas);
+
+            } while (!tableroDeJuego.setBarco(filas, columnas));
+            System.out.println("Barco Enemigo creado en " + filas + "," + columnas);
+
+        }
+    }
 
     /**
      * Metodo utilizado para mostrar la ventana de configuracion.
@@ -287,30 +405,43 @@ public class AreaJuego extends javax.swing.JFrame {
      */
     private void MnI_ConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_ConfiguracionActionPerformed
         // TODO add your handling code here:
-        oVentanaConfigJuego.setDatosDeAreaJuego(oTableroDeJuego, oMatrizBotones, oMarcoDelJuego, TBtn_BotonPlantilla);
-        oVentanaConfigJuego.setVisible(true);
+        ventanaConfiguracion.setDatosDeAreaJuego(this.Btn_Play);
+        ventanaConfiguracion.setVisible(true);
     }//GEN-LAST:event_MnI_ConfiguracionActionPerformed
 
     private void MnI_EditJueg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg1ActionPerformed
-        oVentanaUsuarios.setAliado(true, Lbl_Player1Photo, Lbl_Player1Name, Lbl_ScorePlayer1);
-        oVentanaUsuarios.setVisible(true);
+        ventanaUsuarios.setAliado(true, Lbl_Player1Photo, Lbl_Player1Name, Lbl_ScorePlayer1);
+        ventanaUsuarios.setVisible(true);
     }//GEN-LAST:event_MnI_EditJueg1ActionPerformed
 
     private void MnI_EditJueg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg2ActionPerformed
-        oVentanaUsuarios.setAliado(false, Lbl_Player2Photo, Lbl_Player2Name, Lbl_ScorePlayer2);
-        oVentanaUsuarios.setVisible(true);
+        ventanaUsuarios.setAliado(false, Lbl_Player2Photo, Lbl_Player2Name, Lbl_ScorePlayer2);
+        ventanaUsuarios.setVisible(true);
     }//GEN-LAST:event_MnI_EditJueg2ActionPerformed
 
-    private void botonToggleClicked(ActionEvent e) {
-
-        JToggleButton botonAction = (JToggleButton) e.getSource();
-        if (botonAction.isSelected()) {
-            JOptionPane.showMessageDialog(this, "Boton Presionado");
-        } else {
-            botonAction.setSelected(true);
-            JOptionPane.showMessageDialog(this, "Este boton ya ha sido presionado");
+    private void Btn_PlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_PlayActionPerformed
+        // TODO add your handling code here:
+        
+        this.Btn_Play.setVisible(false);
+        
+        // Obtiene los datos generados en la ventana configuracion
+        int numeroColumnas = ventanaConfiguracion.getColumnasDelTablero();
+        int numeroFilasPorUsuario = ventanaConfiguracion.getFilasDe1Usuario();
+        int numeroBarcos = ventanaConfiguracion.getCantidadDeBarcos();
+        // Se procede a generar el terreno de juego y los barcos, desde el metodo generarJuego
+        generarJuego(numeroFilasPorUsuario, numeroColumnas, numeroBarcos);
+        
+        // Se genera un random para asignar quien inicia el Juego
+        Random rand = new Random(System.currentTimeMillis());
+        turno = rand.nextBoolean();        
+        if(turno == true){
+            JOptionPane.showMessageDialog(this, "La partida inicia aleatoriamente en favor del jugador Aliado");
+        }else{
+            JOptionPane.showMessageDialog(this, "La partida inicia aleatoriamente en favor del jugador Enemigo");
         }
-    }
+        
+        //******************************************************
+    }//GEN-LAST:event_Btn_PlayActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,16 +457,21 @@ public class AreaJuego extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AreaJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AreaJuego.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AreaJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AreaJuego.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AreaJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AreaJuego.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AreaJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AreaJuego.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -348,6 +484,7 @@ public class AreaJuego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Btn_Play;
     private javax.swing.JLabel Lbl_Fondo;
     private javax.swing.JLabel Lbl_Player1Name;
     private javax.swing.JLabel Lbl_Player1Photo;
@@ -362,7 +499,6 @@ public class AreaJuego extends javax.swing.JFrame {
     private javax.swing.JMenuItem MnI_Salir;
     private javax.swing.JPanel Pnl_Tablero;
     private javax.swing.JPanel Pnl_Usuarios;
-    private javax.swing.JToggleButton TBtn_BotonPlantilla;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLayeredPane jLayeredPane1;

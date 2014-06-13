@@ -5,34 +5,61 @@
  */
 package InterfazGrafica;
 
-import Codigo.Tablero;
-import java.awt.Image;
-import java.util.Random;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JToggleButton;
 
 /**
  *
  * @author Mario A
  */
 public class Configuraciones extends javax.swing.JFrame {
-    
-    private Tablero tableroDelJuego;
-    private JToggleButton[][] tableroGrafico;
-    private JPanel marcoTableroGrafico;
-    private JToggleButton botonPlantilla;
+
+    // Variables de la clase para almacenar la configuracion seleccionada por el
+    // usuario
+    private int filasDe1Usuario = 0;    
+    private int columnasDelTablero = 0;
+    private int cantidadDeBarcos = 0;
+    // Boton que almacena la referencia del boton jugar de la clase AreaJuego, 
+    // para habilitarlo una vez que se aplica la configuracion para un juego nuevo.
+    private JButton botonJugar;
 
     /**
-     * Creates new form Configuraciones
+     * Metodo constructor. Creates new form Configuraciones
      */
     public Configuraciones() {
         initComponents();
+        // Esta instruccion, coloca el form en el centro de la pantalla. 
         setLocationRelativeTo(null);
     }
+    
+    // ************************ METODOS SET Y GET ******************************
+    
+    public int getFilasDe1Usuario() {
+        return filasDe1Usuario;
+    }
 
+    public void setFilasDe1Usuario(int filasDe1Usuario) {
+        this.filasDe1Usuario = filasDe1Usuario;
+    }
+
+    public int getColumnasDelTablero() {
+        return columnasDelTablero;
+    }
+
+    public void setColumnasDelTablero(int columnasDelTablero) {
+        this.columnasDelTablero = columnasDelTablero;
+    }
+
+    public int getCantidadDeBarcos() {
+        return cantidadDeBarcos;
+    }
+
+    public void setCantidadDeBarcos(int cantidadDeBarcos) {
+        this.cantidadDeBarcos = cantidadDeBarcos;
+    }
+
+    // ********************** FIN METODOS SET Y GET ****************************
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,7 +108,7 @@ public class Configuraciones extends javax.swing.JFrame {
         Sld_Columnas.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
         Sld_Columnas.setForeground(new java.awt.Color(63, 103, 147));
         Sld_Columnas.setMajorTickSpacing(4);
-        Sld_Columnas.setMaximum(5);
+        Sld_Columnas.setMaximum(6);
         Sld_Columnas.setMinimum(1);
         Sld_Columnas.setMinorTickSpacing(1);
         Sld_Columnas.setPaintLabels(true);
@@ -95,7 +122,7 @@ public class Configuraciones extends javax.swing.JFrame {
         Sld_Filas.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
         Sld_Filas.setForeground(new java.awt.Color(63, 103, 147));
         Sld_Filas.setMajorTickSpacing(4);
-        Sld_Filas.setMaximum(5);
+        Sld_Filas.setMaximum(6);
         Sld_Filas.setMinimum(1);
         Sld_Filas.setMinorTickSpacing(1);
         Sld_Filas.setPaintLabels(true);
@@ -132,148 +159,43 @@ public class Configuraciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     /**
-     * Metodo necesario para obtener los objetos de la clase AreaJuego que se van
-     * a modificar en la configuracion del terreno de juego.
-     * @param pTablero
-     * @param pMatrizGrafica
-     * @param pMarcoCasillas
-     * @param pBotonMuestra
+     * Metodo necesario para obtener el objeto de la clase AreaJuego que se va a
+     * modificar al aceptar la configuracion del terreno de juego.
+     *
+     * @param pBotonJugar Boton Jugar
      */
-    public void setDatosDeAreaJuego(Tablero pTablero, JToggleButton[][] pMatrizGrafica, JPanel pMarcoCasillas, JToggleButton pBotonMuestra){
-        
-        tableroDelJuego = pTablero;
-        tableroGrafico = pMatrizGrafica;
-        marcoTableroGrafico = pMarcoCasillas;
-        botonPlantilla = pBotonMuestra;        
+    public void setDatosDeAreaJuego(JButton pBotonJugar) {
+        botonJugar = pBotonJugar;
     }
-    
-    
-    
+
     /**
      * Metodo que le permite al usuario crear una nueva configuracion para crear
      * una nueva partida con dicha informacion.
      *
-     * @param evt
+     * @param evt componente que ejecuta el evento
      */
     private void Btn_AplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AplicarActionPerformed
-
-        // Variables que almacenan los datos optenidos de la configuracion en el 
+        // Variables que almacenan los datos obtenidos de la configuracion en el 
         // momento de presionar el boton aplicar.
-        int filasDe1Usuario = Sld_Filas.getValue();
-        int columnasDelTablero = Sld_Columnas.getValue();
-        int cantidadDeBarcos = Sld_CantidadBarcos.getValue();
+        filasDe1Usuario = this.Sld_Filas.getValue();
+        columnasDelTablero = this.Sld_Columnas.getValue();
+        cantidadDeBarcos = this.Sld_CantidadBarcos.getValue();
 
-        // No es posible crear la matriz, ya que la cantidad de barcos
-        // es mayor a la cantidad de casillas disponibles.
+        // Se muestra un mensaje informando que la cantidad de barcos deseados 
+        // es mayor a la cantidad de casillas disponibles para colocarlos
         if ((filasDe1Usuario * columnasDelTablero) < cantidadDeBarcos) {
             JOptionPane.showMessageDialog(this, "La cantidad de barcos que desea"
                     + " agregar es mayor a la cantidad\n de espacios disponibles",
                     "Ups", JOptionPane.ERROR_MESSAGE);
         } else {
+            botonJugar.setVisible(true);
             //*******************************************************************************************************************
             JOptionPane.showMessageDialog(this, "filas: " + filasDe1Usuario + " columnas: " + columnasDelTablero + " barcos: " + cantidadDeBarcos);
             //*******************************************************************************************************************
-
-            if (tableroDelJuego == null) {
-                // No hay un juego actualmente. Se procede a crear la partida.
-                generarMatriz(filasDe1Usuario * 2, columnasDelTablero, cantidadDeBarcos);
-            } else {
-                // Hay una partida en curso. Se le pregunta al usuario si dessea
-                // crear una nueva partida o continuar con la actual.
-                int opcion = JOptionPane.showConfirmDialog(this, "Actualmente "
-                        + "existe una partidad en curso. ¿Desea sobreescribir la"
-                        + " partida?", "Partida en curso",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-
-                if (opcion == JOptionPane.YES_OPTION) {
-                    // El usuario desea sobreescribir la partida, por lo que se
-                    // procede a generar una nueva matriz.
-                    generarMatriz(filasDe1Usuario * 2, columnasDelTablero, cantidadDeBarcos);
-                } else {
-                    // Si no quiere crear una nueva partida, cierra la ventana 
-                    // configuracion
-                    this.dispose();
-                }
-            }
+            this.dispose();
         }
     }//GEN-LAST:event_Btn_AplicarActionPerformed
-
-    private void generarMatriz(int pFilas, int pColumnas, int pCantidadDeBarcos) {
-
-        marcoTableroGrafico.removeAll();
-
-        tableroDelJuego = new Tablero();
-        // Se reinicializa la matriz de tipo Tablero, de la clase AreaJuego, con
-        // las dimensiones dadas.
-        tableroDelJuego.reInicializarTerreno(pFilas + 1, pColumnas);
-        // Elimina la referencia de oMatrizBotones
-        tableroGrafico = null;
-        // Se crea la matriz de botones con las dimensiones dadas
-        tableroGrafico = new JToggleButton[pFilas + 1][pColumnas];
-
-        int anchoDelMarco = marcoTableroGrafico.getWidth();
-        int altoDelMarco = marcoTableroGrafico.getHeight();
-        int anchoBoton = anchoDelMarco / pColumnas;
-        int altoBoton = altoDelMarco / (pFilas + 1);
-
-        //  SE PROCEDE A CREAR LA INTERFAZ GRAFICA DEL TABLERO
-        for (int i = 0; i <= pFilas; i++) {
-
-            for (int j = 0; j < pColumnas; j++) {
-                if (pFilas / 2 == i) {
-                    break;
-                }
-                //JToggleButton button = new JToggleButton();
-                JToggleButton button = new JToggleButton(botonPlantilla.getAction());
-                button.setBounds((anchoBoton * j), (altoBoton * i), anchoBoton, altoBoton);
-                ImageIcon imagen = new ImageIcon(getClass().getResource("/Imagenes/timon.png"));
-                Image imgEscalada;
-                if (anchoBoton <= altoBoton) {
-                    imgEscalada = imagen.getImage().getScaledInstance(anchoBoton,
-                            anchoBoton, Image.SCALE_SMOOTH);
-                } else {
-                    imgEscalada = imagen.getImage().getScaledInstance(altoBoton,
-                            altoBoton, Image.SCALE_SMOOTH);
-                }
-                Icon iconoEscalado = new ImageIcon(imgEscalada);
-                button.setIcon(iconoEscalado);
-                marcoTableroGrafico.add(button);
-                
-                tableroGrafico[i][j] = button;
-            }
-        }
-        
-        // Creamos el Metodo que genera los Random
-        Random randomColumnas = new Random();
-        Random randomFilas = new Random();
-        //El ciclo For para que cuente la cantidad de barcos para los Aliados al igual para los Enemigos
-        for (int i = 0; i < pCantidadDeBarcos; i++) {
-            int filas;
-            int columnas;
-            
-            // El do/while es para crear los barcos Aliados.
-            do {
-                filas = randomFilas.nextInt(pFilas/2);
-                columnas = randomColumnas.nextInt(pColumnas);
-
-            } while (!tableroDelJuego.setBarco(filas, columnas));            
-
-             // El do/while es para crear los barcos Enemigos.
-            do {
-                filas = randomFilas.nextInt(pFilas/2) + (pFilas/2 + 1);
-                columnas = randomColumnas.nextInt(pColumnas);
-
-            } while (!tableroDelJuego.setBarco(filas, columnas));
-            
-            System.out.println("Se creo el barco " + (i+1));
-
-        }
-        
-        this.dispose();
-        marcoTableroGrafico.repaint();
-    }
 
     /**
      * @param args the command line arguments
@@ -289,16 +211,21 @@ public class Configuraciones extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Configuraciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Configuraciones.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Configuraciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Configuraciones.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Configuraciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Configuraciones.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Configuraciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Configuraciones.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
