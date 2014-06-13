@@ -55,11 +55,11 @@ public class AreaJuego extends javax.swing.JFrame {
         Lbl_Player1Photo = new javax.swing.JLabel();
         Lbl_Player2Photo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jPanel1 = new javax.swing.JPanel();
+        Pnl_User1 = new javax.swing.JPanel();
         Lbl_ScorePlayer1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Lbl_Player1Name = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        Pnl_User2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         Lbl_ScorePlayer2 = new javax.swing.JLabel();
         Lbl_Player2Name = new javax.swing.JLabel();
@@ -99,34 +99,34 @@ public class AreaJuego extends javax.swing.JFrame {
 
         Lbl_Player1Name.setText("jLabel1");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout Pnl_User1Layout = new javax.swing.GroupLayout(Pnl_User1);
+        Pnl_User1.setLayout(Pnl_User1Layout);
+        Pnl_User1Layout.setHorizontalGroup(
+            Pnl_User1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Pnl_User1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(Lbl_ScorePlayer1)
                 .addGap(46, 46, 46))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(Pnl_User1Layout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addComponent(Lbl_Player1Name)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        Pnl_User1Layout.setVerticalGroup(
+            Pnl_User1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Pnl_User1Layout.createSequentialGroup()
                 .addContainerGap(13, Short.MAX_VALUE)
                 .addComponent(Lbl_Player1Name)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(Pnl_User1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Lbl_ScorePlayer1)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
         );
 
-        Pnl_Usuarios.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 190, 70));
+        Pnl_Usuarios.add(Pnl_User1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 190, 70));
 
         jLabel4.setText("Puntuacion");
 
@@ -134,41 +134,41 @@ public class AreaJuego extends javax.swing.JFrame {
 
         Lbl_Player2Name.setText("jLabel1");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout Pnl_User2Layout = new javax.swing.GroupLayout(Pnl_User2);
+        Pnl_User2.setLayout(Pnl_User2Layout);
+        Pnl_User2Layout.setHorizontalGroup(
+            Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 170, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Pnl_User2Layout.createSequentialGroup()
                     .addGap(0, 33, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(Pnl_User2Layout.createSequentialGroup()
                             .addGap(66, 66, 66)
                             .addComponent(Lbl_Player2Name))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(Pnl_User2Layout.createSequentialGroup()
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(6, 6, 6)
                             .addComponent(Lbl_ScorePlayer2)))
                     .addGap(0, 34, Short.MAX_VALUE)))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        Pnl_User2Layout.setVerticalGroup(
+            Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Pnl_User2Layout.createSequentialGroup()
                     .addGap(0, 9, Short.MAX_VALUE)
                     .addComponent(Lbl_Player2Name)
                     .addGap(4, 4, 4)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(Pnl_User2Layout.createSequentialGroup()
                             .addGap(4, 4, 4)
                             .addComponent(Lbl_ScorePlayer2)))
                     .addGap(0, 10, Short.MAX_VALUE)))
         );
 
-        Pnl_Usuarios.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 170, 60));
+        Pnl_Usuarios.add(Pnl_User2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 170, 60));
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -349,11 +349,13 @@ public class AreaJuego extends javax.swing.JFrame {
                 barcos--;
                 tableroDeJuego.setCantidadBarcosEnemigos(barcos);
                 if (barcos == 0) {
-                    int puntaje = jugadorAliado.getPuntaje();
-                    jugadorAliado.setPuntaje(puntaje + 1);
-                    Lbl_ScorePlayer1.setText(puntaje + "");
                     JOptionPane.showMessageDialog(this, "Jugador Aliado Gana");
-                    //gano y deshabilitar botones
+                    int puntaje = jugadorAliado.getPuntaje();
+                    puntaje++;
+                    jugadorAliado.setPuntaje(puntaje );
+                    Lbl_ScorePlayer1.setText(puntaje + "");
+                    
+                    deshabilitarBotones();
                 }
 
             } else {
@@ -361,15 +363,29 @@ public class AreaJuego extends javax.swing.JFrame {
                 barcos--;
                 tableroDeJuego.setCantidadBarcosAliados(barcos);
                 if (barcos == 0) {
-                    int puntaje = jugadorEnemigo.getPuntaje();
-                    jugadorEnemigo.setPuntaje(puntaje + 1);
-                    Lbl_ScorePlayer2.setText(puntaje + "");
                     JOptionPane.showMessageDialog(this, "Jugador Enemigo Gana");
-                    // gano y deshabilitar botones
+                    int puntaje = jugadorEnemigo.getPuntaje();
+                    puntaje++;
+                    jugadorEnemigo.setPuntaje(puntaje);
+                    Lbl_ScorePlayer2.setText(puntaje + "");  
+                    
+                    deshabilitarBotones();
                 }
             }
         }
 
+    }
+    
+    private void deshabilitarBotones() {
+        
+        for (int i = 0; i < tableroGrafico.length; i++) {
+            for (int j = 0; j < tableroGrafico[0].length; j++) {
+                if( i == (tableroGrafico.length-1)/2)
+                    break;
+                else
+                    tableroGrafico[i][j].setEnabled(false);                
+            }            
+        }
     }
 
     private void generarJuego(int filasDe1Usuario, int columnasDelTablero, int cantidadDeBarcos) {
@@ -577,6 +593,8 @@ public class AreaJuego extends javax.swing.JFrame {
     private javax.swing.JMenuItem MnI_NuevoJuego;
     private javax.swing.JMenuItem MnI_Salir;
     private javax.swing.JPanel Pnl_Tablero;
+    private javax.swing.JPanel Pnl_User1;
+    private javax.swing.JPanel Pnl_User2;
     private javax.swing.JPanel Pnl_Usuarios;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -584,8 +602,6 @@ public class AreaJuego extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
