@@ -5,7 +5,6 @@
  */
 package InterfazGrafica;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,13 +14,11 @@ import javax.swing.JOptionPane;
 public class Configuraciones extends javax.swing.JFrame {
 
     // Variables de la clase para almacenar la configuracion seleccionada por el
-    // usuario
-    private int filasDe1Usuario = 0;    
-    private int columnasDelTablero = 0;
-    private int cantidadDeBarcos = 0;
-    // Boton que almacena la referencia del boton jugar de la clase AreaJuego, 
-    // para habilitarlo una vez que se aplica la configuracion para un juego nuevo.
-    private JButton botonJugar;
+    // usuario. Inicia con valores por defecto de 3 filas, 3 columnas y 2 barcos
+    private int filasDe1Usuario = 3;
+    private int columnasDelTablero = 3;
+    private int cantidadDeBarcos = 2;
+    
 
     /**
      * Metodo constructor. Creates new form Configuraciones
@@ -31,34 +28,20 @@ public class Configuraciones extends javax.swing.JFrame {
         // Esta instruccion, coloca el form en el centro de la pantalla. 
         setLocationRelativeTo(null);
     }
-    
-    // ************************ METODOS SET Y GET ******************************
-    
+
+    // ************************ METODOS GET ************************************
     public int getFilasDe1Usuario() {
         return filasDe1Usuario;
-    }
-
-    public void setFilasDe1Usuario(int filasDe1Usuario) {
-        this.filasDe1Usuario = filasDe1Usuario;
-    }
-
-    public int getColumnasDelTablero() {
-        return columnasDelTablero;
-    }
-
-    public void setColumnasDelTablero(int columnasDelTablero) {
-        this.columnasDelTablero = columnasDelTablero;
     }
 
     public int getCantidadDeBarcos() {
         return cantidadDeBarcos;
     }
 
-    public void setCantidadDeBarcos(int cantidadDeBarcos) {
-        this.cantidadDeBarcos = cantidadDeBarcos;
+    public int getColumnasDelTablero() {
+        return columnasDelTablero;
     }
-
-    // ********************** FIN METODOS SET Y GET ****************************
+    // ********************** FIN METODOS GET **********************************
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -160,39 +143,27 @@ public class Configuraciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Metodo necesario para obtener el objeto de la clase AreaJuego que se va a
-     * modificar al aceptar la configuracion del terreno de juego.
-     *
-     * @param pBotonJugar Boton Jugar
-     */
-    public void setDatosDeAreaJuego(JButton pBotonJugar) {
-        botonJugar = pBotonJugar;
-    }
-
-    /**
      * Metodo que le permite al usuario crear una nueva configuracion para crear
      * una nueva partida con dicha informacion.
-     *
      * @param evt componente que ejecuta el evento
      */
     private void Btn_AplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AplicarActionPerformed
-        // Variables que almacenan los datos obtenidos de la configuracion en el 
-        // momento de presionar el boton aplicar.
-        filasDe1Usuario = this.Sld_Filas.getValue();
-        columnasDelTablero = this.Sld_Columnas.getValue();
-        cantidadDeBarcos = this.Sld_CantidadBarcos.getValue();
 
-        // Se muestra un mensaje informando que la cantidad de barcos deseados 
-        // es mayor a la cantidad de casillas disponibles para colocarlos
+        // Verifica si la cantidad de barcos deseados es mayor a la cantidad de 
+        // casillas disponibles para colocarlos
         if ((filasDe1Usuario * columnasDelTablero) < cantidadDeBarcos) {
             JOptionPane.showMessageDialog(this, "La cantidad de barcos que desea"
                     + " agregar es mayor a la cantidad\n de espacios disponibles",
                     "Ups", JOptionPane.ERROR_MESSAGE);
         } else {
-            botonJugar.setVisible(true);
+            // Asigna la cantidad de filas, columnas y barcos seleccionados.
+            filasDe1Usuario = this.Sld_Filas.getValue();
+            columnasDelTablero = this.Sld_Columnas.getValue();
+            cantidadDeBarcos = this.Sld_CantidadBarcos.getValue();
             //*******************************************************************************************************************
             JOptionPane.showMessageDialog(this, "filas: " + filasDe1Usuario + " columnas: " + columnasDelTablero + " barcos: " + cantidadDeBarcos);
             //*******************************************************************************************************************
+            // Cierra la ventana de configuracion
             this.dispose();
         }
     }//GEN-LAST:event_Btn_AplicarActionPerformed

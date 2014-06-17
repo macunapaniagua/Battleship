@@ -3,30 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package InterfazGrafica;
 
+import Codigo.Jugador;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Mario A
  */
-
 public class PantallaUsuario extends javax.swing.JFrame {
 
     // Variables de la clase
-    private boolean Aliado;
     private JLabel iconoSeleccionado = null;
-    
-    private JLabel iconoUsuarios;
-    private JLabel nombreUsuario;
-    private JLabel ScoreUsuario;
-    
-    
+
+    // Variables auxiliares para cargar la informacion faltante del usuario
+    private JLabel iconoUsuario;
+    private JLabel etiquetaNombreUsuario;
+    private Jugador jugador;
+
     /**
      * Creates new form CrearUsuario
      */
@@ -295,65 +294,66 @@ public class PantallaUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que es llamado al seleccionar una imagen Avatar del monton. Esto
+     * es para utilizar esta imagen mas adelante estableciendola en la ventana
+     * principal del juego
+     * @param evt
+     */
     private void imagenClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenClicked
-       iconoSeleccionado = (JLabel) evt.getComponent();
+        iconoSeleccionado = (JLabel) evt.getComponent();
     }//GEN-LAST:event_imagenClicked
 
+    /**
+     * Metodo para cargar la informacion del usuario en la pantalla principal y
+     * en el objeto Jugador
+     * @param evt
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        if (Aliado) {
-            AreaJuego.jugadorAliado.setAvatarJugador(iconoSeleccionado);
-            AreaJuego.jugadorAliado.setCantidadPartidasGanadas(0);
-            AreaJuego.jugadorAliado.setCantidadPartidasJugadas(0);
-            AreaJuego.jugadorAliado.setCantidadPartidasPerdidas(0);
-            AreaJuego.jugadorAliado.setPuntaje(0);
-            AreaJuego.jugadorAliado.setTipoJugador(true);
-            AreaJuego.jugadorAliado.setNombreJugador(this.Txt_Nombre.getText());
-            
+
+        // Se verifica si completo la informacion solicitada para crear el usuario
+        if (!Txt_Nombre.getText().equals("") && iconoSeleccionado != null) {
+            // Se le establece la imagen y el nombre al objeto Jugador
+            jugador.setAvatarJugador(iconoSeleccionado);
+            jugador.setNombreJugador(this.Txt_Nombre.getText());
+
             // Se carga la informacion del Jugador en la Ventana de juego   
-            this.ScoreUsuario.setText("0");
-            this.nombreUsuario.setText(Txt_Nombre.getText()); 
-            
-            ImageIcon imagenAliado = (ImageIcon) iconoSeleccionado.getIcon();                     
-            Image imagenAliadoEscalada = imagenAliado.getImage().getScaledInstance(iconoUsuarios.getWidth(),
-            iconoUsuarios.getHeight(), Image.SCALE_SMOOTH);
+            this.etiquetaNombreUsuario.setText(Txt_Nombre.getText());
+
+            // Cambia de tamano y establece la imagen del jugador en la ventana principal
+            ImageIcon imagenAliado = (ImageIcon) iconoSeleccionado.getIcon();
+            Image imagenAliadoEscalada = imagenAliado.getImage().getScaledInstance(iconoUsuario.getWidth(),
+                    iconoUsuario.getHeight(), Image.SCALE_SMOOTH);
             Icon iconoAliadoEscaladoFinal = new ImageIcon(imagenAliadoEscalada);
-            iconoUsuarios.setIcon(iconoAliadoEscaladoFinal);
+            iconoUsuario.setIcon(iconoAliadoEscaladoFinal);
+
+            // Borra la informacion del campo Txt_Nombre
+            Txt_Nombre.setText(null);
+            this.iconoSeleccionado = null;
+
+            // Desvanece la ventana Creacion de Usuarios
+            this.dispose();
         }
+        // Muestra al usuario un mensaje, ya que no ha establecido toda la informacion necesaria
         else {
-            AreaJuego.jugadorEnemigo.setAvatarJugador(iconoSeleccionado);
-            AreaJuego.jugadorEnemigo.setCantidadPartidasGanadas(0);
-            AreaJuego.jugadorEnemigo.setCantidadPartidasJugadas(0);
-            AreaJuego.jugadorEnemigo.setCantidadPartidasPerdidas(0);
-            AreaJuego.jugadorEnemigo.setPuntaje(0);
-            AreaJuego.jugadorEnemigo.setTipoJugador(false);
-            
-            // Se carga la informacion del Jugador en la Ventana de juego   
-            this.ScoreUsuario.setText("0");
-            this.nombreUsuario.setText(Txt_Nombre.getText());
-            
-            ImageIcon imagenEnemigo = (ImageIcon) iconoSeleccionado.getIcon();                     
-            Image imagenEnemigoEscalada = imagenEnemigo.getImage().getScaledInstance(iconoUsuarios.getWidth(),
-            iconoUsuarios.getHeight(), Image.SCALE_SMOOTH);
-            Icon iconoEnemigoEscaladoFinal = new ImageIcon(imagenEnemigoEscalada);
-            iconoUsuarios.setIcon(iconoEnemigoEscaladoFinal);
-        }        
-        this.dispose();
+            JOptionPane.showMessageDialog(this, "Informacion incompleta. Verifique "
+                    + "que haya establecido el nombre y seleccionado una imagen");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
-     * @param pAliado
-     * @param pFoto
-     * @param pScore
-     * @param pNombre
+     * Metodo que recibe los datos que se van a modificar tras la creacion de un
+     * nuevo usuario.
+     * @param pFoto Foto de la ventana de juego principal
+     * @param pNombre Nombre que se muestra en la ventana principal del juego
+     * @param pJugador Objeto jugador al que se le va a establecer informacion
      */
-    public void setAliado(boolean pAliado, JLabel pFoto, JLabel pNombre, JLabel pScore) {
-        this.Aliado = pAliado;
-        this.ScoreUsuario = pScore;
-        this.iconoUsuarios = pFoto;
-        this.nombreUsuario = pNombre;
+    public void setAliado(JLabel pFoto, JLabel pNombre, Jugador pJugador) {
+        this.iconoUsuario = pFoto;
+        this.etiquetaNombreUsuario = pNombre;
+        this.jugador = pJugador;
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -419,5 +419,5 @@ public class PantallaUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-    
+
 }

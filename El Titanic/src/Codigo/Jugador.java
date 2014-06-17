@@ -30,8 +30,17 @@ public class Jugador {
     
     /**
      * Metodo constructor
+     * @param pTipoJugador true si es Aliado o false si es Enemigo
      */    
-    public Jugador(){
+    public Jugador(boolean pTipoJugador){
+        
+        nombreJugador = "";
+        avatarJugador = null;
+        puntaje = 0;
+        cantidadPartidasGanadas = 0;
+        cantidadPartidasJugadas = 0;
+        cantidadPartidasPerdidas = 0; 
+        Aliado = pTipoJugador;
         
     }
     

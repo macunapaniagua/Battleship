@@ -21,13 +21,14 @@ import javax.swing.JToggleButton;
 public class AreaJuego extends javax.swing.JFrame {
 
     private boolean turnoAliado;
+    private boolean partidaFinalizada;
 
     private Tablero tableroDeJuego = null;
     private JToggleButton[][] tableroGrafico = null;
 
     // Objetos del Programa
-    public static Jugador jugadorAliado = new Jugador();
-    public static Jugador jugadorEnemigo = new Jugador();
+    private Jugador jugadorAliado = null;
+    private Jugador jugadorEnemigo = null;
     // Ventanas externas
     private final PantallaUsuario ventanaUsuarios = new PantallaUsuario();
     private final Configuraciones ventanaConfiguracion = new Configuraciones();
@@ -38,7 +39,6 @@ public class AreaJuego extends javax.swing.JFrame {
     public AreaJuego() {
         initComponents();
         setLocationRelativeTo(null);
-        Btn_Play.setVisible(false);
     }
 
     /**
@@ -64,7 +64,6 @@ public class AreaJuego extends javax.swing.JFrame {
         Lbl_ScorePlayer2 = new javax.swing.JLabel();
         Lbl_Player2Name = new javax.swing.JLabel();
         Pnl_Tablero = new javax.swing.JPanel();
-        Btn_Play = new javax.swing.JButton();
         Lbl_Fondo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -74,11 +73,19 @@ public class AreaJuego extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         MnI_EditJueg1 = new javax.swing.JMenuItem();
         MnI_EditJueg2 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        MnI_Instrucciones = new javax.swing.JMenuItem();
+        MnI_AcercaDe = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Titanic Area de Juego");
         setName("Titanic"); // NOI18N
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Pnl_Usuarios.setBackground(new java.awt.Color(153, 255, 153));
@@ -87,97 +94,102 @@ public class AreaJuego extends javax.swing.JFrame {
 
         Lbl_Player1Photo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         Lbl_Player1Photo.setOpaque(true);
-        Pnl_Usuarios.add(Lbl_Player1Photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 30, 100, 100));
+        Pnl_Usuarios.add(Lbl_Player1Photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 100, 100));
 
         Lbl_Player2Photo.setOpaque(true);
-        Pnl_Usuarios.add(Lbl_Player2Photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 245, 100, 100));
-        Pnl_Usuarios.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 224, 220, 10));
+        Pnl_Usuarios.add(Lbl_Player2Photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 245, 100, 100));
+        Pnl_Usuarios.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 224, 170, 10));
 
-        Lbl_ScorePlayer1.setText("100");
+        Lbl_ScorePlayer1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lbl_ScorePlayer1.setText("0");
+        Lbl_ScorePlayer1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Puntuacion");
+        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        Lbl_Player1Name.setText("jLabel1");
+        Lbl_Player1Name.setFont(new java.awt.Font("Gill Sans MT", 3, 14)); // NOI18N
+        Lbl_Player1Name.setForeground(new java.awt.Color(102, 102, 102));
+        Lbl_Player1Name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lbl_Player1Name.setText("Jugador 1");
+        Lbl_Player1Name.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout Pnl_User1Layout = new javax.swing.GroupLayout(Pnl_User1);
         Pnl_User1.setLayout(Pnl_User1Layout);
         Pnl_User1Layout.setHorizontalGroup(
             Pnl_User1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Pnl_User1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(Lbl_ScorePlayer1)
-                .addGap(46, 46, 46))
             .addGroup(Pnl_User1Layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(Lbl_Player1Name)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(Pnl_User1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Lbl_Player1Name)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Lbl_ScorePlayer1)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         Pnl_User1Layout.setVerticalGroup(
             Pnl_User1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Pnl_User1Layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(Lbl_Player1Name)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(Pnl_User1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Lbl_ScorePlayer1)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
         );
 
-        Pnl_Usuarios.add(Pnl_User1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 190, 70));
+        Pnl_Usuarios.add(Pnl_User1, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 140, 170, 60));
 
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Puntuacion");
 
-        Lbl_ScorePlayer2.setText("200");
+        Lbl_ScorePlayer2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lbl_ScorePlayer2.setText("0");
 
-        Lbl_Player2Name.setText("jLabel1");
+        Lbl_Player2Name.setFont(new java.awt.Font("Gill Sans MT", 3, 14)); // NOI18N
+        Lbl_Player2Name.setForeground(new java.awt.Color(102, 102, 102));
+        Lbl_Player2Name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lbl_Player2Name.setText("Jugador 2");
+        Lbl_Player2Name.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout Pnl_User2Layout = new javax.swing.GroupLayout(Pnl_User2);
         Pnl_User2.setLayout(Pnl_User2Layout);
         Pnl_User2Layout.setHorizontalGroup(
             Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 170, Short.MAX_VALUE)
-            .addGroup(Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(Pnl_User2Layout.createSequentialGroup()
-                    .addGap(0, 33, Short.MAX_VALUE)
-                    .addGroup(Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(Pnl_User2Layout.createSequentialGroup()
-                            .addGap(66, 66, 66)
-                            .addComponent(Lbl_Player2Name))
-                        .addGroup(Pnl_User2Layout.createSequentialGroup()
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(6, 6, 6)
-                            .addComponent(Lbl_ScorePlayer2)))
-                    .addGap(0, 34, Short.MAX_VALUE)))
+            .addGroup(Pnl_User2Layout.createSequentialGroup()
+                .addGroup(Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Pnl_User2Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(Lbl_Player2Name))
+                    .addGroup(Pnl_User2Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Lbl_ScorePlayer2)))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         Pnl_User2Layout.setVerticalGroup(
             Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-            .addGroup(Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(Pnl_User2Layout.createSequentialGroup()
-                    .addGap(0, 9, Short.MAX_VALUE)
-                    .addComponent(Lbl_Player2Name)
-                    .addGap(4, 4, 4)
-                    .addGroup(Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(Pnl_User2Layout.createSequentialGroup()
-                            .addGap(4, 4, 4)
-                            .addComponent(Lbl_ScorePlayer2)))
-                    .addGap(0, 10, Short.MAX_VALUE)))
+            .addGroup(Pnl_User2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Lbl_Player2Name)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(Pnl_User2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Lbl_ScorePlayer2)))
         );
 
-        Pnl_Usuarios.add(Pnl_User2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 170, 60));
+        Pnl_Usuarios.add(Pnl_User2, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 360, 170, 60));
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
                 .addComponent(Pnl_Usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,14 +217,6 @@ public class AreaJuego extends javax.swing.JFrame {
 
         getContentPane().add(Pnl_Tablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 480, -1));
 
-        Btn_Play.setText("Jugar");
-        Btn_Play.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btn_PlayActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Btn_Play, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, -1, -1));
-
         Lbl_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoJuego1.png"))); // NOI18N
         Lbl_Fondo.setOpaque(true);
         getContentPane().add(Lbl_Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 560));
@@ -221,6 +225,11 @@ public class AreaJuego extends javax.swing.JFrame {
 
         MnI_NuevoJuego.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         MnI_NuevoJuego.setText("Nuevo Juego");
+        MnI_NuevoJuego.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnI_NuevoJuegoActionPerformed(evt);
+            }
+        });
         jMenu1.add(MnI_NuevoJuego);
 
         MnI_Configuracion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
@@ -243,9 +252,9 @@ public class AreaJuego extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Editar");
+        jMenu2.setText("Crear Jugadores");
 
-        MnI_EditJueg1.setText("Editar Aliado");
+        MnI_EditJueg1.setText("Crear Aliado");
         MnI_EditJueg1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnI_EditJueg1ActionPerformed(evt);
@@ -253,7 +262,7 @@ public class AreaJuego extends javax.swing.JFrame {
         });
         jMenu2.add(MnI_EditJueg1);
 
-        MnI_EditJueg2.setText("Editar Enemigo");
+        MnI_EditJueg2.setText("Crear Enemigo");
         MnI_EditJueg2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnI_EditJueg2ActionPerformed(evt);
@@ -262,6 +271,16 @@ public class AreaJuego extends javax.swing.JFrame {
         jMenu2.add(MnI_EditJueg2);
 
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Ayuda");
+
+        MnI_Instrucciones.setText("Instrucciones de Uso");
+        jMenu3.add(MnI_Instrucciones);
+
+        MnI_AcercaDe.setText("Acerca de");
+        jMenu3.add(MnI_AcercaDe);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -276,10 +295,11 @@ public class AreaJuego extends javax.swing.JFrame {
      */
     private void MnI_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_SalirActionPerformed
 
+        // Muestra un mensaje preguntando al usuario si quiere salir del programa
         int opcion = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea"
                 + " salir del juego?", "Salir",
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-
+        // Sale del juego
         if (opcion == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
@@ -289,32 +309,41 @@ public class AreaJuego extends javax.swing.JFrame {
 
         JToggleButton botonPressionado = (JToggleButton) evt.getComponent();
 
-        if (!botonPressionado.isSelected()) {
-            botonPressionado.setSelected(true);
-            JOptionPane.showMessageDialog(this, "Este elemento ya fue seleccionado");
-            return;
-        }
+        if (partidaFinalizada) {
 
-        int numeroFilas = tableroGrafico.length;
-        int numeroColumnas = tableroGrafico[0].length;
+            botonPressionado.setSelected(!botonPressionado.isSelected());
+            JOptionPane.showMessageDialog(this, "Este juego ya terminó. Presione F2"
+                    + " para iniciar una nueva partida");            
 
-        for (int f = 0; f < numeroFilas; f++) {
-            for (int c = 0; c < numeroColumnas; c++) {
-                if (botonPressionado == tableroGrafico[f][c]) {
-                    System.out.println("El elemento presionado esta en " + f + ',' + c);
+        } else {
 
-                    if (turnoAliado && (f <= (numeroFilas - 1) / 2)) {
-                        botonPressionado.setSelected(false);
-                        JOptionPane.showMessageDialog(this, "Turno Aliado, presiona Campo Aliado");
-                        break;
-                    } else if (!turnoAliado && (f >= (numeroFilas - 1) / 2)) {
-                        botonPressionado.setSelected(false);
-                        JOptionPane.showMessageDialog(this, "Turno Enemigo, Presiona Campo Enemigo");
-                        break;
-                    } else {
-                        ejecutarAtaque(f, c);
-                        turnoAliado = !turnoAliado;
-                        break;
+            if (!botonPressionado.isSelected()) {
+                botonPressionado.setSelected(true);
+                JOptionPane.showMessageDialog(this, "Este elemento ya fue seleccionado");
+                return;
+            }
+
+            int numeroFilas = tableroGrafico.length;
+            int numeroColumnas = tableroGrafico[0].length;
+
+            for (int f = 0; f < numeroFilas; f++) {
+                for (int c = 0; c < numeroColumnas; c++) {
+                    if (botonPressionado == tableroGrafico[f][c]) {
+                        System.out.println("El elemento presionado esta en " + f + ',' + c);
+
+                        if (turnoAliado && (f <= (numeroFilas - 1) / 2)) {
+                            botonPressionado.setSelected(false);
+                            JOptionPane.showMessageDialog(this, "Turno Aliado, presiona Campo Aliado");
+                            break;
+                        } else if (!turnoAliado && (f >= (numeroFilas - 1) / 2)) {
+                            botonPressionado.setSelected(false);
+                            JOptionPane.showMessageDialog(this, "Turno Enemigo, Presiona Campo Enemigo");
+                            break;
+                        } else {
+                            ejecutarAtaque(f, c);
+                            turnoAliado = !turnoAliado;
+                            break;
+                        }
                     }
                 }
             }
@@ -349,13 +378,13 @@ public class AreaJuego extends javax.swing.JFrame {
                 barcos--;
                 tableroDeJuego.setCantidadBarcosEnemigos(barcos);
                 if (barcos == 0) {
-                    JOptionPane.showMessageDialog(this, "Jugador Aliado Gana");
+                    JOptionPane.showMessageDialog(this, "Jugador Aliado Gana. Presiona F2 para iniciar una nueva partida");
                     int puntaje = jugadorAliado.getPuntaje();
                     puntaje++;
-                    jugadorAliado.setPuntaje(puntaje );
+                    jugadorAliado.setPuntaje(puntaje);
                     Lbl_ScorePlayer1.setText(puntaje + "");
-                    
-                    deshabilitarBotones();
+
+                    partidaFinalizada = true;
                 }
 
             } else {
@@ -363,29 +392,17 @@ public class AreaJuego extends javax.swing.JFrame {
                 barcos--;
                 tableroDeJuego.setCantidadBarcosAliados(barcos);
                 if (barcos == 0) {
-                    JOptionPane.showMessageDialog(this, "Jugador Enemigo Gana");
+                    JOptionPane.showMessageDialog(this, "Jugador Enemigo Gana. Presiona F2 para iniciar una nueva partida");
                     int puntaje = jugadorEnemigo.getPuntaje();
                     puntaje++;
                     jugadorEnemigo.setPuntaje(puntaje);
-                    Lbl_ScorePlayer2.setText(puntaje + "");  
-                    
-                    deshabilitarBotones();
+                    Lbl_ScorePlayer2.setText(puntaje + "");
+
+                    partidaFinalizada = true;
                 }
             }
         }
 
-    }
-    
-    private void deshabilitarBotones() {
-        
-        for (int i = 0; i < tableroGrafico.length; i++) {
-            for (int j = 0; j < tableroGrafico[0].length; j++) {
-                if( i == (tableroGrafico.length-1)/2)
-                    break;
-                else
-                    tableroGrafico[i][j].setEnabled(false);                
-            }            
-        }
     }
 
     private void generarJuego(int filasDe1Usuario, int columnasDelTablero, int cantidadDeBarcos) {
@@ -500,43 +517,91 @@ public class AreaJuego extends javax.swing.JFrame {
      * @param evt
      */
     private void MnI_ConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_ConfiguracionActionPerformed
-        // TODO add your handling code here:
-        ventanaConfiguracion.setDatosDeAreaJuego(this.Btn_Play);
         ventanaConfiguracion.setVisible(true);
     }//GEN-LAST:event_MnI_ConfiguracionActionPerformed
 
+    /**
+     * Metodo utilizado para crear un nuevo jugador Aliado al seleccionar el
+     * elemento del menu
+     *
+     * @param evt
+     */
     private void MnI_EditJueg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg1ActionPerformed
-        ventanaUsuarios.setAliado(true, Lbl_Player1Photo, Lbl_Player1Name, Lbl_ScorePlayer1);
+
+        // Se crea un nuevo objeto Jugador que va a ser de tipo Aliado
+        jugadorAliado = new Jugador(true);
+        // Se establece el puntaje inicial del nuevo jugador        
+        Lbl_ScorePlayer1.setText("0");
+        // Se pasan los elementos que se van a modificar desde la ventana Usuarios
+        // y se procede a mostrarla.
+        ventanaUsuarios.setAliado(Lbl_Player1Photo, Lbl_Player1Name, jugadorAliado);
         ventanaUsuarios.setVisible(true);
     }//GEN-LAST:event_MnI_EditJueg1ActionPerformed
 
+    /**
+     * Metodo utilizado para crear un nuevo jugador Enemigo al seleccionar el
+     * elemento del menu
+     *
+     * @param evt
+     */
     private void MnI_EditJueg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg2ActionPerformed
-        ventanaUsuarios.setAliado(false, Lbl_Player2Photo, Lbl_Player2Name, Lbl_ScorePlayer2);
+
+        // Se crea un nuevo objeto Jugador que va a ser de tipo Enemigo
+        jugadorEnemigo = new Jugador(false);
+        // Se establece el puntaje inicial del nuevo jugador                
+        Lbl_ScorePlayer2.setText("0");
+        // Se pasan los elementos que se van a modificar desde la ventana Usuarios
+        // y se procede a mostrarla.
+        ventanaUsuarios.setAliado(Lbl_Player2Photo, Lbl_Player2Name, jugadorEnemigo);
         ventanaUsuarios.setVisible(true);
     }//GEN-LAST:event_MnI_EditJueg2ActionPerformed
 
-    private void Btn_PlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_PlayActionPerformed
-        // TODO add your handling code here:
+    /**
+     * Metodo utilizado para verificar si el usuario desea cerrar la ventana una
+     * vez presionado el boton X
+     *
+     * @param evt
+     */
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
 
-        this.Btn_Play.setVisible(false);
-
-        // Obtiene los datos generados en la ventana configuracion
-        int numeroColumnas = ventanaConfiguracion.getColumnasDelTablero();
-        int numeroFilasPorUsuario = ventanaConfiguracion.getFilasDe1Usuario();
-        int numeroBarcos = ventanaConfiguracion.getCantidadDeBarcos();
-        // Se procede a generar el terreno de juego y los barcos, desde el metodo generarJuego
-        generarJuego(numeroFilasPorUsuario, numeroColumnas, numeroBarcos);
-
-        // Se genera un random para asignar quien inicia el Juego
-        Random rand = new Random(System.currentTimeMillis());
-        turnoAliado = rand.nextBoolean();
-        if (turnoAliado == true) {
-            JOptionPane.showMessageDialog(this, "La partida inicia aleatoriamente en favor del jugador Aliado");
-        } else {
-            JOptionPane.showMessageDialog(this, "La partida inicia aleatoriamente en favor del jugador Enemigo");
+        // Mensaje solicitandole al usuario la confirmacion para salir del juego
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea"
+                + " salir del juego?", "Salir",
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        // Se cierra la aplicacion si selecciono "YES"
+        if (opcion == JOptionPane.YES_OPTION) {
+            System.exit(0);
         }
-        //******************************************************
-    }//GEN-LAST:event_Btn_PlayActionPerformed
+    }//GEN-LAST:event_formWindowClosing
+
+    private void MnI_NuevoJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_NuevoJuegoActionPerformed
+
+        if ((jugadorAliado == null) || (jugadorEnemigo == null)
+                || (jugadorAliado.getNombreJugador().equals(""))
+                || (jugadorEnemigo.getNombreJugador().equals(""))) {
+            JOptionPane.showMessageDialog(this, "No se han creado los jugadores aun");
+        } else {
+
+            // Obtiene los datos generados en la ventana configuracion
+            int numeroColumnas = ventanaConfiguracion.getColumnasDelTablero();
+            int numeroFilasPorUsuario = ventanaConfiguracion.getFilasDe1Usuario();
+            int numeroBarcos = ventanaConfiguracion.getCantidadDeBarcos();
+            // Se procede a generar el terreno de juego y los barcos, desde el metodo generarJuego
+            generarJuego(numeroFilasPorUsuario, numeroColumnas, numeroBarcos);
+
+            // Se genera un random para asignar quien inicia el Juego
+            Random rand = new Random(System.currentTimeMillis());
+            turnoAliado = rand.nextBoolean();
+            if (turnoAliado == true) {
+                JOptionPane.showMessageDialog(this, "La partida inicia aleatoriamente en favor del jugador Aliado");
+            } else {
+                JOptionPane.showMessageDialog(this, "La partida inicia aleatoriamente en favor del jugador Enemigo");
+            }
+
+            // Se establece la variable que indica si hay partida en curso, en false
+            partidaFinalizada = false;
+        }
+    }//GEN-LAST:event_MnI_NuevoJuegoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -579,7 +644,6 @@ public class AreaJuego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Btn_Play;
     private javax.swing.JLabel Lbl_Fondo;
     private javax.swing.JLabel Lbl_Player1Name;
     private javax.swing.JLabel Lbl_Player1Photo;
@@ -587,9 +651,11 @@ public class AreaJuego extends javax.swing.JFrame {
     private javax.swing.JLabel Lbl_Player2Photo;
     private javax.swing.JLabel Lbl_ScorePlayer1;
     private javax.swing.JLabel Lbl_ScorePlayer2;
+    private javax.swing.JMenuItem MnI_AcercaDe;
     private javax.swing.JMenuItem MnI_Configuracion;
     private javax.swing.JMenuItem MnI_EditJueg1;
     private javax.swing.JMenuItem MnI_EditJueg2;
+    private javax.swing.JMenuItem MnI_Instrucciones;
     private javax.swing.JMenuItem MnI_NuevoJuego;
     private javax.swing.JMenuItem MnI_Salir;
     private javax.swing.JPanel Pnl_Tablero;
@@ -601,6 +667,7 @@ public class AreaJuego extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
