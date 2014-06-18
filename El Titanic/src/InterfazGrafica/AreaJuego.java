@@ -21,7 +21,7 @@ import javax.swing.JToggleButton;
 public class AreaJuego extends javax.swing.JFrame {
 
     private boolean turnoAliado;
-    private boolean partidaFinalizada;
+    private boolean partidaFinalizada = true;
 
     private Tablero tableroDeJuego = null;
     private JToggleButton[][] tableroGrafico = null;
@@ -305,54 +305,89 @@ public class AreaJuego extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_MnI_SalirActionPerformed
 
+    /**
+     * Evento que captura cuando un boton ha sido seleccionado en la matriz de
+     * botones y se procede a verificar y ejecutar el ataque al elemento seleccionado
+     * @param evt boton presionado
+     */
     private void verificarAtaque(java.awt.event.MouseEvent evt) {
 
+        // Almacena el boton que llama el evento de verificar ataque
         JToggleButton botonPressionado = (JToggleButton) evt.getComponent();
-
+        
+        // VERIFICA SI EL BOTON FUE PRESIONADO EN UNA PARTIDA YA FINALIZADA O NO
         if (partidaFinalizada) {
-
+            // Ya la partida finalizo. Restaura el boton y muestra el mensaje.
             botonPressionado.setSelected(!botonPressionado.isSelected());
             JOptionPane.showMessageDialog(this, "Este juego ya terminó. Presione F2"
-                    + " para iniciar una nueva partida");            
+                    + " para iniciar una nueva partida");
+            return;
+        }
 
-        } else {
-
-            if (!botonPressionado.isSelected()) {
-                botonPressionado.setSelected(true);
-                JOptionPane.showMessageDialog(this, "Este elemento ya fue seleccionado");
-                return;
-            }
-
-            int numeroFilas = tableroGrafico.length;
-            int numeroColumnas = tableroGrafico[0].length;
-
-            for (int f = 0; f < numeroFilas; f++) {
-                for (int c = 0; c < numeroColumnas; c++) {
-                    if (botonPressionado == tableroGrafico[f][c]) {
-                        System.out.println("El elemento presionado esta en " + f + ',' + c);
-
-                        if (turnoAliado && (f <= (numeroFilas - 1) / 2)) {
-                            botonPressionado.setSelected(false);
-                            JOptionPane.showMessageDialog(this, "Turno Aliado, presiona Campo Aliado");
-                            break;
-                        } else if (!turnoAliado && (f >= (numeroFilas - 1) / 2)) {
-                            botonPressionado.setSelected(false);
-                            JOptionPane.showMessageDialog(this, "Turno Enemigo, Presiona Campo Enemigo");
-                            break;
-                        } else {
-                            ejecutarAtaque(f, c);
-                            turnoAliado = !turnoAliado;
-                            break;
-                        }
+        //  SE PROCEDE A VERIFICAR SI EL BOTON SELECCIONADO YA FUE PRESIONADO
+        if (!botonPressionado.isSelected()) {
+            // Ya el boton fue presionado. Se restaura el estado y se indica al usuario.
+            botonPressionado.setSelected(true);
+            JOptionPane.showMessageDialog(this, "Esta casilla ya fue atacada. Intente atacando otra casilla");
+            return;
+        }
+        
+        // SE PROCEDE A VERIFICAR SI LA CASILLA SELECCIONADA PRESENTA UN BARCO PARA UNDIRLA
+        int numeroFilas = tableroGrafico.length;
+        int numeroColumnas = tableroGrafico[0].length;
+        // Recorre la matriz de botones en busca de la ubicacion del elemento seleccionado.
+        for (int f = 0; f < numeroFilas; f++) 
+        {
+            for (int c = 0; c < numeroColumnas; c++) 
+            {
+                // Se compara con el boton en la fila "f" y columna "c", para obtener la ubicacion
+                // exacta en filas y columnas del elemento donde se esta realizando el ataque.
+                if (botonPressionado == tableroGrafico[f][c]) 
+                {
+                    // Verifica si es el turno del Aliado y se esta presionando en el campo del aliado
+                    if (turnoAliado && (f < (numeroFilas - 1) / 2)) {
+                        // Restaura el boton, muestra mensaje al usuario y sale del metodo.
+                        botonPressionado.setSelected(false);
+                        JOptionPane.showMessageDialog(this, "No se pueden realizar"
+                                + " ataques al campo aliado en el turno del Aliado");
+                        return;
+                    } 
+                    // Verifica si es el turno del Enemigo y se esta presionando en el campo del enemigo
+                    else if (!turnoAliado && (f > (numeroFilas - 1) / 2)) {
+                        // Restaura el boton, muestra mensaje al usuario y sale del metodo
+                        botonPressionado.setSelected(false);
+                        JOptionPane.showMessageDialog(this, "No se pueden realizar"
+                                + " ataques al campo enemigo en el turno del Enemigo");
+                        return;
+                    }
+                    // Seleccion correcta. Se procede a ejecutar el ataque en la fila y columna dada.
+                    else {
+                        // Ejecuta el ataque y cambia el turno del jugador
+                        ejecutarAtaque(f, c);
+                        turnoAliado = !turnoAliado;
+                        return;
                     }
                 }
             }
         }
     }
 
+    /**
+     * Metodo que lleva a cabo el ataque y modifica tanto la matriz grafica (coloca 
+     * un barco hundido o un vacio como imagen) como la matriz de objeto Tablero 
+     * (cambia el valor del true a false, en caso que hubiera un barco, indicando 
+     * que este fue hundido)
+     * @param pFilaAtaque fila que se va a atacar
+     * @param pColumnaAtaque columna que se va a atacar
+     */
     private void ejecutarAtaque(int pFilaAtaque, int pColumnaAtaque) {
 
+        System.out.println("El elemento presionado esta en " + pFilaAtaque + ',' + pColumnaAtaque);
+                    
+        // SE VERIFICA SI HAY UN BARCO EN LA FILA Y COLUMNA DONDE SE REALIZA EL ATAQUE
         if (this.tableroDeJuego.hayBarco(pFilaAtaque, pColumnaAtaque)) {
+            
+            // Se procede a destruir el barco del Tablero
             tableroDeJuego.destruirBarco(pFilaAtaque, pColumnaAtaque);
 
             // ***************  COLOCAR NUEVA IMAGEN POR BARCO HUNDIDO  ***********************
@@ -361,7 +396,7 @@ public class AreaJuego extends javax.swing.JFrame {
 
             ImageIcon imagen = new ImageIcon(getClass().getResource("/Imagenes/barco.gif"));
             Image imgEscalada;
-            // Se verifica la menor dimensio (ancho vs alto) para que la imagen no se vea estirada
+            // Se verifica la menor dimension (ancho vs alto) para que la imagen no se vea estirada
             if (imagenAncho <= imagenAlto) {
                 imgEscalada = imagen.getImage().getScaledInstance(imagenAncho,
                         imagenAncho, Image.SCALE_SMOOTH);
@@ -370,44 +405,80 @@ public class AreaJuego extends javax.swing.JFrame {
                         imagenAlto, Image.SCALE_SMOOTH);
             }
             Icon iconoEscalado = new ImageIcon(imgEscalada);
+            // establece la nueva imagen al boton
             tableroGrafico[pFilaAtaque][pColumnaAtaque].setIcon(iconoEscalado);
             // *******************************************************************************
 
+            // SE PROCEDE A VERIFICAR SI ES EL TURNO DEL ALIADO Y SI YA GANO LA PARTIDA
             if (turnoAliado) {
+                // Disminuye la cantidad de barcos enemigo luego del ataque
                 int barcos = tableroDeJuego.getCantidadBarcosEnemigos();
                 barcos--;
                 tableroDeJuego.setCantidadBarcosEnemigos(barcos);
                 if (barcos == 0) {
-                    JOptionPane.showMessageDialog(this, "Jugador Aliado Gana. Presiona F2 para iniciar una nueva partida");
+                    // Modifica el puntaje del jugador Aliado
                     int puntaje = jugadorAliado.getPuntaje();
                     puntaje++;
                     jugadorAliado.setPuntaje(puntaje);
-                    Lbl_ScorePlayer1.setText(puntaje + "");
-
+                    // Modifica el puntaje graficamente
+                    Lbl_ScorePlayer1.setText(puntaje + "");                    
+                    // Modifica los datos de las estadisticas de las partidas
+                    jugadorAliado.setCantidadPartidasJugadas(jugadorAliado.getCantidadPartidasJugadas() + 1);
+                    jugadorEnemigo.setCantidadPartidasJugadas(jugadorEnemigo.getCantidadPartidasJugadas() + 1);
+                    jugadorAliado.setCantidadPartidasGanadas(jugadorAliado.getCantidadPartidasGanadas() + 1);
+                    jugadorEnemigo.setCantidadPartidasPerdidas(jugadorEnemigo.getCantidadPartidasPerdidas() + 1);                    
+                    // Establece la partida como finalizada
                     partidaFinalizada = true;
+                    // Muestra mensaje de victoria
+                    JOptionPane.showMessageDialog(this, "Jugador Aliado Gana. Presiona F2 para iniciar una nueva partida");
                 }
-
-            } else {
+            }
+            
+            // ES EL TURNO DEL ENEMIGO. SE PROCEDE A VERIFICAR SI YA GANO LA PARTIDA
+            else {
+                // Disminuye la cantidad de barcos aliados luego del ataque
                 int barcos = tableroDeJuego.getCantidadBarcosAliados();
                 barcos--;
                 tableroDeJuego.setCantidadBarcosAliados(barcos);
                 if (barcos == 0) {
-                    JOptionPane.showMessageDialog(this, "Jugador Enemigo Gana. Presiona F2 para iniciar una nueva partida");
+                    // Modifica el puntaje del jugador Enemigo
                     int puntaje = jugadorEnemigo.getPuntaje();
                     puntaje++;
                     jugadorEnemigo.setPuntaje(puntaje);
+                    // Modifica el puntaje graficamente
                     Lbl_ScorePlayer2.setText(puntaje + "");
-
+                    // Modifica los datos de las estadisticas de las partidas
+                    jugadorEnemigo.setCantidadPartidasJugadas(jugadorEnemigo.getCantidadPartidasJugadas() + 1);
+                    jugadorAliado.setCantidadPartidasJugadas(jugadorAliado.getCantidadPartidasJugadas() + 1);
+                    jugadorEnemigo.setCantidadPartidasGanadas(jugadorEnemigo.getCantidadPartidasGanadas() + 1);
+                    jugadorAliado.setCantidadPartidasPerdidas(jugadorAliado.getCantidadPartidasPerdidas() + 1); 
+                    // Establece la partida como finalizada
                     partidaFinalizada = true;
+                    // Muestra mensaje de victoria
+                    JOptionPane.showMessageDialog(this, "Jugador Enemigo Gana. Presiona F2 para iniciar una nueva partida");
                 }
             }
+        }
+        // NO HAY UN BARCO EN ESA FILA Y COLUMNA. SE ELIMINA LA IMAGEN DEL TIMON Y SE DEJA COMO VACIO
+        else{
+            tableroGrafico[pFilaAtaque][pColumnaAtaque].setIcon(null);
         }
 
     }
 
+    /**
+     * Metodo utilizado para crear el terreno de juego y los barcos que se
+     * colocaran en el de forma aleatoria. Seguido de ello, generara un boolean
+     * aleatorio para asignar quien comienza el juego.
+     * @param filasDe1Usuario Cantidad de filas presentes en el campo de un
+     * jugador
+     * @param columnasDelTablero cantidad de columnas del tablero
+     * @param cantidadDeBarcos cantidad de barcos de un jugador
+     */
     private void generarJuego(int filasDe1Usuario, int columnasDelTablero, int cantidadDeBarcos) {
 
-        if (tableroDeJuego == null) {
+        // SE PROCEDE A VERIFICAR SI HAY UNA PARTIDA EN CURSO O NO PARA CREAR UNA NUEVA
+        if (partidaFinalizada) {
             // No hay un juego actualmente. Se procede a crear la partida.
             generarTerreno(filasDe1Usuario * 2, columnasDelTablero);
             generarBarcos(filasDe1Usuario * 2, columnasDelTablero, cantidadDeBarcos);
@@ -424,8 +495,24 @@ public class AreaJuego extends javax.swing.JFrame {
                 // procede a generar una nueva matriz.
                 generarTerreno(filasDe1Usuario * 2, columnasDelTablero);
                 generarBarcos(filasDe1Usuario * 2, columnasDelTablero, cantidadDeBarcos);
+            } else {
+                // El usuario desea continuar con su partida. Se sale de este metodo
+                return;
             }
         }
+
+        // SE GENERA UN RANDOM PARA ASIGNAR QUIEN HACE EL PRIMER ATAQUE DEL JUEGO.
+        Random rand = new Random(System.currentTimeMillis());
+        turnoAliado = rand.nextBoolean();
+        // Se muestra un mensaje al usuario informando quien comienza la partida
+        if (turnoAliado == true) {
+            JOptionPane.showMessageDialog(this, "La partida inicia aleatoriamente en favor del jugador Aliado");
+        } else {
+            JOptionPane.showMessageDialog(this, "La partida inicia aleatoriamente en favor del jugador Enemigo");
+        }
+
+        // Se establece la variable partidaFinalizada en false. Esto indica que hay un juego en proceso
+        partidaFinalizada = false;
     }
 
     private void generarTerreno(int pFilas, int pColumnas) {
@@ -480,19 +567,27 @@ public class AreaJuego extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Metodo utilizado para crear de manera aleatoria la posicion en la que se
+     * ubicaran los barcos, tanto aliados como enemigos, en el tablero de juego
+     * @param pFilas cantidad de filas del Tablero (cantidad sin contar la fila
+     * vacia)
+     * @param pColumnas cantidad de columnas del Tablero
+     * @param pCantidadDeBarcos cantidad de barcos por bando en el juego.
+     */
     private void generarBarcos(int pFilas, int pColumnas, int pCantidadDeBarcos) {
 
+        // Establece la cantidad de barcos que habran para los Aliados y los Enemigos
         tableroDeJuego.setCantidadBarcosAliados(pCantidadDeBarcos);
         tableroDeJuego.setCantidadBarcosEnemigos(pCantidadDeBarcos);
-
         // Creamos el Metodo que genera los Random
         Random generadorRandom = new Random(System.currentTimeMillis());
-        //El ciclo For para que cuente la cantidad de barcos para los Aliados al igual para los Enemigos
+
+        // En el for se crean la cantidad de barcos random para Aliados y Enemigos
         for (int i = 0; i < pCantidadDeBarcos; i++) {
             int filas;
             int columnas;
-
-            // El do/while es para crear los barcos Aliados.
+            // El do/while es para crear los barcos Aliados en la fila y columna random.
             do {
                 filas = generadorRandom.nextInt(pFilas / 2);
                 columnas = generadorRandom.nextInt(pColumnas);
@@ -500,14 +595,13 @@ public class AreaJuego extends javax.swing.JFrame {
             } while (!tableroDeJuego.setBarco(filas, columnas));
             System.out.println("Barco Aliado creado en " + filas + "," + columnas);
 
-            // El do/while es para crear los barcos Enemigos.
+            // El do/while es para crear los barcos Enemigos en la fila y columna random.
             do {
-                filas = generadorRandom.nextInt(pFilas / 2) + (pFilas / 2 + 1);
+                filas = generadorRandom.nextInt(pFilas / 2) + ((pFilas / 2) + 1);
                 columnas = generadorRandom.nextInt(pColumnas);
 
             } while (!tableroDeJuego.setBarco(filas, columnas));
             System.out.println("Barco Enemigo creado en " + filas + "," + columnas);
-
         }
     }
 
@@ -523,7 +617,6 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para crear un nuevo jugador Aliado al seleccionar el
      * elemento del menu
-     *
      * @param evt
      */
     private void MnI_EditJueg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg1ActionPerformed
@@ -541,7 +634,6 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para crear un nuevo jugador Enemigo al seleccionar el
      * elemento del menu
-     *
      * @param evt
      */
     private void MnI_EditJueg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg2ActionPerformed
@@ -559,7 +651,6 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para verificar si el usuario desea cerrar la ventana una
      * vez presionado el boton X
-     *
      * @param evt
      */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -576,30 +667,20 @@ public class AreaJuego extends javax.swing.JFrame {
 
     private void MnI_NuevoJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_NuevoJuegoActionPerformed
 
+        // Verifica si aun no se crearon los jugadores antes de crear una nueva partida
         if ((jugadorAliado == null) || (jugadorEnemigo == null)
                 || (jugadorAliado.getNombreJugador().equals(""))
                 || (jugadorEnemigo.getNombreJugador().equals(""))) {
-            JOptionPane.showMessageDialog(this, "No se han creado los jugadores aun");
+            JOptionPane.showMessageDialog(this, "No se han creado los jugadores aún.");
         } else {
 
             // Obtiene los datos generados en la ventana configuracion
             int numeroColumnas = ventanaConfiguracion.getColumnasDelTablero();
             int numeroFilasPorUsuario = ventanaConfiguracion.getFilasDe1Usuario();
             int numeroBarcos = ventanaConfiguracion.getCantidadDeBarcos();
+
             // Se procede a generar el terreno de juego y los barcos, desde el metodo generarJuego
             generarJuego(numeroFilasPorUsuario, numeroColumnas, numeroBarcos);
-
-            // Se genera un random para asignar quien inicia el Juego
-            Random rand = new Random(System.currentTimeMillis());
-            turnoAliado = rand.nextBoolean();
-            if (turnoAliado == true) {
-                JOptionPane.showMessageDialog(this, "La partida inicia aleatoriamente en favor del jugador Aliado");
-            } else {
-                JOptionPane.showMessageDialog(this, "La partida inicia aleatoriamente en favor del jugador Enemigo");
-            }
-
-            // Se establece la variable que indica si hay partida en curso, en false
-            partidaFinalizada = false;
         }
     }//GEN-LAST:event_MnI_NuevoJuegoActionPerformed
 

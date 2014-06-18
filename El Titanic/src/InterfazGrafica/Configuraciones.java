@@ -151,7 +151,7 @@ public class Configuraciones extends javax.swing.JFrame {
 
         // Verifica si la cantidad de barcos deseados es mayor a la cantidad de 
         // casillas disponibles para colocarlos
-        if ((filasDe1Usuario * columnasDelTablero) < cantidadDeBarcos) {
+        if ((Sld_Filas.getValue() * Sld_Columnas.getValue()) < Sld_CantidadBarcos.getValue()) {
             JOptionPane.showMessageDialog(this, "La cantidad de barcos que desea"
                     + " agregar es mayor a la cantidad\n de espacios disponibles",
                     "Ups", JOptionPane.ERROR_MESSAGE);
@@ -160,9 +160,13 @@ public class Configuraciones extends javax.swing.JFrame {
             filasDe1Usuario = this.Sld_Filas.getValue();
             columnasDelTablero = this.Sld_Columnas.getValue();
             cantidadDeBarcos = this.Sld_CantidadBarcos.getValue();
-            //*******************************************************************************************************************
-            JOptionPane.showMessageDialog(this, "filas: " + filasDe1Usuario + " columnas: " + columnasDelTablero + " barcos: " + cantidadDeBarcos);
-            //*******************************************************************************************************************
+            //**************************************************************************
+            JOptionPane.showMessageDialog(this, "Se ha cambiado la configuracion a: "
+                    + " \n          * Cantidad de Filas: " + filasDe1Usuario 
+                    + " \n          * Cantidad de Columnas: " + columnasDelTablero 
+                    + " \n          * Cantidad de Barcos: " + cantidadDeBarcos 
+                    + "\n La próxima partida generada, utilizará esta configuración");
+            //**************************************************************************
             // Cierra la ventana de configuracion
             this.dispose();
         }
