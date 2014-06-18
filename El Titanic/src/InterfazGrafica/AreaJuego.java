@@ -7,6 +7,7 @@ package InterfazGrafica;
 
 import Codigo.Jugador;
 import Codigo.Tablero;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.util.Random;
 import javax.swing.Icon;
@@ -19,6 +20,12 @@ import javax.swing.JToggleButton;
  * @author Mario A
  */
 public class AreaJuego extends javax.swing.JFrame {
+    
+    private final int CASILLAS_SIN_SCROLL = 6;
+    private final int ANCHO_IMAGEN_CON_SCROLL = 80;
+    private final int ALTO_IMAGEN_CON_SCROLL = 33;
+    private final int ANCHO_PANEL_SIN_SCROLL = 480;
+    private final int ALTO_PANEL_SIN_SCROLL = 431;
 
     private boolean turnoAliado;
     private boolean partidaFinalizada = true;
@@ -540,16 +547,42 @@ public class AreaJuego extends javax.swing.JFrame {
         tableroDeJuego = new Tablero(pFilas + 1, pColumnas);
         // Se crea la matriz de botones con las dimensiones dadas
         tableroGrafico = new JToggleButton[pFilas + 1][pColumnas];
-        // Se obtiene las medidas del panel donde van los botones
-        int anchoDelMarco = Pnl_Tablero.getWidth();
-        int altoDelMarco = Pnl_Tablero.getHeight();
-        // Se calcula la medida que tendra cada boton en la ventana
-        int anchoBoton = anchoDelMarco / pColumnas;
-        int altoBoton = altoDelMarco / (pFilas + 1);
+        
+        int anchoBoton;
+        int altoBoton; 
+        int anchoDelMarco = ANCHO_PANEL_SIN_SCROLL;
+        int altoDelMarco = ALTO_PANEL_SIN_SCROLL;
+        
+        // Se carga el panel con scroll
+        if(pFilas > CASILLAS_SIN_SCROLL || pColumnas > CASILLAS_SIN_SCROLL){
+             
+            // Se calcula la medida que tendra cada boton en la ventana
+            anchoBoton = ANCHO_IMAGEN_CON_SCROLL;
+            altoBoton = ALTO_IMAGEN_CON_SCROLL;
+            // Se calcula la medida que tendra el panel
+            if(pFilas > CASILLAS_SIN_SCROLL){
+                altoDelMarco = (pFilas + 1) * altoBoton;                                              
+            }
+            if(pColumnas > CASILLAS_SIN_SCROLL){
+                anchoDelMarco = pColumnas * anchoBoton;
+            }                   
+        }
+        // Se carga el panel sin scroll
+        else{                     
+            // Se obtiene las medidas del panel donde van los botones
+            anchoDelMarco = ANCHO_PANEL_SIN_SCROLL;
+            altoDelMarco = ALTO_PANEL_SIN_SCROLL;            
+            // Se calcula la medida que tendra cada boton en la ventana
+            anchoBoton = anchoDelMarco / pColumnas;
+            altoBoton = altoDelMarco / (pFilas + 1);        
+        }  
+        Pnl_Tablero.setPreferredSize(new Dimension(anchoDelMarco, altoDelMarco));
+        Pnl_Tablero.revalidate();
+        Pnl_Tablero.repaint();
 
         //  SE PROCEDE A CREAR LA INTERFAZ GRAFICA DEL TABLERO
         for (int i = 0; i <= pFilas; i++) {
-
+            
             for (int j = 0; j < pColumnas; j++) {
                 if (pFilas / 2 == i) {
                     break;

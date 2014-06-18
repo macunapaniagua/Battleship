@@ -18,13 +18,15 @@ public class Configuraciones extends javax.swing.JFrame {
     private int filasDe1Usuario = 3;
     private int columnasDelTablero = 3;
     private int cantidadDeBarcos = 2;
-    
 
     /**
      * Metodo constructor. Creates new form Configuraciones
      */
     public Configuraciones() {
         initComponents();
+        Txt_Barcos.setVisible(false);
+        Txt_Columnas.setVisible(false);
+        Txt_Filas.setVisible(false);
         // Esta instruccion, coloca el form en el centro de la pantalla. 
         setLocationRelativeTo(null);
     }
@@ -42,7 +44,7 @@ public class Configuraciones extends javax.swing.JFrame {
         return columnasDelTablero;
     }
     // ********************** FIN METODOS GET **********************************
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,12 +56,16 @@ public class Configuraciones extends javax.swing.JFrame {
 
         Btn_Aplicar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        Lbl_InfoColumnas = new javax.swing.JLabel();
+        Lbl_InfoBarcos = new javax.swing.JLabel();
         Sld_Columnas = new javax.swing.JSlider();
         Sld_Filas = new javax.swing.JSlider();
-        jLabel6 = new javax.swing.JLabel();
+        Lbl_InfoFilas = new javax.swing.JLabel();
         Sld_CantidadBarcos = new javax.swing.JSlider();
+        ChkB_Config = new javax.swing.JCheckBox();
+        Txt_Barcos = new javax.swing.JTextField();
+        Txt_Filas = new javax.swing.JTextField();
+        Txt_Columnas = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -71,27 +77,27 @@ public class Configuraciones extends javax.swing.JFrame {
                 Btn_AplicarActionPerformed(evt);
             }
         });
-        getContentPane().add(Btn_Aplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, 100, 30));
+        getContentPane().add(Btn_Aplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, 100, 30));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 3, 22)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(63, 103, 147));
         jLabel1.setText("CONFIGURACIÓN");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(63, 103, 147));
-        jLabel2.setText("Seleccione la cantidad de Columnas");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+        Lbl_InfoColumnas.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        Lbl_InfoColumnas.setForeground(new java.awt.Color(63, 103, 147));
+        Lbl_InfoColumnas.setText("Seleccione la cantidad de Columnas");
+        getContentPane().add(Lbl_InfoColumnas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(63, 103, 147));
-        jLabel4.setText("Seleccione la cantidad de Barcos que desea crear");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
+        Lbl_InfoBarcos.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        Lbl_InfoBarcos.setForeground(new java.awt.Color(63, 103, 147));
+        Lbl_InfoBarcos.setText("Seleccione la cantidad de Barcos que desea crear");
+        getContentPane().add(Lbl_InfoBarcos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
 
         Sld_Columnas.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
         Sld_Columnas.setForeground(new java.awt.Color(63, 103, 147));
-        Sld_Columnas.setMajorTickSpacing(4);
-        Sld_Columnas.setMaximum(5);
+        Sld_Columnas.setMajorTickSpacing(5);
+        Sld_Columnas.setMaximum(6);
         Sld_Columnas.setMinimum(1);
         Sld_Columnas.setMinorTickSpacing(1);
         Sld_Columnas.setPaintLabels(true);
@@ -105,7 +111,7 @@ public class Configuraciones extends javax.swing.JFrame {
         Sld_Filas.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
         Sld_Filas.setForeground(new java.awt.Color(63, 103, 147));
         Sld_Filas.setMajorTickSpacing(5);
-        Sld_Filas.setMaximum(5);
+        Sld_Filas.setMaximum(6);
         Sld_Filas.setMinimum(1);
         Sld_Filas.setMinorTickSpacing(1);
         Sld_Filas.setPaintLabels(true);
@@ -116,10 +122,10 @@ public class Configuraciones extends javax.swing.JFrame {
         Sld_Filas.setOpaque(false);
         getContentPane().add(Sld_Filas, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 220, -1));
 
-        jLabel6.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(63, 103, 147));
-        jLabel6.setText("Seleccione la cantidad de Filas");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        Lbl_InfoFilas.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        Lbl_InfoFilas.setForeground(new java.awt.Color(63, 103, 147));
+        Lbl_InfoFilas.setText("Seleccione la cantidad de Filas");
+        getContentPane().add(Lbl_InfoFilas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
         Sld_CantidadBarcos.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
         Sld_CantidadBarcos.setForeground(new java.awt.Color(63, 103, 147));
@@ -135,6 +141,42 @@ public class Configuraciones extends javax.swing.JFrame {
         Sld_CantidadBarcos.setOpaque(false);
         getContentPane().add(Sld_CantidadBarcos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 230, -1));
 
+        ChkB_Config.setFont(new java.awt.Font("Verdana", 1, 9)); // NOI18N
+        ChkB_Config.setForeground(new java.awt.Color(63, 103, 147));
+        ChkB_Config.setText("Configuracion Personalizada");
+        ChkB_Config.setFocusable(false);
+        ChkB_Config.setOpaque(false);
+        ChkB_Config.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChkB_ConfigActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ChkB_Config, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 401, -1, 30));
+
+        Txt_Barcos.setColumns(10);
+        Txt_Barcos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                verificarEntrada(evt);
+            }
+        });
+        getContentPane().add(Txt_Barcos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, -1, -1));
+
+        Txt_Filas.setColumns(10);
+        Txt_Filas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                verificarEntrada(evt);
+            }
+        });
+        getContentPane().add(Txt_Filas, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, -1));
+
+        Txt_Columnas.setColumns(10);
+        Txt_Columnas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                verificarEntrada(evt);
+            }
+        });
+        getContentPane().add(Txt_Columnas, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoGris.jpg"))); // NOI18N
         jLabel5.setText("jLabel5");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 450));
@@ -145,32 +187,110 @@ public class Configuraciones extends javax.swing.JFrame {
     /**
      * Metodo que le permite al usuario crear una nueva configuracion para crear
      * una nueva partida con dicha informacion.
+     *
      * @param evt componente que ejecuta el evento
      */
     private void Btn_AplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AplicarActionPerformed
 
-        // Verifica si la cantidad de barcos deseados es mayor a la cantidad de 
-        // casillas disponibles para colocarlos
-        if ((Sld_Filas.getValue() * Sld_Columnas.getValue()) < Sld_CantidadBarcos.getValue()) {
-            JOptionPane.showMessageDialog(this, "La cantidad de barcos que desea"
-                    + " agregar es mayor a la cantidad\n de espacios disponibles",
-                    "Ups", JOptionPane.ERROR_MESSAGE);
+        // Verifica que se haya seleccionado la configuracion personalizada
+        if (ChkB_Config.isSelected()) {
+
+            // Verifica si algun espacio de las configuraciones queda en blanco
+            if ("".equals(Txt_Barcos.getText()) || "".equals(Txt_Columnas.getText()) || "".equals(Txt_Filas.getText())) {
+                JOptionPane.showMessageDialog(this, "No ha ingresado la información"
+                        + " Necesaria. Asegurese de llenar todos los campos",
+                        "Ups", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // Verifica si la cantidad de barcos deseados es mayor a la cantidad de 
+                // casillas disponibles para colocarlos
+                if ((Integer.parseInt(Txt_Filas.getText()) * Integer.parseInt(Txt_Columnas.getText()))
+                        < Integer.parseInt(Txt_Barcos.getText())) {
+
+                    JOptionPane.showMessageDialog(this, "La cantidad de barcos que desea"
+                            + " agregar es mayor a la cantidad\n de espacios disponibles",
+                            "Ups", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Asigna la cantidad de filas, columnas y barcos seleccionados.
+                    filasDe1Usuario = Integer.parseInt(Txt_Filas.getText());
+                    columnasDelTablero = Integer.parseInt(Txt_Columnas.getText());
+                    cantidadDeBarcos = Integer.parseInt(Txt_Barcos.getText());
+                    // Borra los datos del cuadro de texto
+                    Txt_Barcos.setText("");
+                    Txt_Columnas.setText("");
+                    Txt_Filas.setText("");                    
+                    //**************************************************************************
+                    JOptionPane.showMessageDialog(this, "Se ha cambiado la configuracion a: "
+                            + " \n          * Cantidad de Filas: " + filasDe1Usuario
+                            + " \n          * Cantidad de Columnas: " + columnasDelTablero
+                            + " \n          * Cantidad de Barcos: " + cantidadDeBarcos
+                            + "\n La próxima partida generada, utilizará esta configuración");
+                    //**************************************************************************
+                    // Cierra la ventana de configuracion
+                    this.dispose();
+                }
+            }
+
         } else {
-            // Asigna la cantidad de filas, columnas y barcos seleccionados.
-            filasDe1Usuario = this.Sld_Filas.getValue();
-            columnasDelTablero = this.Sld_Columnas.getValue();
-            cantidadDeBarcos = this.Sld_CantidadBarcos.getValue();
-            //**************************************************************************
-            JOptionPane.showMessageDialog(this, "Se ha cambiado la configuracion a: "
-                    + " \n          * Cantidad de Filas: " + filasDe1Usuario 
-                    + " \n          * Cantidad de Columnas: " + columnasDelTablero 
-                    + " \n          * Cantidad de Barcos: " + cantidadDeBarcos 
-                    + "\n La próxima partida generada, utilizará esta configuración");
-            //**************************************************************************
-            // Cierra la ventana de configuracion
-            this.dispose();
+            // Verifica si la cantidad de barcos deseados es mayor a la cantidad de 
+            // casillas disponibles para colocarlos
+            if ((Sld_Filas.getValue() * Sld_Columnas.getValue()) < Sld_CantidadBarcos.getValue()) {
+                JOptionPane.showMessageDialog(this, "La cantidad de barcos que desea"
+                        + " agregar es mayor a la cantidad\n de espacios disponibles",
+                        "Ups", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // Asigna la cantidad de filas, columnas y barcos seleccionados.
+                filasDe1Usuario = this.Sld_Filas.getValue();
+                columnasDelTablero = this.Sld_Columnas.getValue();
+                cantidadDeBarcos = this.Sld_CantidadBarcos.getValue();
+                //**************************************************************************
+                JOptionPane.showMessageDialog(this, "Se ha cambiado la configuracion a: "
+                        + " \n          * Cantidad de Filas: " + filasDe1Usuario
+                        + " \n          * Cantidad de Columnas: " + columnasDelTablero
+                        + " \n          * Cantidad de Barcos: " + cantidadDeBarcos
+                        + "\n La próxima partida generada, utilizará esta configuración");
+                //**************************************************************************
+                // Cierra la ventana de configuracion
+                this.dispose();
+            }
         }
     }//GEN-LAST:event_Btn_AplicarActionPerformed
+
+    private void ChkB_ConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkB_ConfigActionPerformed
+        if (ChkB_Config.isSelected()) {
+            Lbl_InfoFilas.setText("Digite la cantidad de Filas");
+            Sld_Filas.setVisible(false);
+            Txt_Filas.setVisible(true);
+            Lbl_InfoColumnas.setText("Digite la cantidad de Columnas");
+            Sld_Columnas.setVisible(false);
+            Txt_Columnas.setVisible(true);
+            Lbl_InfoBarcos.setText("Digite la cantidad de Barcos que desea crear");
+            Sld_CantidadBarcos.setVisible(false);
+            Txt_Barcos.setVisible(true);
+        } else {
+            Lbl_InfoFilas.setText("Seleccione la cantidad de Filas");
+            Sld_Filas.setVisible(true);
+            Txt_Filas.setVisible(false);
+            Lbl_InfoColumnas.setText("Seleccione la cantidad de Columnas");
+            Sld_Columnas.setVisible(true);
+            Txt_Columnas.setVisible(false);
+            Lbl_InfoBarcos.setText("Seleccione la cantidad de Barcos que desea crear");
+            Sld_CantidadBarcos.setVisible(true);
+            Txt_Barcos.setVisible(false);
+        }
+    }//GEN-LAST:event_ChkB_ConfigActionPerformed
+
+    /**
+     * Metodo que impide que se ingresen letras en la configuracion
+     * personalizada
+     *
+     * @param evt
+     */
+    private void verificarEntrada(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_verificarEntrada
+        char car = evt.getKeyChar();
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_verificarEntrada
 
     /**
      * @param args the command line arguments
@@ -214,13 +334,17 @@ public class Configuraciones extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Aplicar;
+    private javax.swing.JCheckBox ChkB_Config;
+    private javax.swing.JLabel Lbl_InfoBarcos;
+    private javax.swing.JLabel Lbl_InfoColumnas;
+    private javax.swing.JLabel Lbl_InfoFilas;
     private javax.swing.JSlider Sld_CantidadBarcos;
     private javax.swing.JSlider Sld_Columnas;
     private javax.swing.JSlider Sld_Filas;
+    private javax.swing.JTextField Txt_Barcos;
+    private javax.swing.JTextField Txt_Columnas;
+    private javax.swing.JTextField Txt_Filas;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }
