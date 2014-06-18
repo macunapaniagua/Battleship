@@ -30,14 +30,16 @@ public class AreaJuego extends javax.swing.JFrame {
     private Jugador jugadorAliado = null;
     private Jugador jugadorEnemigo = null;
     // Ventanas externas
+    private final Estadisticas ventanaEstadisticas = new Estadisticas();
     private final PantallaUsuario ventanaUsuarios = new PantallaUsuario();
     private final Configuraciones ventanaConfiguracion = new Configuraciones();
 
     /**
      * Creates new form AreaJuego
      */
-    public AreaJuego() {
+    public AreaJuego() {        
         initComponents();
+        jScrollPane1.getViewport().setOpaque(false);
         setLocationRelativeTo(null);
     }
 
@@ -63,6 +65,7 @@ public class AreaJuego extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         Lbl_ScorePlayer2 = new javax.swing.JLabel();
         Lbl_Player2Name = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         Pnl_Tablero = new javax.swing.JPanel();
         Lbl_Fondo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -94,9 +97,25 @@ public class AreaJuego extends javax.swing.JFrame {
 
         Lbl_Player1Photo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         Lbl_Player1Photo.setOpaque(true);
+        Lbl_Player1Photo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Lbl_Player1PhotoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Lbl_Player1PhotoMouseExited(evt);
+            }
+        });
         Pnl_Usuarios.add(Lbl_Player1Photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 100, 100));
 
         Lbl_Player2Photo.setOpaque(true);
+        Lbl_Player2Photo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Lbl_Player2PhotoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Lbl_Player2PhotoMouseExited(evt);
+            }
+        });
         Pnl_Usuarios.add(Lbl_Player2Photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 245, 100, 100));
         Pnl_Usuarios.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 224, 170, 10));
 
@@ -203,19 +222,22 @@ public class AreaJuego extends javax.swing.JFrame {
 
         Pnl_Tablero.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(204, 204, 255), new java.awt.Color(153, 153, 153)));
         Pnl_Tablero.setOpaque(false);
+        Pnl_Tablero.setPreferredSize(new java.awt.Dimension(480, 431));
 
         javax.swing.GroupLayout Pnl_TableroLayout = new javax.swing.GroupLayout(Pnl_Tablero);
         Pnl_Tablero.setLayout(Pnl_TableroLayout);
         Pnl_TableroLayout.setHorizontalGroup(
             Pnl_TableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
+            .addGap(0, 484, Short.MAX_VALUE)
         );
         Pnl_TableroLayout.setVerticalGroup(
             Pnl_TableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 427, Short.MAX_VALUE)
+            .addGap(0, 434, Short.MAX_VALUE)
         );
 
-        getContentPane().add(Pnl_Tablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 480, -1));
+        jScrollPane1.setViewportView(Pnl_Tablero);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 490, 440));
 
         Lbl_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoJuego1.png"))); // NOI18N
         Lbl_Fondo.setOpaque(true);
@@ -307,14 +329,16 @@ public class AreaJuego extends javax.swing.JFrame {
 
     /**
      * Evento que captura cuando un boton ha sido seleccionado en la matriz de
-     * botones y se procede a verificar y ejecutar el ataque al elemento seleccionado
+     * botones y se procede a verificar y ejecutar el ataque al elemento
+     * seleccionado
+     *
      * @param evt boton presionado
      */
     private void verificarAtaque(java.awt.event.MouseEvent evt) {
 
         // Almacena el boton que llama el evento de verificar ataque
         JToggleButton botonPressionado = (JToggleButton) evt.getComponent();
-        
+
         // VERIFICA SI EL BOTON FUE PRESIONADO EN UNA PARTIDA YA FINALIZADA O NO
         if (partidaFinalizada) {
             // Ya la partida finalizo. Restaura el boton y muestra el mensaje.
@@ -331,19 +355,16 @@ public class AreaJuego extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Esta casilla ya fue atacada. Intente atacando otra casilla");
             return;
         }
-        
+
         // SE PROCEDE A VERIFICAR SI LA CASILLA SELECCIONADA PRESENTA UN BARCO PARA UNDIRLA
         int numeroFilas = tableroGrafico.length;
         int numeroColumnas = tableroGrafico[0].length;
         // Recorre la matriz de botones en busca de la ubicacion del elemento seleccionado.
-        for (int f = 0; f < numeroFilas; f++) 
-        {
-            for (int c = 0; c < numeroColumnas; c++) 
-            {
+        for (int f = 0; f < numeroFilas; f++) {
+            for (int c = 0; c < numeroColumnas; c++) {
                 // Se compara con el boton en la fila "f" y columna "c", para obtener la ubicacion
                 // exacta en filas y columnas del elemento donde se esta realizando el ataque.
-                if (botonPressionado == tableroGrafico[f][c]) 
-                {
+                if (botonPressionado == tableroGrafico[f][c]) {
                     // Verifica si es el turno del Aliado y se esta presionando en el campo del aliado
                     if (turnoAliado && (f < (numeroFilas - 1) / 2)) {
                         // Restaura el boton, muestra mensaje al usuario y sale del metodo.
@@ -351,20 +372,17 @@ public class AreaJuego extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "No se pueden realizar"
                                 + " ataques al campo aliado en el turno del Aliado");
                         return;
-                    } 
-                    // Verifica si es el turno del Enemigo y se esta presionando en el campo del enemigo
+                    } // Verifica si es el turno del Enemigo y se esta presionando en el campo del enemigo
                     else if (!turnoAliado && (f > (numeroFilas - 1) / 2)) {
                         // Restaura el boton, muestra mensaje al usuario y sale del metodo
                         botonPressionado.setSelected(false);
                         JOptionPane.showMessageDialog(this, "No se pueden realizar"
                                 + " ataques al campo enemigo en el turno del Enemigo");
                         return;
-                    }
-                    // Seleccion correcta. Se procede a ejecutar el ataque en la fila y columna dada.
+                    } // Seleccion correcta. Se procede a ejecutar el ataque en la fila y columna dada.
                     else {
                         // Ejecuta el ataque y cambia el turno del jugador
                         ejecutarAtaque(f, c);
-                        turnoAliado = !turnoAliado;
                         return;
                     }
                 }
@@ -373,20 +391,21 @@ public class AreaJuego extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo que lleva a cabo el ataque y modifica tanto la matriz grafica (coloca 
-     * un barco hundido o un vacio como imagen) como la matriz de objeto Tablero 
-     * (cambia el valor del true a false, en caso que hubiera un barco, indicando 
-     * que este fue hundido)
+     * Metodo que lleva a cabo el ataque y modifica tanto la matriz grafica
+     * (coloca un barco hundido o un vacio como imagen) como la matriz de objeto
+     * Tablero (cambia el valor del true a false, en caso que hubiera un barco,
+     * indicando que este fue hundido)
+     *
      * @param pFilaAtaque fila que se va a atacar
      * @param pColumnaAtaque columna que se va a atacar
      */
     private void ejecutarAtaque(int pFilaAtaque, int pColumnaAtaque) {
 
         System.out.println("El elemento presionado esta en " + pFilaAtaque + ',' + pColumnaAtaque);
-                    
+
         // SE VERIFICA SI HAY UN BARCO EN LA FILA Y COLUMNA DONDE SE REALIZA EL ATAQUE
         if (this.tableroDeJuego.hayBarco(pFilaAtaque, pColumnaAtaque)) {
-            
+
             // Se procede a destruir el barco del Tablero
             tableroDeJuego.destruirBarco(pFilaAtaque, pColumnaAtaque);
 
@@ -421,20 +440,18 @@ public class AreaJuego extends javax.swing.JFrame {
                     puntaje++;
                     jugadorAliado.setPuntaje(puntaje);
                     // Modifica el puntaje graficamente
-                    Lbl_ScorePlayer1.setText(puntaje + "");                    
+                    Lbl_ScorePlayer1.setText(puntaje + "");
                     // Modifica los datos de las estadisticas de las partidas
                     jugadorAliado.setCantidadPartidasJugadas(jugadorAliado.getCantidadPartidasJugadas() + 1);
                     jugadorEnemigo.setCantidadPartidasJugadas(jugadorEnemigo.getCantidadPartidasJugadas() + 1);
                     jugadorAliado.setCantidadPartidasGanadas(jugadorAliado.getCantidadPartidasGanadas() + 1);
-                    jugadorEnemigo.setCantidadPartidasPerdidas(jugadorEnemigo.getCantidadPartidasPerdidas() + 1);                    
+                    jugadorEnemigo.setCantidadPartidasPerdidas(jugadorEnemigo.getCantidadPartidasPerdidas() + 1);
                     // Establece la partida como finalizada
                     partidaFinalizada = true;
                     // Muestra mensaje de victoria
                     JOptionPane.showMessageDialog(this, "Jugador Aliado Gana. Presiona F2 para iniciar una nueva partida");
                 }
-            }
-            
-            // ES EL TURNO DEL ENEMIGO. SE PROCEDE A VERIFICAR SI YA GANO LA PARTIDA
+            } // ES EL TURNO DEL ENEMIGO. SE PROCEDE A VERIFICAR SI YA GANO LA PARTIDA
             else {
                 // Disminuye la cantidad de barcos aliados luego del ataque
                 int barcos = tableroDeJuego.getCantidadBarcosAliados();
@@ -451,17 +468,17 @@ public class AreaJuego extends javax.swing.JFrame {
                     jugadorEnemigo.setCantidadPartidasJugadas(jugadorEnemigo.getCantidadPartidasJugadas() + 1);
                     jugadorAliado.setCantidadPartidasJugadas(jugadorAliado.getCantidadPartidasJugadas() + 1);
                     jugadorEnemigo.setCantidadPartidasGanadas(jugadorEnemigo.getCantidadPartidasGanadas() + 1);
-                    jugadorAliado.setCantidadPartidasPerdidas(jugadorAliado.getCantidadPartidasPerdidas() + 1); 
+                    jugadorAliado.setCantidadPartidasPerdidas(jugadorAliado.getCantidadPartidasPerdidas() + 1);
                     // Establece la partida como finalizada
                     partidaFinalizada = true;
                     // Muestra mensaje de victoria
                     JOptionPane.showMessageDialog(this, "Jugador Enemigo Gana. Presiona F2 para iniciar una nueva partida");
                 }
             }
-        }
-        // NO HAY UN BARCO EN ESA FILA Y COLUMNA. SE ELIMINA LA IMAGEN DEL TIMON Y SE DEJA COMO VACIO
-        else{
+        } // NO HAY UN BARCO EN ESA FILA Y COLUMNA. SE ELIMINA LA IMAGEN DEL TIMON Y SE DEJA COMO VACIO
+        else {
             tableroGrafico[pFilaAtaque][pColumnaAtaque].setIcon(null);
+            turnoAliado = !turnoAliado;
         }
 
     }
@@ -470,6 +487,7 @@ public class AreaJuego extends javax.swing.JFrame {
      * Metodo utilizado para crear el terreno de juego y los barcos que se
      * colocaran en el de forma aleatoria. Seguido de ello, generara un boolean
      * aleatorio para asignar quien comienza el juego.
+     *
      * @param filasDe1Usuario Cantidad de filas presentes en el campo de un
      * jugador
      * @param columnasDelTablero cantidad de columnas del tablero
@@ -570,6 +588,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para crear de manera aleatoria la posicion en la que se
      * ubicaran los barcos, tanto aliados como enemigos, en el tablero de juego
+     *
      * @param pFilas cantidad de filas del Tablero (cantidad sin contar la fila
      * vacia)
      * @param pColumnas cantidad de columnas del Tablero
@@ -617,6 +636,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para crear un nuevo jugador Aliado al seleccionar el
      * elemento del menu
+     *
      * @param evt
      */
     private void MnI_EditJueg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg1ActionPerformed
@@ -634,6 +654,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para crear un nuevo jugador Enemigo al seleccionar el
      * elemento del menu
+     *
      * @param evt
      */
     private void MnI_EditJueg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg2ActionPerformed
@@ -651,6 +672,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para verificar si el usuario desea cerrar la ventana una
      * vez presionado el boton X
+     *
      * @param evt
      */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -683,6 +705,59 @@ public class AreaJuego extends javax.swing.JFrame {
             generarJuego(numeroFilasPorUsuario, numeroColumnas, numeroBarcos);
         }
     }//GEN-LAST:event_MnI_NuevoJuegoActionPerformed
+
+    /**
+     * Muestra las estadisticas del usuario al pasar el puntero sobre la imagen
+     * del jugador Aliado
+     *
+     * @param evt
+     */
+    private void Lbl_Player1PhotoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player1PhotoMouseEntered
+
+        if (jugadorAliado != null) {
+            int ganadas = jugadorAliado.getCantidadPartidasGanadas();
+            int jugadas = jugadorAliado.getCantidadPartidasJugadas();
+            int perdidas = jugadorAliado.getCantidadPartidasPerdidas();
+            String titulo = "Estadísticas Aliado";
+            ventanaEstadisticas.setEstadisticas(titulo, ganadas, jugadas, perdidas);
+            ventanaEstadisticas.setVisible(true);
+        }
+    }//GEN-LAST:event_Lbl_Player1PhotoMouseEntered
+
+    /**
+     * Evento que desvanece la ventana estadisticas cuando el mouse sale de la 
+     * imagen del aliado
+     * @param evt 
+     */
+    private void Lbl_Player1PhotoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player1PhotoMouseExited
+        ventanaEstadisticas.dispose();
+    }//GEN-LAST:event_Lbl_Player1PhotoMouseExited
+
+    /**
+     * Muestra las estadisticas del usuario al pasar el puntero sobre la imagen
+     * del jugador Enemigo
+     *
+     * @param evt
+     */
+    private void Lbl_Player2PhotoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player2PhotoMouseEntered
+        if (jugadorEnemigo != null) {
+            int ganadas = jugadorEnemigo.getCantidadPartidasGanadas();
+            int jugadas = jugadorEnemigo.getCantidadPartidasJugadas();
+            int perdidas = jugadorEnemigo.getCantidadPartidasPerdidas();
+            String titulo = "Estadísticas Enemigo";
+            ventanaEstadisticas.setEstadisticas(titulo, ganadas, jugadas, perdidas);
+            ventanaEstadisticas.setVisible(true);
+        }
+    }//GEN-LAST:event_Lbl_Player2PhotoMouseEntered
+
+    /**
+     * Evento que desvanece la ventana estadisticas cuando el mouse sale de la 
+     * imagen del enemigo
+     * @param evt 
+     */
+    private void Lbl_Player2PhotoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player2PhotoMouseExited
+        ventanaEstadisticas.dispose();
+    }//GEN-LAST:event_Lbl_Player2PhotoMouseExited
 
     /**
      * @param args the command line arguments
@@ -750,6 +825,7 @@ public class AreaJuego extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 

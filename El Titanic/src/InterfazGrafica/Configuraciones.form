@@ -95,7 +95,7 @@
           <Color blue="93" green="67" red="3f" type="rgb"/>
         </Property>
         <Property name="majorTickSpacing" type="int" value="4"/>
-        <Property name="maximum" type="int" value="6"/>
+        <Property name="maximum" type="int" value="5"/>
         <Property name="minimum" type="int" value="1"/>
         <Property name="minorTickSpacing" type="int" value="1"/>
         <Property name="paintLabels" type="boolean" value="true"/>
@@ -121,8 +121,8 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="93" green="67" red="3f" type="rgb"/>
         </Property>
-        <Property name="majorTickSpacing" type="int" value="4"/>
-        <Property name="maximum" type="int" value="6"/>
+        <Property name="majorTickSpacing" type="int" value="5"/>
+        <Property name="maximum" type="int" value="5"/>
         <Property name="minimum" type="int" value="1"/>
         <Property name="minorTickSpacing" type="int" value="1"/>
         <Property name="paintLabels" type="boolean" value="true"/>

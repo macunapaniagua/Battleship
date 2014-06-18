@@ -91,7 +91,7 @@ public class Configuraciones extends javax.swing.JFrame {
         Sld_Columnas.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
         Sld_Columnas.setForeground(new java.awt.Color(63, 103, 147));
         Sld_Columnas.setMajorTickSpacing(4);
-        Sld_Columnas.setMaximum(6);
+        Sld_Columnas.setMaximum(5);
         Sld_Columnas.setMinimum(1);
         Sld_Columnas.setMinorTickSpacing(1);
         Sld_Columnas.setPaintLabels(true);
@@ -104,8 +104,8 @@ public class Configuraciones extends javax.swing.JFrame {
 
         Sld_Filas.setFont(new java.awt.Font("Verdana", 3, 10)); // NOI18N
         Sld_Filas.setForeground(new java.awt.Color(63, 103, 147));
-        Sld_Filas.setMajorTickSpacing(4);
-        Sld_Filas.setMaximum(6);
+        Sld_Filas.setMajorTickSpacing(5);
+        Sld_Filas.setMaximum(5);
         Sld_Filas.setMinimum(1);
         Sld_Filas.setMinorTickSpacing(1);
         Sld_Filas.setPaintLabels(true);

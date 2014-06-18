@@ -17,6 +17,7 @@ public class Estadisticas extends javax.swing.JFrame {
      */
     public Estadisticas() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -28,22 +29,75 @@ public class Estadisticas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        Lbl_Estadisticas = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        Lbl_Jugadas = new javax.swing.JLabel();
+        Lbl_Ganadas = new javax.swing.JLabel();
+        Lbl_Perdidas = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Lbl_Estadisticas.setFont(new java.awt.Font("Vani", 0, 18)); // NOI18N
+        Lbl_Estadisticas.setForeground(new java.awt.Color(0, 86, 135));
+        Lbl_Estadisticas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lbl_Estadisticas.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        Lbl_Estadisticas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(Lbl_Estadisticas, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setText("Partidas Jugadas:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setText("Partidas Ganadas:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel4.setText("Partidas Perdidas:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, -1));
+
+        Lbl_Jugadas.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        Lbl_Jugadas.setForeground(new java.awt.Color(51, 74, 112));
+        Lbl_Jugadas.setText("jLabel5");
+        getContentPane().add(Lbl_Jugadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
+
+        Lbl_Ganadas.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        Lbl_Ganadas.setForeground(new java.awt.Color(51, 74, 112));
+        Lbl_Ganadas.setText("jLabel6");
+        getContentPane().add(Lbl_Ganadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, -1, -1));
+
+        Lbl_Perdidas.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        Lbl_Perdidas.setForeground(new java.awt.Color(51, 74, 112));
+        Lbl_Perdidas.setText("jLabel7");
+        getContentPane().add(Lbl_Perdidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, -1, -1));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoGris.jpg"))); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 260));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo para establecer los valores que se mostraran en la ventana estadistica
+     * @param pTitulo Indica las estadisticas para que jugador se visualiza
+     * @param pGanadas partidas ganadas
+     * @param pJugadas partidas jugadas
+     * @param pPerdidas partidas perdidas
+     */
+    public void setEstadisticas(String pTitulo, int pGanadas, int pJugadas, int pPerdidas){
+        this.Lbl_Estadisticas.setText(pTitulo);
+        this.Lbl_Ganadas.setText(pGanadas+"");
+        this.Lbl_Jugadas.setText(pJugadas+"");
+        this.Lbl_Perdidas.setText(pPerdidas+"");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -80,5 +134,13 @@ public class Estadisticas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Lbl_Estadisticas;
+    private javax.swing.JLabel Lbl_Ganadas;
+    private javax.swing.JLabel Lbl_Jugadas;
+    private javax.swing.JLabel Lbl_Perdidas;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
 }
