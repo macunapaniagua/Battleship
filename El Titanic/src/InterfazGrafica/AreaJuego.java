@@ -540,6 +540,11 @@ public class AreaJuego extends javax.swing.JFrame {
         partidaFinalizada = false;
     }
 
+    /**
+     * Metodo utilizado para generar cada una de las casillas del tablero grafico
+     * @param pFilas filas del tablero
+     * @param pColumnas columnas del tablero
+     */
     private void generarTerreno(int pFilas, int pColumnas) {
 
         Pnl_Tablero.removeAll();
@@ -554,7 +559,7 @@ public class AreaJuego extends javax.swing.JFrame {
         int altoDelMarco = ALTO_PANEL_SIN_SCROLL;
         
         // Se carga el panel con scroll
-        if(pFilas > CASILLAS_SIN_SCROLL || pColumnas > CASILLAS_SIN_SCROLL){
+        if( (pFilas/2 > CASILLAS_SIN_SCROLL) || (pColumnas/2 > CASILLAS_SIN_SCROLL)){
              
             // Se calcula la medida que tendra cada boton en la ventana
             anchoBoton = ANCHO_IMAGEN_CON_SCROLL;
@@ -576,6 +581,7 @@ public class AreaJuego extends javax.swing.JFrame {
             anchoBoton = anchoDelMarco / pColumnas;
             altoBoton = altoDelMarco / (pFilas + 1);        
         }  
+        // Cambia el tamano del panel y repinta la pantalla
         Pnl_Tablero.setPreferredSize(new Dimension(anchoDelMarco, altoDelMarco));
         Pnl_Tablero.revalidate();
         Pnl_Tablero.repaint();
