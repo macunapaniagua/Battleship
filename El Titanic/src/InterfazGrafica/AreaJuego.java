@@ -12,6 +12,7 @@ import java.awt.Image;
 import java.util.Random;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 
@@ -20,7 +21,7 @@ import javax.swing.JToggleButton;
  * @author Mario A
  */
 public class AreaJuego extends javax.swing.JFrame {
-    
+
     private final int CASILLAS_SIN_SCROLL = 6;
     private final int ANCHO_IMAGEN_CON_SCROLL = 80;
     private final int ALTO_IMAGEN_CON_SCROLL = 33;
@@ -44,10 +45,16 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Creates new form AreaJuego
      */
-    public AreaJuego() {        
+    public AreaJuego() {
         initComponents();
+
+        // Convierte el ScrollPane en invisible
         jScrollPane1.getViewport().setOpaque(false);
         setLocationRelativeTo(null);
+
+        // Oculta los botones de rendirse
+        Btn_RendirAliado.setVisible(false);
+        Btn_RendirEnemigo.setVisible(false);
     }
 
     /**
@@ -74,6 +81,8 @@ public class AreaJuego extends javax.swing.JFrame {
         Lbl_Player2Name = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Pnl_Tablero = new javax.swing.JPanel();
+        Btn_RendirAliado = new javax.swing.JButton();
+        Btn_RendirEnemigo = new javax.swing.JButton();
         Lbl_Fondo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -245,6 +254,24 @@ public class AreaJuego extends javax.swing.JFrame {
         jScrollPane1.setViewportView(Pnl_Tablero);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 490, 440));
+
+        Btn_RendirAliado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bandera.png"))); // NOI18N
+        Btn_RendirAliado.setFocusable(false);
+        Btn_RendirAliado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rendirse(evt);
+            }
+        });
+        getContentPane().add(Btn_RendirAliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 100, 40, 40));
+
+        Btn_RendirEnemigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bandera.png"))); // NOI18N
+        Btn_RendirEnemigo.setFocusable(false);
+        Btn_RendirEnemigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rendirse(evt);
+            }
+        });
+        getContentPane().add(Btn_RendirEnemigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 480, 40, 40));
 
         Lbl_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoJuego1.png"))); // NOI18N
         Lbl_Fondo.setOpaque(true);
@@ -443,11 +470,9 @@ public class AreaJuego extends javax.swing.JFrame {
                 tableroDeJuego.setCantidadBarcosEnemigos(barcos);
                 if (barcos == 0) {
                     // Modifica el puntaje del jugador Aliado
-                    int puntaje = jugadorAliado.getPuntaje();
-                    puntaje++;
-                    jugadorAliado.setPuntaje(puntaje);
+                    jugadorAliado.setPuntaje(jugadorAliado.getPuntaje() + 1);
                     // Modifica el puntaje graficamente
-                    Lbl_ScorePlayer1.setText(puntaje + "");
+                    Lbl_ScorePlayer1.setText(jugadorAliado.getPuntaje() + "");
                     // Modifica los datos de las estadisticas de las partidas
                     jugadorAliado.setCantidadPartidasJugadas(jugadorAliado.getCantidadPartidasJugadas() + 1);
                     jugadorEnemigo.setCantidadPartidasJugadas(jugadorEnemigo.getCantidadPartidasJugadas() + 1);
@@ -455,6 +480,12 @@ public class AreaJuego extends javax.swing.JFrame {
                     jugadorEnemigo.setCantidadPartidasPerdidas(jugadorEnemigo.getCantidadPartidasPerdidas() + 1);
                     // Establece la partida como finalizada
                     partidaFinalizada = true;
+                    // Habilita los botones de crear Usuarios
+                    MnI_EditJueg1.setEnabled(true);
+                    MnI_EditJueg2.setEnabled(true);
+                    // Desaparece los botones de rendicion
+                    Btn_RendirAliado.setVisible(false);
+                    Btn_RendirEnemigo.setVisible(false);
                     // Muestra mensaje de victoria
                     JOptionPane.showMessageDialog(this, "Jugador Aliado Gana. Presiona F2 para iniciar una nueva partida");
                 }
@@ -466,11 +497,9 @@ public class AreaJuego extends javax.swing.JFrame {
                 tableroDeJuego.setCantidadBarcosAliados(barcos);
                 if (barcos == 0) {
                     // Modifica el puntaje del jugador Enemigo
-                    int puntaje = jugadorEnemigo.getPuntaje();
-                    puntaje++;
-                    jugadorEnemigo.setPuntaje(puntaje);
+                    jugadorEnemigo.setPuntaje(jugadorEnemigo.getPuntaje() + 1);
                     // Modifica el puntaje graficamente
-                    Lbl_ScorePlayer2.setText(puntaje + "");
+                    Lbl_ScorePlayer2.setText((jugadorEnemigo.getPuntaje()) + "");
                     // Modifica los datos de las estadisticas de las partidas
                     jugadorEnemigo.setCantidadPartidasJugadas(jugadorEnemigo.getCantidadPartidasJugadas() + 1);
                     jugadorAliado.setCantidadPartidasJugadas(jugadorAliado.getCantidadPartidasJugadas() + 1);
@@ -478,6 +507,12 @@ public class AreaJuego extends javax.swing.JFrame {
                     jugadorAliado.setCantidadPartidasPerdidas(jugadorAliado.getCantidadPartidasPerdidas() + 1);
                     // Establece la partida como finalizada
                     partidaFinalizada = true;
+                    // Habilita los botones de crear Usuarios
+                    MnI_EditJueg1.setEnabled(true);
+                    MnI_EditJueg2.setEnabled(true);
+                    // Desaparece los botones de rendicion
+                    Btn_RendirAliado.setVisible(false);
+                    Btn_RendirEnemigo.setVisible(false);
                     // Muestra mensaje de victoria
                     JOptionPane.showMessageDialog(this, "Jugador Enemigo Gana. Presiona F2 para iniciar una nueva partida");
                 }
@@ -526,6 +561,14 @@ public class AreaJuego extends javax.swing.JFrame {
             }
         }
 
+        // Muestra los botones de rendirse
+        Btn_RendirAliado.setVisible(true);
+        Btn_RendirEnemigo.setVisible(true);
+
+        // Inhabilita los botones de crear Usuarios
+        MnI_EditJueg1.setEnabled(false);
+        MnI_EditJueg2.setEnabled(false);
+
         // SE GENERA UN RANDOM PARA ASIGNAR QUIEN HACE EL PRIMER ATAQUE DEL JUEGO.
         Random rand = new Random(System.currentTimeMillis());
         turnoAliado = rand.nextBoolean();
@@ -541,7 +584,9 @@ public class AreaJuego extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo utilizado para generar cada una de las casillas del tablero grafico
+     * Metodo utilizado para generar cada una de las casillas del tablero
+     * grafico
+     *
      * @param pFilas filas del tablero
      * @param pColumnas columnas del tablero
      */
@@ -552,35 +597,34 @@ public class AreaJuego extends javax.swing.JFrame {
         tableroDeJuego = new Tablero(pFilas + 1, pColumnas);
         // Se crea la matriz de botones con las dimensiones dadas
         tableroGrafico = new JToggleButton[pFilas + 1][pColumnas];
-        
+
         int anchoBoton;
-        int altoBoton; 
+        int altoBoton;
         int anchoDelMarco = ANCHO_PANEL_SIN_SCROLL;
         int altoDelMarco = ALTO_PANEL_SIN_SCROLL;
-        
+
         // Se carga el panel con scroll
-        if( (pFilas/2 > CASILLAS_SIN_SCROLL) || (pColumnas/2 > CASILLAS_SIN_SCROLL)){
-             
+        if ((pFilas / 2 > CASILLAS_SIN_SCROLL) || (pColumnas / 2 > CASILLAS_SIN_SCROLL)) {
+
             // Se calcula la medida que tendra cada boton en la ventana
             anchoBoton = ANCHO_IMAGEN_CON_SCROLL;
             altoBoton = ALTO_IMAGEN_CON_SCROLL;
             // Se calcula la medida que tendra el panel
-            if(pFilas > CASILLAS_SIN_SCROLL){
-                altoDelMarco = (pFilas + 1) * altoBoton;                                              
+            if (pFilas > CASILLAS_SIN_SCROLL) {
+                altoDelMarco = (pFilas + 1) * altoBoton;
             }
-            if(pColumnas > CASILLAS_SIN_SCROLL){
+            if (pColumnas > CASILLAS_SIN_SCROLL) {
                 anchoDelMarco = pColumnas * anchoBoton;
-            }                   
-        }
-        // Se carga el panel sin scroll
-        else{                     
+            }
+        } // Se carga el panel sin scroll
+        else {
             // Se obtiene las medidas del panel donde van los botones
             anchoDelMarco = ANCHO_PANEL_SIN_SCROLL;
-            altoDelMarco = ALTO_PANEL_SIN_SCROLL;            
+            altoDelMarco = ALTO_PANEL_SIN_SCROLL;
             // Se calcula la medida que tendra cada boton en la ventana
             anchoBoton = anchoDelMarco / pColumnas;
-            altoBoton = altoDelMarco / (pFilas + 1);        
-        }  
+            altoBoton = altoDelMarco / (pFilas + 1);
+        }
         // Cambia el tamano del panel y repinta la pantalla
         Pnl_Tablero.setPreferredSize(new Dimension(anchoDelMarco, altoDelMarco));
         Pnl_Tablero.revalidate();
@@ -588,7 +632,7 @@ public class AreaJuego extends javax.swing.JFrame {
 
         //  SE PROCEDE A CREAR LA INTERFAZ GRAFICA DEL TABLERO
         for (int i = 0; i <= pFilas; i++) {
-            
+
             for (int j = 0; j < pColumnas; j++) {
                 if (pFilas / 2 == i) {
                     break;
@@ -680,31 +724,22 @@ public class AreaJuego extends javax.swing.JFrame {
      */
     private void MnI_EditJueg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg1ActionPerformed
 
-        // Se crea un nuevo objeto Jugador que va a ser de tipo Aliado
-        jugadorAliado = new Jugador(true);
-        // Se establece el puntaje inicial del nuevo jugador        
-        Lbl_ScorePlayer1.setText("0");
         // Se pasan los elementos que se van a modificar desde la ventana Usuarios
         // y se procede a mostrarla.
-        ventanaUsuarios.setAliado(Lbl_Player1Photo, Lbl_Player1Name, jugadorAliado);
+        ventanaUsuarios.setAliado(Lbl_Player1Photo, Lbl_Player1Name, jugadorAliado, Lbl_ScorePlayer1, true);
         ventanaUsuarios.setVisible(true);
     }//GEN-LAST:event_MnI_EditJueg1ActionPerformed
 
     /**
      * Metodo utilizado para crear un nuevo jugador Enemigo al seleccionar el
      * elemento del menu
-     *
      * @param evt
      */
     private void MnI_EditJueg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg2ActionPerformed
 
-        // Se crea un nuevo objeto Jugador que va a ser de tipo Enemigo
-        jugadorEnemigo = new Jugador(false);
-        // Se establece el puntaje inicial del nuevo jugador                
-        Lbl_ScorePlayer2.setText("0");
         // Se pasan los elementos que se van a modificar desde la ventana Usuarios
         // y se procede a mostrarla.
-        ventanaUsuarios.setAliado(Lbl_Player2Photo, Lbl_Player2Name, jugadorEnemigo);
+        ventanaUsuarios.setAliado(Lbl_Player2Photo, Lbl_Player2Name, jugadorEnemigo, Lbl_ScorePlayer2, false);
         ventanaUsuarios.setVisible(true);
     }//GEN-LAST:event_MnI_EditJueg2ActionPerformed
 
@@ -729,9 +764,7 @@ public class AreaJuego extends javax.swing.JFrame {
     private void MnI_NuevoJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_NuevoJuegoActionPerformed
 
         // Verifica si aun no se crearon los jugadores antes de crear una nueva partida
-        if ((jugadorAliado == null) || (jugadorEnemigo == null)
-                || (jugadorAliado.getNombreJugador().equals(""))
-                || (jugadorEnemigo.getNombreJugador().equals(""))) {
+        if (jugadorAliado == null || jugadorEnemigo == null) {
             JOptionPane.showMessageDialog(this, "No se han creado los jugadores aún.");
         } else {
 
@@ -764,9 +797,10 @@ public class AreaJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_Lbl_Player1PhotoMouseEntered
 
     /**
-     * Evento que desvanece la ventana estadisticas cuando el mouse sale de la 
+     * Evento que desvanece la ventana estadisticas cuando el mouse sale de la
      * imagen del aliado
-     * @param evt 
+     *
+     * @param evt
      */
     private void Lbl_Player1PhotoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player1PhotoMouseExited
         ventanaEstadisticas.dispose();
@@ -790,13 +824,76 @@ public class AreaJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_Lbl_Player2PhotoMouseEntered
 
     /**
-     * Evento que desvanece la ventana estadisticas cuando el mouse sale de la 
+     * Evento que desvanece la ventana estadisticas cuando el mouse sale de la
      * imagen del enemigo
-     * @param evt 
+     *
+     * @param evt
      */
     private void Lbl_Player2PhotoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player2PhotoMouseExited
         ventanaEstadisticas.dispose();
     }//GEN-LAST:event_Lbl_Player2PhotoMouseExited
+
+    /**
+     * Metodo que se ejecuta cuando un usuario desea rendirse
+     *
+     * @param evt Boton que ejecuta el evento
+     */
+    private void rendirse(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rendirse
+
+        // Obtiene el boton que llama el evento
+        JButton jugadorRendido = (JButton) evt.getComponent();
+
+        // Verifica quien se desea rendir y si es el turno del el para ejecutar la rendicion
+        if (jugadorRendido == Btn_RendirAliado && turnoAliado) {
+
+            // Modifica el puntaje del jugador Enemigo
+            jugadorEnemigo.setPuntaje(jugadorEnemigo.getPuntaje() + 1);
+            // Modifica el puntaje graficamente
+            Lbl_ScorePlayer2.setText(jugadorEnemigo.getPuntaje() + "");
+            // Modifica los datos de las estadisticas de las partidas
+            jugadorEnemigo.setCantidadPartidasJugadas(jugadorEnemigo.getCantidadPartidasJugadas() + 1);
+            jugadorAliado.setCantidadPartidasJugadas(jugadorAliado.getCantidadPartidasJugadas() + 1);
+            jugadorEnemigo.setCantidadPartidasGanadas(jugadorEnemigo.getCantidadPartidasGanadas() + 1);
+            jugadorAliado.setCantidadPartidasPerdidas(jugadorAliado.getCantidadPartidasPerdidas() + 1);
+            // Muestra mensaje de victoria
+            JOptionPane.showMessageDialog(this, "Jugador Enemigo Gana. Presiona F2 para iniciar una nueva partida");
+
+        } else if (jugadorRendido == Btn_RendirEnemigo && !turnoAliado) {
+
+            // Modifica el puntaje del jugador Aliado
+            jugadorAliado.setPuntaje(jugadorAliado.getPuntaje() + 1);
+            // Modifica el puntaje graficamente
+            Lbl_ScorePlayer1.setText(jugadorAliado.getPuntaje() + "");
+            // Modifica los datos de las estadisticas de las partidas
+            jugadorAliado.setCantidadPartidasJugadas(jugadorAliado.getCantidadPartidasJugadas() + 1);
+            jugadorEnemigo.setCantidadPartidasJugadas(jugadorEnemigo.getCantidadPartidasJugadas() + 1);
+            jugadorAliado.setCantidadPartidasGanadas(jugadorAliado.getCantidadPartidasGanadas() + 1);
+            jugadorEnemigo.setCantidadPartidasPerdidas(jugadorEnemigo.getCantidadPartidasPerdidas() + 1);
+            // Muestra mensaje de victoria
+            JOptionPane.showMessageDialog(this, "Jugador Aliado Gana. Presiona F2 para iniciar una nueva partida");
+
+        } else {
+            if (turnoAliado) {
+                JOptionPane.showMessageDialog(this, "El Jugador Enemigo no puede"
+                        + " rendirse mientras sea el turno del Aliado");
+            } else {
+                JOptionPane.showMessageDialog(this, "El Jugador Aliado no puede"
+                        + " rendirse mientras sea el turno del Enemigo");
+            }
+            return;
+        }
+
+        // Establece la partida como finalizada
+        partidaFinalizada = true;
+
+        // Habilita los botones de crear Usuarios
+        MnI_EditJueg1.setEnabled(true);
+        MnI_EditJueg2.setEnabled(true);
+
+        // Desaparece los botones de rendicion
+        Btn_RendirAliado.setVisible(false);
+        Btn_RendirEnemigo.setVisible(false);
+    }//GEN-LAST:event_rendirse
 
     /**
      * @param args the command line arguments
@@ -839,6 +936,8 @@ public class AreaJuego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Btn_RendirAliado;
+    private javax.swing.JButton Btn_RendirEnemigo;
     private javax.swing.JLabel Lbl_Fondo;
     private javax.swing.JLabel Lbl_Player1Name;
     private javax.swing.JLabel Lbl_Player1Photo;

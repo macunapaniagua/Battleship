@@ -31,11 +31,13 @@ public class Jugador {
     /**
      * Metodo constructor
      * @param pTipoJugador true si es Aliado o false si es Enemigo
+     * @param pNombre Nombre del jugador
+     * @param pAvatar Avatar del jugador
      */    
-    public Jugador(boolean pTipoJugador){
+    public Jugador(boolean pTipoJugador, String pNombre, JLabel pAvatar){
         
-        nombreJugador = "";
-        avatarJugador = null;
+        nombreJugador = pNombre;
+        avatarJugador = pAvatar;
         puntaje = 0;
         cantidadPartidasGanadas = 0;
         cantidadPartidasJugadas = 0;

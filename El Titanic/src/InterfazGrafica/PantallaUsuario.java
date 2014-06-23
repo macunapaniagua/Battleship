@@ -22,9 +22,11 @@ public class PantallaUsuario extends javax.swing.JFrame {
     private JLabel iconoSeleccionado = null;
 
     // Variables auxiliares para cargar la informacion faltante del usuario
-    private JLabel iconoUsuario;
+    private JLabel etiquetaFotoUsuario;
     private JLabel etiquetaNombreUsuario;
+    private JLabel etiquetaPuntaje;
     private Jugador jugador;
+    private boolean tipoAliado;
 
     /**
      * Creates new form CrearUsuario
@@ -64,16 +66,23 @@ public class PantallaUsuario extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         Txt_Nombre = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
+        Lbl_InfoAvatar = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(565, 550));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                cerrarVentana(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
@@ -81,6 +90,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarBroke.png"))); // NOI18N
+        jLabel1.setName("Brock"); // NOI18N
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -89,6 +99,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 124, 124));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarChaplin.png"))); // NOI18N
+        jLabel2.setName("Charles Chaplin"); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -97,8 +108,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 124, 124));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarEinstein.png"))); // NOI18N
-        jLabel3.setText("Einstein");
-        jLabel3.setName("Einstein"); // NOI18N
+        jLabel3.setName("Albert Einstein"); // NOI18N
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -107,7 +117,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 124, 124));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarClaudia.jpg"))); // NOI18N
-        jLabel4.setText("jLabel1");
+        jLabel4.setName("Claudia"); // NOI18N
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -116,7 +126,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 124, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarFred.jpg"))); // NOI18N
-        jLabel5.setText("jLabel2");
+        jLabel5.setName("Fred"); // NOI18N
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -126,6 +136,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarGhandi.jpg"))); // NOI18N
         jLabel6.setText("jLabel3");
+        jLabel6.setName("Ghandi"); // NOI18N
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -135,6 +146,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarHarry.jpg"))); // NOI18N
         jLabel7.setText("jLabel1");
+        jLabel7.setName("Harry"); // NOI18N
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -144,6 +156,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarHitler.png"))); // NOI18N
         jLabel8.setText("jLabel2");
+        jLabel8.setName("Hitler"); // NOI18N
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -153,6 +166,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarJack.png"))); // NOI18N
         jLabel9.setText("jLabel3");
+        jLabel9.setName("Jack Sparrow"); // NOI18N
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -162,6 +176,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarJackson.png"))); // NOI18N
         jLabel10.setText("jLabel1");
+        jLabel10.setName("Michael Jackson"); // NOI18N
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -171,6 +186,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarJobs.png"))); // NOI18N
         jLabel11.setText("jLabel2");
+        jLabel11.setName("Steve Jobs"); // NOI18N
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -180,6 +196,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarJohn.jpg"))); // NOI18N
         jLabel12.setText("jLabel3");
+        jLabel12.setName("Jhon"); // NOI18N
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -189,6 +206,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarKaty.png"))); // NOI18N
         jLabel13.setText("jLabel1");
+        jLabel13.setName("Katty Perry"); // NOI18N
         jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -198,6 +216,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarLuisa.jpg"))); // NOI18N
         jLabel14.setText("jLabel2");
+        jLabel14.setName("Luisa"); // NOI18N
         jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -207,6 +226,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarManosTijeras.png"))); // NOI18N
         jLabel15.setText("jLabel3");
+        jLabel15.setName("Manos de Tijera"); // NOI18N
         jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -216,6 +236,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarMrBean.png"))); // NOI18N
         jLabel16.setText("jLabel1");
+        jLabel16.setName("Mr. Bean"); // NOI18N
         jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -225,6 +246,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarObama.png"))); // NOI18N
         jLabel17.setText("jLabel2");
+        jLabel17.setName("Barack Obama"); // NOI18N
         jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -234,6 +256,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarPenny.png"))); // NOI18N
         jLabel18.setText("jLabel3");
+        jLabel18.setName("Penny"); // NOI18N
         jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -243,6 +266,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarSheldon.png"))); // NOI18N
         jLabel19.setText("jLabel1");
+        jLabel19.setName("Sheldon Cooper"); // NOI18N
         jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
@@ -250,14 +274,24 @@ public class PantallaUsuario extends javax.swing.JFrame {
         });
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 860, 124, -1));
 
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarTyson.png"))); // NOI18N
-        jLabel20.setText("jLabel2");
-        jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarElias.png"))); // NOI18N
+        jLabel25.setName("Elias"); // NOI18N
+        jLabel25.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagenClicked(evt);
             }
         });
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 860, 124, -1));
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 860, 124, -1));
+
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/AvatarTyson.png"))); // NOI18N
+        jLabel26.setText("jLabel2");
+        jLabel26.setName("Mike Tyson"); // NOI18N
+        jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 860, 124, -1));
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -287,6 +321,10 @@ public class PantallaUsuario extends javax.swing.JFrame {
         jLabel23.setText("Nombre de Usuario:");
         getContentPane().add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 250, 30));
 
+        Lbl_InfoAvatar.setFont(new java.awt.Font("Verdana", 2, 12)); // NOI18N
+        Lbl_InfoAvatar.setText("No ha seleccionado un Avatar aún");
+        getContentPane().add(Lbl_InfoAvatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 260, 20));
+
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BrushedMetal.jpg"))); // NOI18N
         jLabel24.setText("jLabel24");
         getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 540));
@@ -298,10 +336,12 @@ public class PantallaUsuario extends javax.swing.JFrame {
      * Evento que es llamado al seleccionar una imagen Avatar del monton. Esto
      * es para utilizar esta imagen mas adelante estableciendola en la ventana
      * principal del juego
+     *
      * @param evt
      */
     private void imagenClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenClicked
         iconoSeleccionado = (JLabel) evt.getComponent();
+        Lbl_InfoAvatar.setText("El avatar seleccionado es: " + evt.getComponent().getName());
     }//GEN-LAST:event_imagenClicked
 
     /**
@@ -313,27 +353,29 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         // Se verifica si completo la informacion solicitada para crear el usuario
         if (!Txt_Nombre.getText().equals("") && iconoSeleccionado != null) {
-            // Se le establece la imagen y el nombre al objeto Jugador
-            jugador.setAvatarJugador(iconoSeleccionado);
-            jugador.setNombreJugador(this.Txt_Nombre.getText());
 
+            // Se crea un nuevo objeto Jugador 
+            jugador = new Jugador(tipoAliado, this.Txt_Nombre.getText(), iconoSeleccionado);
+            
             // Se carga la informacion del Jugador en la Ventana de juego   
             this.etiquetaNombreUsuario.setText(Txt_Nombre.getText());
+            this.etiquetaPuntaje.setText("0");
 
             // Cambia de tamano y establece la imagen del jugador en la ventana principal
-            ImageIcon imagenAliado = (ImageIcon) iconoSeleccionado.getIcon();
-            Image imagenAliadoEscalada = imagenAliado.getImage().getScaledInstance(iconoUsuario.getWidth(),
-                    iconoUsuario.getHeight(), Image.SCALE_SMOOTH);
-            Icon iconoAliadoEscaladoFinal = new ImageIcon(imagenAliadoEscalada);
-            iconoUsuario.setIcon(iconoAliadoEscaladoFinal);
+            ImageIcon imagenAvatar = (ImageIcon) iconoSeleccionado.getIcon();
+            Image imagenAvatarEscalada = imagenAvatar.getImage().getScaledInstance(etiquetaFotoUsuario.getWidth(),
+                    etiquetaFotoUsuario.getHeight(), Image.SCALE_SMOOTH);
+            Icon iconoAvatarEscaladoFinal = new ImageIcon(imagenAvatarEscalada);
+            etiquetaFotoUsuario.setIcon(iconoAvatarEscaladoFinal);
 
-            // Borra la informacion del campo Txt_Nombre
+            // Restablece los datos de esta clase
             Txt_Nombre.setText(null);
             this.iconoSeleccionado = null;
+            Lbl_InfoAvatar.setText("No ha seleccionado un Avatar aún");
 
             // Desvanece la ventana Creacion de Usuarios
             this.dispose();
-        }
+        } 
         // Muestra al usuario un mensaje, ya que no ha establecido toda la informacion necesaria
         else {
             JOptionPane.showMessageDialog(this, "Informacion incompleta. Verifique "
@@ -342,16 +384,31 @@ public class PantallaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
+     * Metodo que limpia los componentes de esta ventana al cerrarla
+     * @param evt 
+     */
+    private void cerrarVentana(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_cerrarVentana
+        // Borra la informacion del campo Txt_Nombre
+        Txt_Nombre.setText(null);
+        this.iconoSeleccionado = null;
+        Lbl_InfoAvatar.setText("No ha seleccionado un Avatar aún");
+    }//GEN-LAST:event_cerrarVentana
+
+    /**
      * Metodo que recibe los datos que se van a modificar tras la creacion de un
      * nuevo usuario.
      * @param pFoto Foto de la ventana de juego principal
      * @param pNombre Nombre que se muestra en la ventana principal del juego
      * @param pJugador Objeto jugador al que se le va a establecer informacion
+     * @param pScore Marcador de la ventana principal
+     * @param pAliado Variable que indica si es aliado o enemigo
      */
-    public void setAliado(JLabel pFoto, JLabel pNombre, Jugador pJugador) {
-        this.iconoUsuario = pFoto;
+    public void setAliado(JLabel pFoto, JLabel pNombre, Jugador pJugador, JLabel pScore, boolean pAliado) {
+        this.etiquetaFotoUsuario = pFoto;
         this.etiquetaNombreUsuario = pNombre;
+        this.etiquetaPuntaje = pScore;
         this.jugador = pJugador;
+        this.tipoAliado = pAliado;
     }
 
     /**
@@ -390,6 +447,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Lbl_InfoAvatar;
     private javax.swing.JTextField Txt_Nombre;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -404,11 +462,12 @@ public class PantallaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

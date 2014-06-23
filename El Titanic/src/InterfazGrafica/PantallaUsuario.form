@@ -11,6 +11,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="cerrarVentana"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -56,6 +59,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/AvatarBroke.png"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="Brock" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -71,6 +75,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/AvatarChaplin.png"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="Charles Chaplin" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -86,8 +91,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/AvatarEinstein.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Einstein"/>
-                <Property name="name" type="java.lang.String" value="Einstein" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="Albert Einstein" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -103,7 +107,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/AvatarClaudia.jpg"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jLabel1"/>
+                <Property name="name" type="java.lang.String" value="Claudia" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -119,7 +123,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/AvatarFred.jpg"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jLabel2"/>
+                <Property name="name" type="java.lang.String" value="Fred" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -136,6 +140,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarGhandi.jpg"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel3"/>
+                <Property name="name" type="java.lang.String" value="Ghandi" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -152,6 +157,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarHarry.jpg"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel1"/>
+                <Property name="name" type="java.lang.String" value="Harry" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -168,6 +174,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarHitler.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
+                <Property name="name" type="java.lang.String" value="Hitler" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -184,6 +191,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarJack.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel3"/>
+                <Property name="name" type="java.lang.String" value="Jack Sparrow" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -200,6 +208,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarJackson.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel1"/>
+                <Property name="name" type="java.lang.String" value="Michael Jackson" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -216,6 +225,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarJobs.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
+                <Property name="name" type="java.lang.String" value="Steve Jobs" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -232,6 +242,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarJohn.jpg"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel3"/>
+                <Property name="name" type="java.lang.String" value="Jhon" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -248,6 +259,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarKaty.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel1"/>
+                <Property name="name" type="java.lang.String" value="Katty Perry" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -264,6 +276,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarLuisa.jpg"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
+                <Property name="name" type="java.lang.String" value="Luisa" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -280,6 +293,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarManosTijeras.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel3"/>
+                <Property name="name" type="java.lang.String" value="Manos de Tijera" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -296,6 +310,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarMrBean.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel1"/>
+                <Property name="name" type="java.lang.String" value="Mr. Bean" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -312,6 +327,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarObama.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
+                <Property name="name" type="java.lang.String" value="Barack Obama" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -328,6 +344,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarPenny.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel3"/>
+                <Property name="name" type="java.lang.String" value="Penny" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -344,6 +361,7 @@
                   <Image iconType="3" name="/Imagenes/AvatarSheldon.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel1"/>
+                <Property name="name" type="java.lang.String" value="Sheldon Cooper" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -354,12 +372,29 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel20">
+            <Component class="javax.swing.JLabel" name="jLabel25">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Imagenes/AvatarElias.png"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="Elias" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
+              </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="310" y="860" width="124" height="-1"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel26">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/AvatarTyson.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
+                <Property name="name" type="java.lang.String" value="Mike Tyson" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imagenClicked"/>
@@ -436,6 +471,19 @@
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="30" y="100" width="250" height="30"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="Lbl_InfoAvatar">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Verdana" size="12" style="2"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="No ha seleccionado un Avatar a&#xfa;n"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="30" y="470" width="260" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
