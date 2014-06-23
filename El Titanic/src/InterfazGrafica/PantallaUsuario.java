@@ -25,7 +25,6 @@ public class PantallaUsuario extends javax.swing.JFrame {
     private JLabel etiquetaFotoUsuario;
     private JLabel etiquetaNombreUsuario;
     private JLabel etiquetaPuntaje;
-    private Jugador jugador;
     private boolean tipoAliado;
 
     /**
@@ -352,11 +351,16 @@ public class PantallaUsuario extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         // Se verifica si completo la informacion solicitada para crear el usuario
-        if (!Txt_Nombre.getText().equals("") && iconoSeleccionado != null) {
+        if (!Txt_Nombre.getText().equals("") && iconoSeleccionado != null) 
+        {
+            // Se crea un nuevo objeto Jugador Aliado o Enemigo, dependiendo de
+            // la seleccion del usuario
+            if(tipoAliado) {
+                AreaJuego.jugadorAliado = new Jugador(tipoAliado, Txt_Nombre.getText(), iconoSeleccionado);
+            } else {
+                AreaJuego.jugadorEnemigo = new Jugador(tipoAliado, Txt_Nombre.getText(), iconoSeleccionado);
+            }
 
-            // Se crea un nuevo objeto Jugador 
-            jugador = new Jugador(tipoAliado, this.Txt_Nombre.getText(), iconoSeleccionado);
-            
             // Se carga la informacion del Jugador en la Ventana de juego   
             this.etiquetaNombreUsuario.setText(Txt_Nombre.getText());
             this.etiquetaPuntaje.setText("0");
@@ -399,15 +403,13 @@ public class PantallaUsuario extends javax.swing.JFrame {
      * nuevo usuario.
      * @param pFoto Foto de la ventana de juego principal
      * @param pNombre Nombre que se muestra en la ventana principal del juego
-     * @param pJugador Objeto jugador al que se le va a establecer informacion
      * @param pScore Marcador de la ventana principal
      * @param pAliado Variable que indica si es aliado o enemigo
      */
-    public void setAliado(JLabel pFoto, JLabel pNombre, Jugador pJugador, JLabel pScore, boolean pAliado) {
+    public void setAliado(JLabel pFoto, JLabel pNombre, JLabel pScore, boolean pAliado) {
         this.etiquetaFotoUsuario = pFoto;
         this.etiquetaNombreUsuario = pNombre;
         this.etiquetaPuntaje = pScore;
-        this.jugador = pJugador;
         this.tipoAliado = pAliado;
     }
 

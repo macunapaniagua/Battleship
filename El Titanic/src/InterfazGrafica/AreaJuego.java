@@ -35,9 +35,11 @@ public class AreaJuego extends javax.swing.JFrame {
     private JToggleButton[][] tableroGrafico = null;
 
     // Objetos del Programa
-    private Jugador jugadorAliado = null;
-    private Jugador jugadorEnemigo = null;
+    public static Jugador jugadorAliado = null;
+    public static Jugador jugadorEnemigo = null;
     // Ventanas externas
+    private final AcercaDe ventanaAcercaDe = new AcercaDe();
+    private final Instrucciones ventanaInstrucciones = new Instrucciones();
     private final Estadisticas ventanaEstadisticas = new Estadisticas();
     private final PantallaUsuario ventanaUsuarios = new PantallaUsuario();
     private final Configuraciones ventanaConfiguracion = new Configuraciones();
@@ -49,7 +51,7 @@ public class AreaJuego extends javax.swing.JFrame {
         initComponents();
 
         // Convierte el ScrollPane en invisible
-        jScrollPane1.getViewport().setOpaque(false);
+        Pnl_Scroll.getViewport().setOpaque(false);
         setLocationRelativeTo(null);
 
         // Oculta los botones de rendirse
@@ -79,7 +81,7 @@ public class AreaJuego extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         Lbl_ScorePlayer2 = new javax.swing.JLabel();
         Lbl_Player2Name = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        Pnl_Scroll = new javax.swing.JScrollPane();
         Pnl_Tablero = new javax.swing.JPanel();
         Btn_RendirAliado = new javax.swing.JButton();
         Btn_RendirEnemigo = new javax.swing.JButton();
@@ -251,9 +253,9 @@ public class AreaJuego extends javax.swing.JFrame {
             .addGap(0, 434, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(Pnl_Tablero);
+        Pnl_Scroll.setViewportView(Pnl_Tablero);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 490, 440));
+        getContentPane().add(Pnl_Scroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 490, 440));
 
         Btn_RendirAliado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bandera.png"))); // NOI18N
         Btn_RendirAliado.setFocusable(false);
@@ -310,6 +312,7 @@ public class AreaJuego extends javax.swing.JFrame {
 
         jMenu2.setText("Crear Jugadores");
 
+        MnI_EditJueg1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         MnI_EditJueg1.setText("Crear Aliado");
         MnI_EditJueg1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -318,6 +321,7 @@ public class AreaJuego extends javax.swing.JFrame {
         });
         jMenu2.add(MnI_EditJueg1);
 
+        MnI_EditJueg2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
         MnI_EditJueg2.setText("Crear Enemigo");
         MnI_EditJueg2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -330,10 +334,21 @@ public class AreaJuego extends javax.swing.JFrame {
 
         jMenu3.setText("Ayuda");
 
+        MnI_Instrucciones.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         MnI_Instrucciones.setText("Instrucciones de Uso");
+        MnI_Instrucciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnI_InstruccionesActionPerformed(evt);
+            }
+        });
         jMenu3.add(MnI_Instrucciones);
 
         MnI_AcercaDe.setText("Acerca de");
+        MnI_AcercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnI_AcercaDeActionPerformed(evt);
+            }
+        });
         jMenu3.add(MnI_AcercaDe);
 
         jMenuBar1.add(jMenu3);
@@ -346,7 +361,6 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo para salir de la aplicacion al presionar Alt+F4 o al seleccionar
      * la opcion salir en el menu.
-     *
      * @param evt
      */
     private void MnI_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_SalirActionPerformed
@@ -365,7 +379,6 @@ public class AreaJuego extends javax.swing.JFrame {
      * Evento que captura cuando un boton ha sido seleccionado en la matriz de
      * botones y se procede a verificar y ejecutar el ataque al elemento
      * seleccionado
-     *
      * @param evt boton presionado
      */
     private void verificarAtaque(java.awt.event.MouseEvent evt) {
@@ -429,7 +442,6 @@ public class AreaJuego extends javax.swing.JFrame {
      * (coloca un barco hundido o un vacio como imagen) como la matriz de objeto
      * Tablero (cambia el valor del true a false, en caso que hubiera un barco,
      * indicando que este fue hundido)
-     *
      * @param pFilaAtaque fila que se va a atacar
      * @param pColumnaAtaque columna que se va a atacar
      */
@@ -465,10 +477,8 @@ public class AreaJuego extends javax.swing.JFrame {
             // SE PROCEDE A VERIFICAR SI ES EL TURNO DEL ALIADO Y SI YA GANO LA PARTIDA
             if (turnoAliado) {
                 // Disminuye la cantidad de barcos enemigo luego del ataque
-                int barcos = tableroDeJuego.getCantidadBarcosEnemigos();
-                barcos--;
-                tableroDeJuego.setCantidadBarcosEnemigos(barcos);
-                if (barcos == 0) {
+                tableroDeJuego.setCantidadBarcosEnemigos(tableroDeJuego.getCantidadBarcosEnemigos() - 1);
+                if (tableroDeJuego.getCantidadBarcosEnemigos() == 0) {
                     // Modifica el puntaje del jugador Aliado
                     jugadorAliado.setPuntaje(jugadorAliado.getPuntaje() + 1);
                     // Modifica el puntaje graficamente
@@ -492,10 +502,8 @@ public class AreaJuego extends javax.swing.JFrame {
             } // ES EL TURNO DEL ENEMIGO. SE PROCEDE A VERIFICAR SI YA GANO LA PARTIDA
             else {
                 // Disminuye la cantidad de barcos aliados luego del ataque
-                int barcos = tableroDeJuego.getCantidadBarcosAliados();
-                barcos--;
-                tableroDeJuego.setCantidadBarcosAliados(barcos);
-                if (barcos == 0) {
+                tableroDeJuego.setCantidadBarcosAliados(tableroDeJuego.getCantidadBarcosAliados() - 1);
+                if (tableroDeJuego.getCantidadBarcosAliados() == 0) {
                     // Modifica el puntaje del jugador Enemigo
                     jugadorEnemigo.setPuntaje(jugadorEnemigo.getPuntaje() + 1);
                     // Modifica el puntaje graficamente
@@ -529,7 +537,6 @@ public class AreaJuego extends javax.swing.JFrame {
      * Metodo utilizado para crear el terreno de juego y los barcos que se
      * colocaran en el de forma aleatoria. Seguido de ello, generara un boolean
      * aleatorio para asignar quien comienza el juego.
-     *
      * @param filasDe1Usuario Cantidad de filas presentes en el campo de un
      * jugador
      * @param columnasDelTablero cantidad de columnas del tablero
@@ -586,7 +593,6 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para generar cada una de las casillas del tablero
      * grafico
-     *
      * @param pFilas filas del tablero
      * @param pColumnas columnas del tablero
      */
@@ -598,32 +604,28 @@ public class AreaJuego extends javax.swing.JFrame {
         // Se crea la matriz de botones con las dimensiones dadas
         tableroGrafico = new JToggleButton[pFilas + 1][pColumnas];
 
-        int anchoBoton;
-        int altoBoton;
+        // Establece el tamano del panel por defecto, sin Scroll
         int anchoDelMarco = ANCHO_PANEL_SIN_SCROLL;
         int altoDelMarco = ALTO_PANEL_SIN_SCROLL;
+        
+        // Establece el tamano de los botones por defecto (sin Scroll)
+        int anchoBoton = anchoDelMarco / pColumnas;
+        int altoBoton = altoDelMarco / (pFilas + 1);
 
-        // Se carga el panel con scroll
-        if ((pFilas / 2 > CASILLAS_SIN_SCROLL) || (pColumnas / 2 > CASILLAS_SIN_SCROLL)) {
+        // Se modifican las medidas del panel con scroll y el tamano de los botones
+        // si se desean mas de 6 filas o 6 columnas
+        if ((pFilas / 2 > CASILLAS_SIN_SCROLL) || (pColumnas > CASILLAS_SIN_SCROLL)) {
 
-            // Se calcula la medida que tendra cada boton en la ventana
-            anchoBoton = ANCHO_IMAGEN_CON_SCROLL;
-            altoBoton = ALTO_IMAGEN_CON_SCROLL;
-            // Se calcula la medida que tendra el panel
-            if (pFilas > CASILLAS_SIN_SCROLL) {
+            // Se calcula la medida que tendra el panel y el boton cuando excedan 
+            // las proporciones dadas
+            if (pFilas /2 > CASILLAS_SIN_SCROLL) {
+                altoBoton = ALTO_IMAGEN_CON_SCROLL;                
                 altoDelMarco = (pFilas + 1) * altoBoton;
             }
             if (pColumnas > CASILLAS_SIN_SCROLL) {
+                anchoBoton = ANCHO_IMAGEN_CON_SCROLL;
                 anchoDelMarco = pColumnas * anchoBoton;
             }
-        } // Se carga el panel sin scroll
-        else {
-            // Se obtiene las medidas del panel donde van los botones
-            anchoDelMarco = ANCHO_PANEL_SIN_SCROLL;
-            altoDelMarco = ALTO_PANEL_SIN_SCROLL;
-            // Se calcula la medida que tendra cada boton en la ventana
-            anchoBoton = anchoDelMarco / pColumnas;
-            altoBoton = altoDelMarco / (pFilas + 1);
         }
         // Cambia el tamano del panel y repinta la pantalla
         Pnl_Tablero.setPreferredSize(new Dimension(anchoDelMarco, altoDelMarco));
@@ -671,7 +673,6 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para crear de manera aleatoria la posicion en la que se
      * ubicaran los barcos, tanto aliados como enemigos, en el tablero de juego
-     *
      * @param pFilas cantidad de filas del Tablero (cantidad sin contar la fila
      * vacia)
      * @param pColumnas cantidad de columnas del Tablero
@@ -709,7 +710,6 @@ public class AreaJuego extends javax.swing.JFrame {
 
     /**
      * Metodo utilizado para mostrar la ventana de configuracion.
-     *
      * @param evt
      */
     private void MnI_ConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_ConfiguracionActionPerformed
@@ -719,14 +719,12 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para crear un nuevo jugador Aliado al seleccionar el
      * elemento del menu
-     *
      * @param evt
      */
     private void MnI_EditJueg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg1ActionPerformed
-
         // Se pasan los elementos que se van a modificar desde la ventana Usuarios
         // y se procede a mostrarla.
-        ventanaUsuarios.setAliado(Lbl_Player1Photo, Lbl_Player1Name, jugadorAliado, Lbl_ScorePlayer1, true);
+        ventanaUsuarios.setAliado(Lbl_Player1Photo, Lbl_Player1Name, Lbl_ScorePlayer1, true);
         ventanaUsuarios.setVisible(true);
     }//GEN-LAST:event_MnI_EditJueg1ActionPerformed
 
@@ -736,17 +734,15 @@ public class AreaJuego extends javax.swing.JFrame {
      * @param evt
      */
     private void MnI_EditJueg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg2ActionPerformed
-
         // Se pasan los elementos que se van a modificar desde la ventana Usuarios
         // y se procede a mostrarla.
-        ventanaUsuarios.setAliado(Lbl_Player2Photo, Lbl_Player2Name, jugadorEnemigo, Lbl_ScorePlayer2, false);
+        ventanaUsuarios.setAliado(Lbl_Player2Photo, Lbl_Player2Name, Lbl_ScorePlayer2, false);
         ventanaUsuarios.setVisible(true);
     }//GEN-LAST:event_MnI_EditJueg2ActionPerformed
 
     /**
      * Metodo utilizado para verificar si el usuario desea cerrar la ventana una
      * vez presionado el boton X
-     *
      * @param evt
      */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -781,7 +777,6 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Muestra las estadisticas del usuario al pasar el puntero sobre la imagen
      * del jugador Aliado
-     *
      * @param evt
      */
     private void Lbl_Player1PhotoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player1PhotoMouseEntered
@@ -799,7 +794,6 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Evento que desvanece la ventana estadisticas cuando el mouse sale de la
      * imagen del aliado
-     *
      * @param evt
      */
     private void Lbl_Player1PhotoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player1PhotoMouseExited
@@ -809,7 +803,6 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Muestra las estadisticas del usuario al pasar el puntero sobre la imagen
      * del jugador Enemigo
-     *
      * @param evt
      */
     private void Lbl_Player2PhotoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player2PhotoMouseEntered
@@ -826,7 +819,6 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Evento que desvanece la ventana estadisticas cuando el mouse sale de la
      * imagen del enemigo
-     *
      * @param evt
      */
     private void Lbl_Player2PhotoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player2PhotoMouseExited
@@ -835,7 +827,6 @@ public class AreaJuego extends javax.swing.JFrame {
 
     /**
      * Metodo que se ejecuta cuando un usuario desea rendirse
-     *
      * @param evt Boton que ejecuta el evento
      */
     private void rendirse(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rendirse
@@ -895,6 +886,14 @@ public class AreaJuego extends javax.swing.JFrame {
         Btn_RendirEnemigo.setVisible(false);
     }//GEN-LAST:event_rendirse
 
+    private void MnI_InstruccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_InstruccionesActionPerformed
+        ventanaInstrucciones.setVisible(true);
+    }//GEN-LAST:event_MnI_InstruccionesActionPerformed
+
+    private void MnI_AcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_AcercaDeActionPerformed
+        ventanaAcercaDe.setVisible(true);
+    }//GEN-LAST:event_MnI_AcercaDeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -952,6 +951,7 @@ public class AreaJuego extends javax.swing.JFrame {
     private javax.swing.JMenuItem MnI_Instrucciones;
     private javax.swing.JMenuItem MnI_NuevoJuego;
     private javax.swing.JMenuItem MnI_Salir;
+    private javax.swing.JScrollPane Pnl_Scroll;
     private javax.swing.JPanel Pnl_Tablero;
     private javax.swing.JPanel Pnl_User1;
     private javax.swing.JPanel Pnl_User2;
@@ -963,7 +963,6 @@ public class AreaJuego extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
