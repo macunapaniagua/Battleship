@@ -430,6 +430,9 @@ public class AreaJuego extends javax.swing.JFrame {
             Icon iconoEscalado = new ImageIcon(imgEscalada);
             // establece la nueva imagen al boton
             tableroGrafico[pFilaAtaque][pColumnaAtaque].setIcon(iconoEscalado);
+            // Vuelve a pintar el boton con la nueva imagen del barco
+            tableroGrafico[pFilaAtaque][pColumnaAtaque].repaint();
+            
             // *******************************************************************************
 
             // SE PROCEDE A VERIFICAR SI ES EL TURNO DEL ALIADO Y SI YA GANO LA PARTIDA
@@ -486,6 +489,8 @@ public class AreaJuego extends javax.swing.JFrame {
         } // NO HAY UN BARCO EN ESA FILA Y COLUMNA. SE ELIMINA LA IMAGEN DEL TIMON Y SE DEJA COMO VACIO
         else {
             tableroGrafico[pFilaAtaque][pColumnaAtaque].setIcon(null);
+            // Vuelve a dibujar el boton
+            tableroGrafico[pFilaAtaque][pColumnaAtaque].repaint();
             turnoAliado = !turnoAliado;
         }
 
@@ -598,6 +603,8 @@ public class AreaJuego extends javax.swing.JFrame {
                     break;
                 }
                 JToggleButton casilla = new JToggleButton();
+                // Elimina el el getFocus del boton
+                casilla.setFocusable(false);
                 // Se asigna un evento al nuevo boton
                 casilla.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(java.awt.event.MouseEvent evt) {

@@ -77,7 +77,6 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Creación de Usuarios");
-        setPreferredSize(new java.awt.Dimension(565, 550));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -316,7 +315,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 470, 140, 30));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 480, 140, 30));
 
         jLabel23.setFont(new java.awt.Font("MingLiU_HKSCS", 3, 14)); // NOI18N
         jLabel23.setText("Nombre de Usuario:");
@@ -324,7 +323,7 @@ public class PantallaUsuario extends javax.swing.JFrame {
 
         Lbl_InfoAvatar.setFont(new java.awt.Font("Verdana", 2, 12)); // NOI18N
         Lbl_InfoAvatar.setText("No ha seleccionado un Avatar aún");
-        getContentPane().add(Lbl_InfoAvatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 260, 20));
+        getContentPane().add(Lbl_InfoAvatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 260, 20));
 
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BrushedMetal.jpg"))); // NOI18N
         jLabel24.setText("jLabel24");
