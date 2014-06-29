@@ -68,19 +68,22 @@ public class AreaJuego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLayeredPane1 = new javax.swing.JLayeredPane();
         Pnl_Usuarios = new javax.swing.JPanel();
         Lbl_Player1Photo = new javax.swing.JLabel();
         Lbl_Player2Photo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         Pnl_User1 = new javax.swing.JPanel();
-        Lbl_ScorePlayer1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        Lbl_HundidosXAliado = new javax.swing.JLabel();
         Lbl_Player1Name = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        Lbl_ScorePlayer1 = new javax.swing.JLabel();
         Pnl_User2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         Lbl_ScorePlayer2 = new javax.swing.JLabel();
         Lbl_Player2Name = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        Lbl_HundidosXEnemigo = new javax.swing.JLabel();
         Pnl_Scroll = new javax.swing.JScrollPane();
         Pnl_Tablero = new javax.swing.JPanel();
         Btn_RendirAliado = new javax.swing.JButton();
@@ -123,7 +126,7 @@ public class AreaJuego extends javax.swing.JFrame {
                 Lbl_Player1PhotoMouseExited(evt);
             }
         });
-        Pnl_Usuarios.add(Lbl_Player1Photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 100, 100));
+        Pnl_Usuarios.add(Lbl_Player1Photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 100, 100));
 
         Lbl_Player2Photo.setOpaque(true);
         Lbl_Player2Photo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -134,65 +137,84 @@ public class AreaJuego extends javax.swing.JFrame {
                 Lbl_Player2PhotoMouseExited(evt);
             }
         });
-        Pnl_Usuarios.add(Lbl_Player2Photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 245, 100, 100));
-        Pnl_Usuarios.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 224, 170, 10));
+        Pnl_Usuarios.add(Lbl_Player2Photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 100, 100));
+        Pnl_Usuarios.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 150, 10));
 
         Pnl_User1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Lbl_HundidosXAliado.setFont(new java.awt.Font("Gill Sans MT", 2, 12)); // NOI18N
+        Lbl_HundidosXAliado.setForeground(new java.awt.Color(102, 102, 102));
+        Lbl_HundidosXAliado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lbl_HundidosXAliado.setText("0");
+        Lbl_HundidosXAliado.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        Pnl_User1.add(Lbl_HundidosXAliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, 20));
+
+        Lbl_Player1Name.setFont(new java.awt.Font("Gill Sans MT", 3, 14)); // NOI18N
+        Lbl_Player1Name.setForeground(new java.awt.Color(0, 86, 135));
+        Lbl_Player1Name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lbl_Player1Name.setText("Jugador 1");
+        Pnl_User1.add(Lbl_Player1Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, 170, 17));
+
+        jLabel5.setFont(new java.awt.Font("Gill Sans MT", 2, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Barcos hundidos:");
+        jLabel5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        Pnl_User1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 100, 20));
+
+        jLabel6.setFont(new java.awt.Font("Gill Sans MT", 2, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Puntuación");
+        jLabel6.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        Pnl_User1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 79, 15));
+
+        Lbl_ScorePlayer1.setFont(new java.awt.Font("Gill Sans MT", 2, 12)); // NOI18N
+        Lbl_ScorePlayer1.setForeground(new java.awt.Color(102, 102, 102));
         Lbl_ScorePlayer1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Lbl_ScorePlayer1.setText("0");
         Lbl_ScorePlayer1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        Pnl_User1.add(Lbl_ScorePlayer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 43, -1, -1));
+        Pnl_User1.add(Lbl_ScorePlayer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, -1, 15));
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Puntuacion");
-        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        Pnl_User1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 34, 79, 23));
-
-        Lbl_Player1Name.setFont(new java.awt.Font("Gill Sans MT", 3, 14)); // NOI18N
-        Lbl_Player1Name.setForeground(new java.awt.Color(102, 102, 102));
-        Lbl_Player1Name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Lbl_Player1Name.setText("Jugador 1");
-        Pnl_User1.add(Lbl_Player1Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 105, 17));
-
-        Pnl_Usuarios.add(Pnl_User1, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 140, 170, 60));
+        Pnl_Usuarios.add(Pnl_User1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 130, 170, 80));
 
         Pnl_User2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel4.setFont(new java.awt.Font("Gill Sans MT", 2, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Puntuacion");
-        Pnl_User2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 37, 79, 23));
+        jLabel4.setText("Puntuación");
+        Pnl_User2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 79, 15));
 
+        Lbl_ScorePlayer2.setFont(new java.awt.Font("Gill Sans MT", 2, 12)); // NOI18N
+        Lbl_ScorePlayer2.setForeground(new java.awt.Color(102, 102, 102));
         Lbl_ScorePlayer2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Lbl_ScorePlayer2.setText("0");
-        Pnl_User2.add(Lbl_ScorePlayer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 41, -1, -1));
+        Pnl_User2.add(Lbl_ScorePlayer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, -1, 15));
 
         Lbl_Player2Name.setFont(new java.awt.Font("Gill Sans MT", 3, 14)); // NOI18N
-        Lbl_Player2Name.setForeground(new java.awt.Color(102, 102, 102));
+        Lbl_Player2Name.setForeground(new java.awt.Color(0, 86, 135));
         Lbl_Player2Name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Lbl_Player2Name.setText("Jugador 2");
-        Pnl_User2.add(Lbl_Player2Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 105, 17));
+        Pnl_User2.add(Lbl_Player2Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, 170, 17));
 
-        Pnl_Usuarios.add(Pnl_User2, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 360, 170, 60));
+        jLabel7.setFont(new java.awt.Font("Gill Sans MT", 2, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Barcos hundidos:");
+        jLabel7.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        Pnl_User2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 100, 20));
 
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(Pnl_Usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
-                .addComponent(Pnl_Usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jLayeredPane1.setLayer(Pnl_Usuarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        Lbl_HundidosXEnemigo.setFont(new java.awt.Font("Gill Sans MT", 2, 12)); // NOI18N
+        Lbl_HundidosXEnemigo.setForeground(new java.awt.Color(102, 102, 102));
+        Lbl_HundidosXEnemigo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lbl_HundidosXEnemigo.setText("0");
+        Lbl_HundidosXEnemigo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        Pnl_User2.add(Lbl_HundidosXEnemigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, 20));
 
-        getContentPane().add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 260, 460));
+        Pnl_Usuarios.add(Pnl_User2, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 370, 170, 80));
+
+        getContentPane().add(Pnl_Usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 220, -1));
 
         Pnl_Tablero.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(204, 204, 255), new java.awt.Color(153, 153, 153)));
         Pnl_Tablero.setOpaque(false);
@@ -213,7 +235,7 @@ public class AreaJuego extends javax.swing.JFrame {
 
         getContentPane().add(Pnl_Scroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 490, 440));
 
-        Btn_RendirAliado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bandera.png"))); // NOI18N
+        Btn_RendirAliado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Rendirese.jpg"))); // NOI18N
         Btn_RendirAliado.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Btn_RendirAliado.setFocusable(false);
         Btn_RendirAliado.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -221,9 +243,9 @@ public class AreaJuego extends javax.swing.JFrame {
                 rendirse(evt);
             }
         });
-        getContentPane().add(Btn_RendirAliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 100, 40, 40));
+        getContentPane().add(Btn_RendirAliado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 40, 40));
 
-        Btn_RendirEnemigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bandera.png"))); // NOI18N
+        Btn_RendirEnemigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Rendirese.jpg"))); // NOI18N
         Btn_RendirEnemigo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Btn_RendirEnemigo.setFocusable(false);
         Btn_RendirEnemigo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -231,7 +253,7 @@ public class AreaJuego extends javax.swing.JFrame {
                 rendirse(evt);
             }
         });
-        getContentPane().add(Btn_RendirEnemigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 480, 40, 40));
+        getContentPane().add(Btn_RendirEnemigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 40, 40));
 
         Lbl_Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoJuego1.png"))); // NOI18N
         Lbl_Fondo.setOpaque(true);
@@ -388,6 +410,7 @@ public class AreaJuego extends javax.swing.JFrame {
                     else {
                         // Ejecuta el ataque y cambia el turno del jugador
                         ejecutarAtaque(f, c);
+                        Pnl_Scroll.setEnabled(false);
                         return;
                     }
                 }
@@ -405,10 +428,10 @@ public class AreaJuego extends javax.swing.JFrame {
      */
     private void ejecutarAtaque(int pFilaAtaque, int pColumnaAtaque) {
 
-        System.out.println("El elemento presionado esta en " + pFilaAtaque + ',' + pColumnaAtaque);
-
         // SE VERIFICA SI HAY UN BARCO EN LA FILA Y COLUMNA DONDE SE REALIZA EL ATAQUE
         if (this.tableroDeJuego.hayBarco(pFilaAtaque, pColumnaAtaque)) {
+            
+            System.out.println("En (" + pFilaAtaque + ',' + pColumnaAtaque + ") HAY barco");
 
             // Se procede a destruir el barco del Tablero
             tableroDeJuego.destruirBarco(pFilaAtaque, pColumnaAtaque);
@@ -430,13 +453,15 @@ public class AreaJuego extends javax.swing.JFrame {
             Icon iconoEscalado = new ImageIcon(imgEscalada);
             // establece la nueva imagen al boton
             tableroGrafico[pFilaAtaque][pColumnaAtaque].setIcon(iconoEscalado);
-            // Vuelve a pintar el boton con la nueva imagen del barco
-            tableroGrafico[pFilaAtaque][pColumnaAtaque].repaint();
+            System.out.println("Se ha cambiado la imagen. Actualmente ataca: " + turnoAliado);
             
             // *******************************************************************************
 
             // SE PROCEDE A VERIFICAR SI ES EL TURNO DEL ALIADO Y SI YA GANO LA PARTIDA
             if (turnoAliado) {
+                
+                // Aumenta el numero de barcos destruidos en la ventana por el aliado
+                Lbl_HundidosXAliado.setText((Integer.parseInt(Lbl_HundidosXAliado.getText()) + 1) + "");
                 // Disminuye la cantidad de barcos enemigo luego del ataque
                 tableroDeJuego.setCantidadBarcosEnemigos(tableroDeJuego.getCantidadBarcosEnemigos() - 1);
                 if (tableroDeJuego.getCantidadBarcosEnemigos() == 0) {
@@ -462,6 +487,8 @@ public class AreaJuego extends javax.swing.JFrame {
                 }
             } // ES EL TURNO DEL ENEMIGO. SE PROCEDE A VERIFICAR SI YA GANO LA PARTIDA
             else {
+                // Aumenta el numero de barcos destruidos en la ventana por el enemigo
+                Lbl_HundidosXEnemigo.setText((Integer.parseInt(Lbl_HundidosXEnemigo.getText()) + 1) + "");
                 // Disminuye la cantidad de barcos aliados luego del ataque
                 tableroDeJuego.setCantidadBarcosAliados(tableroDeJuego.getCantidadBarcosAliados() - 1);
                 if (tableroDeJuego.getCantidadBarcosAliados() == 0) {
@@ -488,12 +515,12 @@ public class AreaJuego extends javax.swing.JFrame {
             }
         } // NO HAY UN BARCO EN ESA FILA Y COLUMNA. SE ELIMINA LA IMAGEN DEL TIMON Y SE DEJA COMO VACIO
         else {
-            tableroGrafico[pFilaAtaque][pColumnaAtaque].setIcon(null);
-            // Vuelve a dibujar el boton
-            tableroGrafico[pFilaAtaque][pColumnaAtaque].repaint();
+            System.out.println("En (" + pFilaAtaque + ',' + pColumnaAtaque + ") NO hay barco");
+            tableroGrafico[pFilaAtaque][pColumnaAtaque].setIcon(null);          
             turnoAliado = !turnoAliado;
+            System.out.println("Ahora: " + turnoAliado);
         }
-
+        Pnl_Scroll.setEnabled(true);
     }
 
     /**
@@ -509,6 +536,9 @@ public class AreaJuego extends javax.swing.JFrame {
 
         // SE PROCEDE A VERIFICAR SI HAY UNA PARTIDA EN CURSO O NO PARA CREAR UNA NUEVA
         if (partidaFinalizada) {
+            // Inicializa los contadores de barcos destruidos de la ventana
+            Lbl_HundidosXAliado.setText("0");
+            Lbl_HundidosXEnemigo.setText("0");
             // No hay un juego actualmente. Se procede a crear la partida.
             generarTerreno(filasDe1Usuario * 2, columnasDelTablero);
             generarBarcos(filasDe1Usuario * 2, columnasDelTablero, cantidadDeBarcos);
@@ -722,6 +752,11 @@ public class AreaJuego extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
+    /**
+     * Metodo que inicia un juego nuevo al presionar F2 o seleccionar la opcion
+     * desde el menu.
+     * @param evt 
+     */
     private void MnI_NuevoJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_NuevoJuegoActionPerformed
 
         // Verifica si aun no se crearon los jugadores antes de crear una nueva partida
@@ -851,10 +886,18 @@ public class AreaJuego extends javax.swing.JFrame {
         Btn_RendirEnemigo.setVisible(false);
     }//GEN-LAST:event_rendirse
 
+    /**
+     * Metodo que muestra la ventana de Instrucciones
+     * @param evt 
+     */
     private void MnI_InstruccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_InstruccionesActionPerformed
         ventanaInstrucciones.setVisible(true);
     }//GEN-LAST:event_MnI_InstruccionesActionPerformed
 
+    /**
+     * Metodo que muestra la ventana Acerca De
+     * @param evt 
+     */
     private void MnI_AcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_AcercaDeActionPerformed
         ventanaAcercaDe.setVisible(true);
     }//GEN-LAST:event_MnI_AcercaDeActionPerformed
@@ -903,6 +946,8 @@ public class AreaJuego extends javax.swing.JFrame {
     private javax.swing.JButton Btn_RendirAliado;
     private javax.swing.JButton Btn_RendirEnemigo;
     private javax.swing.JLabel Lbl_Fondo;
+    private javax.swing.JLabel Lbl_HundidosXAliado;
+    private javax.swing.JLabel Lbl_HundidosXEnemigo;
     private javax.swing.JLabel Lbl_Player1Name;
     private javax.swing.JLabel Lbl_Player1Photo;
     private javax.swing.JLabel Lbl_Player2Name;
@@ -921,9 +966,10 @@ public class AreaJuego extends javax.swing.JFrame {
     private javax.swing.JPanel Pnl_User1;
     private javax.swing.JPanel Pnl_User2;
     private javax.swing.JPanel Pnl_Usuarios;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

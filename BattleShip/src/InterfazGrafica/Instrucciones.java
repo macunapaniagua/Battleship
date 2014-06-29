@@ -62,6 +62,7 @@ public class Instrucciones extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Instrucciones");
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -77,13 +78,13 @@ public class Instrucciones extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 86, 135));
         jLabel2.setText("Ventana Principal");
 
-        jLabel3.setText("<html> Al iniciar el programa, el usuario visualizará la siguiente pantalla, la cual será la encargada de iniciar el jugo, e iniciar una nueva experiencia de juego.  <br> <br>Presione un click sobre es botón \"Iniciar App\" para iniciar el jugo  </html>");
+        jLabel3.setText("<html> Al iniciar el programa, el usuario visualizará la siguiente pantalla, la cual será la encargada de iniciar el juego.  <br> <br>Presione un click sobre es botón \"Iniciar App\" para iniciar el juego  </html>");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 86, 135));
         jLabel9.setText("Ventana de Juego");
 
-        jLabel10.setText("<html> La ventana de juego, contiene la información del usuario, asi como el tablero de juego. Antes de jugar, el usuario deberá crear el jugador aliado, el jugador enemido y seleccionar las configuraciones del campo de juego.  <br> <br>Además, esta ventana posee un menu en donde se encuentran las opciones Archivo (Juego Nuevo, Configuraciones y Salir), Crear Jugadores (Crear Aliado y Crear Enemido) y por último Ayuda (Instrucciones y Acerca De).  <br> <br>Esto es lo que visualizará el usuario:   </html>");
+        jLabel10.setText("<html> La ventana de juego, contiene la información del usuario, asi como el tablero de juego. Antes de jugar, el usuario deberá crear el jugador aliado, el jugador enemigo y seleccionar las configuraciones del campo de juego.  <br> <br>Además, esta ventana posee un menu en donde se encuentran las opciones Archivo (Juego Nuevo, Configuraciones y Salir), Crear Jugadores (Crear Aliado y Crear Enemigo) y por último Ayuda (Instrucciones y Acerca De).  <br> <br>Esto es lo que visualizará el usuario:   </html>");
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesAyuda/PantallaInicial.PNG"))); // NOI18N
 

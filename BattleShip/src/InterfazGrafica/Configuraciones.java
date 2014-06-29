@@ -202,7 +202,13 @@ public class Configuraciones extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "No ha ingresado la información"
                         + " Necesaria. Asegurese de llenar todos los campos",
                         "Ups", JOptionPane.INFORMATION_MESSAGE);
-            } else {
+            } else {                
+                // Verifica que la cantidad de barcos ingresada sea un dato positivo
+                if ( Integer.parseInt(Txt_Barcos.getText()) <= 0 ) {
+                    JOptionPane.showMessageDialog(this, "La cantidad de barcos que desea"
+                            + " agregar debe ser mayor que cero", "Ups", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 // Verifica si la cantidad de barcos deseados es mayor a la cantidad de 
                 // casillas disponibles para colocarlos
                 if ((Integer.parseInt(Txt_Filas.getText()) * Integer.parseInt(Txt_Columnas.getText()))
@@ -221,11 +227,11 @@ public class Configuraciones extends javax.swing.JFrame {
                     Txt_Columnas.setText("");
                     Txt_Filas.setText("");                    
                     //**************************************************************************
-                    JOptionPane.showMessageDialog(this, "Se ha cambiado la configuracion a: "
-                            + " \n          * Cantidad de Filas: " + filasDe1Usuario
-                            + " \n          * Cantidad de Columnas: " + columnasDelTablero
-                            + " \n          * Cantidad de Barcos: " + cantidadDeBarcos
-                            + "\n La próxima partida generada, utilizará esta configuración");
+                    JOptionPane.showMessageDialog(this, "Se ha cambiado la configuracion a:"
+                            + " \n          - Cantidad de Filas: " + filasDe1Usuario
+                            + " \n          - Cantidad de Columnas: " + columnasDelTablero
+                            + " \n          - Cantidad de Barcos: " + cantidadDeBarcos
+                            + " \n La próxima partida generada, utilizará esta configuración");
                     //**************************************************************************
                     // Cierra la ventana de configuracion
                     this.dispose();
@@ -246,9 +252,9 @@ public class Configuraciones extends javax.swing.JFrame {
                 cantidadDeBarcos = this.Sld_CantidadBarcos.getValue();
                 //**************************************************************************
                 JOptionPane.showMessageDialog(this, "Se ha cambiado la configuracion a: "
-                        + " \n          * Cantidad de Filas: " + filasDe1Usuario
-                        + " \n          * Cantidad de Columnas: " + columnasDelTablero
-                        + " \n          * Cantidad de Barcos: " + cantidadDeBarcos
+                        + " \n          - Cantidad de Filas: " + filasDe1Usuario
+                        + " \n          - Cantidad de Columnas: " + columnasDelTablero
+                        + " \n          - Cantidad de Barcos: " + cantidadDeBarcos
                         + "\n La próxima partida generada, utilizará esta configuración");
                 //**************************************************************************
                 // Cierra la ventana de configuracion
