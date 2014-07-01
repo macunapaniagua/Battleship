@@ -6,6 +6,9 @@
 
 package InterfazGrafica;
 
+import java.awt.Point;
+import javax.swing.JViewport;
+
 /**
  *
  * @author Mario A
@@ -64,6 +67,11 @@ public class Instrucciones extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Instrucciones");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                cerrarVentana(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 86, 135));
@@ -311,6 +319,11 @@ public class Instrucciones extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cerrarVentana(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_cerrarVentana
+        JViewport jv = jScrollPane1.getViewport();  
+        jv.setViewPosition(new Point(0,0));
+    }//GEN-LAST:event_cerrarVentana
 
     /**
      * @param args the command line arguments
