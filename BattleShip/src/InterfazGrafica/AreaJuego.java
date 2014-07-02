@@ -1,10 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    *Name: AreaJuego    
+    *Information: Clase donde se visualizaran todos los componentes del juego y 
+                  donde se crearan y jugaran todas las partidas.    
+    *Date:1/7/2014    
+    *Copyright
  */
 package InterfazGrafica;
 
+import Codigo.Audio;
 import Codigo.Jugador;
 import Codigo.Tablero;
 import java.awt.Dimension;
@@ -31,10 +34,12 @@ public class AreaJuego extends javax.swing.JFrame {
     private boolean turnoAliado;
     private boolean partidaFinalizada = true;
 
+    // Objetos del Programa
+    Audio sonidoCombate;
+    Audio sonidoExplosion;
+    Audio sonidoPartidaGanada;
     private Tablero tableroDeJuego = null;
     private JToggleButton[][] tableroGrafico = null;
-
-    // Objetos del Programa
     public static Jugador jugadorAliado = null;
     public static Jugador jugadorEnemigo = null;
     // Ventanas externas
@@ -57,6 +62,12 @@ public class AreaJuego extends javax.swing.JFrame {
         // Oculta los botones de rendirse
         Btn_RendirAliado.setVisible(false);
         Btn_RendirEnemigo.setVisible(false);
+
+        // Inicializa los Reproductores de Sonido
+        //sonidoCombate = new Audio(getClass().getResource("/Sonidos/Combate.mp3").getFile().replaceAll("%20", " "));
+        sonidoCombate = new Audio(getClass().getResource("/Sonidos/BattleShip Combat.mp3").getFile().replaceAll("%20", " "));
+        sonidoExplosion = new Audio(getClass().getResource("/Sonidos/Explosion.mp3").getFile().replaceAll("%20", " "));
+        sonidoPartidaGanada = new Audio(getClass().getResource("/Sonidos/Fin.mp3").getFile().replaceAll("%20", " "));
     }
 
     /**
@@ -341,6 +352,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo para salir de la aplicacion al presionar Alt+F4 o al seleccionar
      * la opcion salir en el menu.
+     *
      * @param evt
      */
     private void MnI_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_SalirActionPerformed
@@ -359,6 +371,7 @@ public class AreaJuego extends javax.swing.JFrame {
      * Evento que captura cuando un boton ha sido seleccionado en la matriz de
      * botones y se procede a verificar y ejecutar el ataque al elemento
      * seleccionado
+     *
      * @param evt boton presionado
      */
     private void verificarAtaque(java.awt.event.MouseEvent evt) {
@@ -423,6 +436,7 @@ public class AreaJuego extends javax.swing.JFrame {
      * (coloca un barco hundido o un vacio como imagen) como la matriz de objeto
      * Tablero (cambia el valor del true a false, en caso que hubiera un barco,
      * indicando que este fue hundido)
+     *
      * @param pFilaAtaque fila que se va a atacar
      * @param pColumnaAtaque columna que se va a atacar
      */
@@ -430,11 +444,16 @@ public class AreaJuego extends javax.swing.JFrame {
 
         // SE VERIFICA SI HAY UN BARCO EN LA FILA Y COLUMNA DONDE SE REALIZA EL ATAQUE
         if (this.tableroDeJuego.hayBarco(pFilaAtaque, pColumnaAtaque)) {
-            
+
             System.out.println("En (" + pFilaAtaque + ',' + pColumnaAtaque + ") HAY barco");
 
             // Se procede a destruir el barco del Tablero
             tableroDeJuego.destruirBarco(pFilaAtaque, pColumnaAtaque);
+
+            // Reproduce Detiene el Sonido de la explosion (Por si ya se estaba reproduciendo)
+            // y lo reproduce nuevamente
+            sonidoExplosion.stop();
+            sonidoExplosion.play();
 
             // ***************  COLOCAR NUEVA IMAGEN POR BARCO HUNDIDO  ***********************
             int imagenAlto = tableroGrafico[pFilaAtaque][pColumnaAtaque].getHeight();
@@ -454,17 +473,18 @@ public class AreaJuego extends javax.swing.JFrame {
             // establece la nueva imagen al boton
             tableroGrafico[pFilaAtaque][pColumnaAtaque].setIcon(iconoEscalado);
             System.out.println("Se ha cambiado la imagen. Actualmente ataca: " + turnoAliado);
-            
-            // *******************************************************************************
 
+            // *******************************************************************************
             // SE PROCEDE A VERIFICAR SI ES EL TURNO DEL ALIADO Y SI YA GANO LA PARTIDA
             if (turnoAliado) {
-                
+
                 // Aumenta el numero de barcos destruidos en la ventana por el aliado
                 Lbl_HundidosXAliado.setText((Integer.parseInt(Lbl_HundidosXAliado.getText()) + 1) + "");
                 // Disminuye la cantidad de barcos enemigo luego del ataque
                 tableroDeJuego.setCantidadBarcosEnemigos(tableroDeJuego.getCantidadBarcosEnemigos() - 1);
                 if (tableroDeJuego.getCantidadBarcosEnemigos() == 0) {
+                    // Detiene el sonido de la partida
+                    sonidoCombate.stop();
                     // Modifica el puntaje del jugador Aliado
                     jugadorAliado.setPuntaje(jugadorAliado.getPuntaje() + 1);
                     // Modifica el puntaje graficamente
@@ -482,6 +502,8 @@ public class AreaJuego extends javax.swing.JFrame {
                     // Desaparece los botones de rendicion
                     Btn_RendirAliado.setVisible(false);
                     Btn_RendirEnemigo.setVisible(false);
+                    // Reproduce Sonido Final
+                    sonidoPartidaGanada.play();
                     // Muestra mensaje de victoria
                     JOptionPane.showMessageDialog(this, "Jugador Aliado Gana. Presiona F2 para iniciar una nueva partida");
                 }
@@ -492,6 +514,8 @@ public class AreaJuego extends javax.swing.JFrame {
                 // Disminuye la cantidad de barcos aliados luego del ataque
                 tableroDeJuego.setCantidadBarcosAliados(tableroDeJuego.getCantidadBarcosAliados() - 1);
                 if (tableroDeJuego.getCantidadBarcosAliados() == 0) {
+                    // Detiene el sonido de la partida
+                    sonidoCombate.stop();
                     // Modifica el puntaje del jugador Enemigo
                     jugadorEnemigo.setPuntaje(jugadorEnemigo.getPuntaje() + 1);
                     // Modifica el puntaje graficamente
@@ -509,6 +533,8 @@ public class AreaJuego extends javax.swing.JFrame {
                     // Desaparece los botones de rendicion
                     Btn_RendirAliado.setVisible(false);
                     Btn_RendirEnemigo.setVisible(false);
+                    // Reproduce Sonido Final
+                    sonidoPartidaGanada.play();
                     // Muestra mensaje de victoria
                     JOptionPane.showMessageDialog(this, "Jugador Enemigo Gana. Presiona F2 para iniciar una nueva partida");
                 }
@@ -516,7 +542,7 @@ public class AreaJuego extends javax.swing.JFrame {
         } // NO HAY UN BARCO EN ESA FILA Y COLUMNA. SE ELIMINA LA IMAGEN DEL TIMON Y SE DEJA COMO VACIO
         else {
             System.out.println("En (" + pFilaAtaque + ',' + pColumnaAtaque + ") NO hay barco");
-            tableroGrafico[pFilaAtaque][pColumnaAtaque].setIcon(null);          
+            tableroGrafico[pFilaAtaque][pColumnaAtaque].setIcon(null);
             turnoAliado = !turnoAliado;
             System.out.println("Ahora: " + turnoAliado);
         }
@@ -527,6 +553,7 @@ public class AreaJuego extends javax.swing.JFrame {
      * Metodo utilizado para crear el terreno de juego y los barcos que se
      * colocaran en el de forma aleatoria. Seguido de ello, generara un boolean
      * aleatorio para asignar quien comienza el juego.
+     *
      * @param filasDe1Usuario Cantidad de filas presentes en el campo de un
      * jugador
      * @param columnasDelTablero cantidad de columnas del tablero
@@ -551,8 +578,13 @@ public class AreaJuego extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (opcion == JOptionPane.YES_OPTION) {
-                // El usuario desea sobreescribir la partida, por lo que se
-                // procede a generar una nueva matriz.
+                // El usuario desea sobreescribir la partida, por lo que: 
+                // Detiene la musica
+                sonidoCombate.stop();
+                // Inicializa los contadores de barcos destruidos de la ventana
+                Lbl_HundidosXAliado.setText("0");
+                Lbl_HundidosXEnemigo.setText("0");
+                // Se procede a generar una nueva matriz.
                 generarTerreno(filasDe1Usuario * 2, columnasDelTablero);
                 generarBarcos(filasDe1Usuario * 2, columnasDelTablero, cantidadDeBarcos);
             } else {
@@ -568,6 +600,9 @@ public class AreaJuego extends javax.swing.JFrame {
         // Inhabilita los botones de crear Usuarios
         MnI_EditJueg1.setEnabled(false);
         MnI_EditJueg2.setEnabled(false);
+
+        // Reproduce el sonido de juego
+        sonidoCombate.play();
 
         // SE GENERA UN RANDOM PARA ASIGNAR QUIEN HACE EL PRIMER ATAQUE DEL JUEGO.
         Random rand = new Random(System.currentTimeMillis());
@@ -586,6 +621,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para generar cada una de las casillas del tablero
      * grafico
+     *
      * @param pFilas filas del tablero
      * @param pColumnas columnas del tablero
      */
@@ -600,7 +636,7 @@ public class AreaJuego extends javax.swing.JFrame {
         // Establece el tamano del panel por defecto, sin Scroll
         int anchoDelMarco = ANCHO_PANEL_SIN_SCROLL;
         int altoDelMarco = ALTO_PANEL_SIN_SCROLL;
-        
+
         // Establece el tamano de los botones por defecto (sin Scroll)
         int anchoBoton = anchoDelMarco / pColumnas;
         int altoBoton = altoDelMarco / (pFilas + 1);
@@ -611,8 +647,8 @@ public class AreaJuego extends javax.swing.JFrame {
 
             // Se calcula la medida que tendra el panel y el boton cuando excedan 
             // las proporciones dadas
-            if (pFilas /2 > CASILLAS_SIN_SCROLL) {
-                altoBoton = ALTO_IMAGEN_CON_SCROLL;                
+            if (pFilas / 2 > CASILLAS_SIN_SCROLL) {
+                altoBoton = ALTO_IMAGEN_CON_SCROLL;
                 altoDelMarco = (pFilas + 1) * altoBoton;
             }
             if (pColumnas > CASILLAS_SIN_SCROLL) {
@@ -668,6 +704,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para crear de manera aleatoria la posicion en la que se
      * ubicaran los barcos, tanto aliados como enemigos, en el tablero de juego
+     *
      * @param pFilas cantidad de filas del Tablero (cantidad sin contar la fila
      * vacia)
      * @param pColumnas cantidad de columnas del Tablero
@@ -705,6 +742,7 @@ public class AreaJuego extends javax.swing.JFrame {
 
     /**
      * Metodo utilizado para mostrar la ventana de configuracion.
+     *
      * @param evt
      */
     private void MnI_ConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_ConfiguracionActionPerformed
@@ -714,6 +752,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para crear un nuevo jugador Aliado al seleccionar el
      * elemento del menu
+     *
      * @param evt
      */
     private void MnI_EditJueg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg1ActionPerformed
@@ -726,6 +765,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para crear un nuevo jugador Enemigo al seleccionar el
      * elemento del menu
+     *
      * @param evt
      */
     private void MnI_EditJueg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_EditJueg2ActionPerformed
@@ -738,6 +778,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo utilizado para verificar si el usuario desea cerrar la ventana una
      * vez presionado el boton X
+     *
      * @param evt
      */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -755,7 +796,8 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Metodo que inicia un juego nuevo al presionar F2 o seleccionar la opcion
      * desde el menu.
-     * @param evt 
+     *
+     * @param evt
      */
     private void MnI_NuevoJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_NuevoJuegoActionPerformed
 
@@ -777,6 +819,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Muestra las estadisticas del usuario al pasar el puntero sobre la imagen
      * del jugador Aliado
+     *
      * @param evt
      */
     private void Lbl_Player1PhotoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player1PhotoMouseEntered
@@ -794,6 +837,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Evento que desvanece la ventana estadisticas cuando el mouse sale de la
      * imagen del aliado
+     *
      * @param evt
      */
     private void Lbl_Player1PhotoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player1PhotoMouseExited
@@ -803,6 +847,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Muestra las estadisticas del usuario al pasar el puntero sobre la imagen
      * del jugador Enemigo
+     *
      * @param evt
      */
     private void Lbl_Player2PhotoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player2PhotoMouseEntered
@@ -819,6 +864,7 @@ public class AreaJuego extends javax.swing.JFrame {
     /**
      * Evento que desvanece la ventana estadisticas cuando el mouse sale de la
      * imagen del enemigo
+     *
      * @param evt
      */
     private void Lbl_Player2PhotoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_Player2PhotoMouseExited
@@ -827,6 +873,7 @@ public class AreaJuego extends javax.swing.JFrame {
 
     /**
      * Metodo que se ejecuta cuando un usuario desea rendirse
+     *
      * @param evt Boton que ejecuta el evento
      */
     private void rendirse(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rendirse
@@ -846,6 +893,10 @@ public class AreaJuego extends javax.swing.JFrame {
             jugadorAliado.setCantidadPartidasJugadas(jugadorAliado.getCantidadPartidasJugadas() + 1);
             jugadorEnemigo.setCantidadPartidasGanadas(jugadorEnemigo.getCantidadPartidasGanadas() + 1);
             jugadorAliado.setCantidadPartidasPerdidas(jugadorAliado.getCantidadPartidasPerdidas() + 1);
+            // Reproduce el sonido del fin y termina el de combate
+            sonidoCombate.stop();
+            sonidoPartidaGanada.play();
+
             // Muestra mensaje de victoria
             JOptionPane.showMessageDialog(this, "Jugador Enemigo Gana. Presiona F2 para iniciar una nueva partida");
 
@@ -860,6 +911,9 @@ public class AreaJuego extends javax.swing.JFrame {
             jugadorEnemigo.setCantidadPartidasJugadas(jugadorEnemigo.getCantidadPartidasJugadas() + 1);
             jugadorAliado.setCantidadPartidasGanadas(jugadorAliado.getCantidadPartidasGanadas() + 1);
             jugadorEnemigo.setCantidadPartidasPerdidas(jugadorEnemigo.getCantidadPartidasPerdidas() + 1);
+            // Reproduce el sonido del fin y termina el de combate
+            sonidoCombate.stop();
+            sonidoPartidaGanada.play();
             // Muestra mensaje de victoria
             JOptionPane.showMessageDialog(this, "Jugador Aliado Gana. Presiona F2 para iniciar una nueva partida");
 
@@ -888,7 +942,8 @@ public class AreaJuego extends javax.swing.JFrame {
 
     /**
      * Metodo que muestra la ventana de Instrucciones
-     * @param evt 
+     *
+     * @param evt
      */
     private void MnI_InstruccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_InstruccionesActionPerformed
         ventanaInstrucciones.setVisible(true);
@@ -896,7 +951,8 @@ public class AreaJuego extends javax.swing.JFrame {
 
     /**
      * Metodo que muestra la ventana Acerca De
-     * @param evt 
+     *
+     * @param evt
      */
     private void MnI_AcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnI_AcercaDeActionPerformed
         ventanaAcercaDe.setVisible(true);
